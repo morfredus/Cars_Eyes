@@ -5,6 +5,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.4.1] - 2026-01-15
+
+### Changed
+- **IDLE Animation**: Added random blinking behavior to IDLE state (every 3-8 seconds) for a more lifelike appearance.
+- **BLINK Animation**: Logic updated to always return to IDLE state after completion, preventing infinite blinking loops.
+
+## [1.4.0] - 2026-01-15
+
+### Added
+- **Cars Theme UI**: Completely redesigned Boot Screen and Main Screen with "Cars" movie aesthetics.
+- **Boot Screen**: Added animated Lightning McQueen style lightning bolt and red background.
+- **Main Screen**: Added checkerboard pattern, better layout, and visual WiFi status.
+- **Progress Bar**: Improved WiFi connection progress bar visual style.
+
 ## [1.3.2] - 2026-01-15
 
 ### Fixed

@@ -32,6 +32,7 @@ static EyeState g_eyeState = {
 
 static ColorScheme g_currentScheme = ColorScheme::CARS_ORANGE;
 static unsigned long g_lastFrameTime = 0;
+static unsigned long g_nextIdleBlinkTime = 0;
 
 // ============================================================================
 // COLOR SCHEME DEFINITIONS
@@ -543,6 +544,17 @@ void update() {
            g_eyeState.lastAnimationChange = now - 1000;
        }
     }
+  } else {
+    // Manual Mode Logic: Random Blink in IDLE
+    if (g_eyeState.currentAnimation == AnimationType::IDLE) {
+      if (g_nextIdleBlinkTime == 0) {
+        g_nextIdleBlinkTime = now + random(3000, 8000);
+      }
+      if (now > g_nextIdleBlinkTime) {
+        setAnimation(AnimationType::BLINK);
+        g_nextIdleBlinkTime = now + random(3000, 8000);
+      }
+    }
   }
 
   // Frame Logic
@@ -553,8 +565,10 @@ void update() {
     AnimationType anim = g_eyeState.currentAnimation;
     
     if (anim == AnimationType::BLINK && g_eyeState.animationFrame > 5) {
-       if(g_eyeState.autoPlay) { setAnimation(AnimationType::IDLE); }
-       else { g_eyeState.animationFrame = 0; }
+       // Always return to IDLE after blinking (whether AutoPlay or Logic)
+       setAnimation(AnimationType::IDLE);
+       // Note: setAnimation resets animationFrame to 0
+       return; 
     }
     
     if (g_eyeState.animationFrame > 200) g_eyeState.animationFrame = 0;

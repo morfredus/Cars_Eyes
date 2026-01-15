@@ -5,6 +5,20 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/)
 
 ---
 
+## [1.4.1] - 2026-01-15
+
+### Modifié
+- **Animation IDLE**: Ajout d'un clignement aléatoire des yeux en mode IDLE (toutes les 3 à 8 secondes) pour un rendu plus vivant.
+- **Animation BLINK**: Logique mise à jour pour toujours revenir à l'état IDLE après exécution, évitant les boucles de clignement infinies.
+
+## [1.4.0] - 2026-01-15
+
+### Ajouté
+- **Interface Thème Cars**: Redesign complet de l'écran de démarrage et de l'écran principal avec l'esthétique du film "Cars".
+- **Écran de Démarrage**: Ajout d'un éclair animé style Flash McQueen et fond rouge.
+- **Écran Principal**: Ajout d'un motif damier, meilleure mise en page et statut WiFi visuel.
+- **Barre de Progression**: Amélioration du style visuel de la barre de progression de connexion.
+
 ## [1.3.2] - 2026-01-15
 
 ### Corrigé

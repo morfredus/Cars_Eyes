@@ -108,22 +108,67 @@ void printFit(uint16_t x, uint16_t y, const String& text, uint8_t textSize, uint
   tft.print(fitText(text, textSize, maxWidthPx));
 }
 
+// Colors for Cars theme
+constexpr uint16_t CARS_RED = 0xC800;     // Deeper red
+constexpr uint16_t CARS_YELLOW = 0xFFE0;  // Standard bright yellow
+constexpr uint16_t CARS_WHITE = 0xFFFF;
+constexpr uint16_t CARS_BLACK = 0x0000;
+
+// Helper to draw lightning
+void drawLightning(int x, int y, int size, uint16_t color) {
+  // Simple lightning shape using triangles
+  tft.fillTriangle(x + size/2, y, x + size, y, x, y + size, color);
+  tft.fillTriangle(x, y + size, x + size/2, y + size/2, x - size/4, y + size*1.5, color);
+}
+
 void drawBootScreen(const char* message, uint8_t percent) {
-  tft.fillScreen(ST77XX_BLACK);
-  tft.setTextColor(ST77XX_WHITE);
-  const uint16_t lineWidth = DISPLAY_WIDTH - (2 * kTextMarginPx);
-  printFit(kTextMarginPx, 20, projectName(), 2, lineWidth);
+  // Only clear screen if it's the start (percent <= 5) to set background
+  if (percent <= 5) { 
+    tft.fillScreen(CARS_RED);
+    
+    // Draw Logo
+    int cx = tft.width() / 2;
+    int cy = tft.height() / 3; // Position in upper third
+    
+    tft.setTextColor(CARS_YELLOW);
+    tft.setTextSize(3);
+    // Centered "CARS" (roughly 18px per char width at size 3)
+    tft.setCursor(cx - (4 * 18 / 2), cy);
+    tft.print("CARS");
+
+    tft.setTextColor(CARS_WHITE);
+    tft.setTextSize(2);
+    // Centered "EYES" (roughly 12px per char width at size 2)
+    tft.setCursor(cx - (4 * 12 / 2), cy + 40);
+    tft.print("EYES");
+    
+    // Lightning Bolt
+    drawLightning(cx + 40, cy - 20, 20, CARS_YELLOW);
+  }
+
+  // Draw Status Message
+  int barY = tft.height() - 50;
+  // Clear previous message area
+  tft.fillRect(0, barY - 40, tft.width(), 30, CARS_RED);
+  
+  tft.setTextColor(CARS_WHITE);
   tft.setTextSize(2);
-  tft.setCursor(kTextMarginPx, 50);
-  tft.print("v");
-  tft.print(projectVersion());
-  printFit(kTextMarginPx, 90, message, 2, lineWidth);
+  int msgLen = strlen(message);
+  // Estimate width: 12px per char (size 2)
+  int msgW = msgLen * 12; 
+  tft.setCursor((tft.width() - msgW)/2, barY - 30);
+  tft.print(message);
+
   if (kSystemConfig.enableBootBar) {
-    uint16_t barWidth = DISPLAY_WIDTH - (2 * kBootBarMargin);
-    uint16_t filled = (percent * barWidth) / 100;
-    uint16_t y = DISPLAY_HEIGHT - 60;
-    tft.drawRect(kBootBarMargin, y, barWidth, 20, ST77XX_WHITE);
-    tft.fillRect(kBootBarMargin + 2, y + 2, filled > 4 ? filled - 4 : 0, 16, ST77XX_GREEN);
+    int barW = tft.width() - 40;
+    int barX = 20; 
+    
+    // Draw Bar Outline
+    tft.drawRect(barX, barY, barW, 20, CARS_WHITE);
+    
+    // Fill Bar
+    int fillW = (percent * (barW - 4)) / 100;
+    tft.fillRect(barX + 2, barY + 2, fillW > 0 ? fillW : 0, 16, CARS_YELLOW);
   }
 }
 
@@ -142,58 +187,85 @@ void updateMainScreen(bool force) {
   ui.currentSsid = ssidNow;
   ui.currentIp = ipNow;
 
-  tft.fillScreen(ST77XX_BLACK);
-  tft.setTextColor(ST77XX_WHITE);
-  const uint16_t lineWidth = DISPLAY_WIDTH - (2 * kTextMarginPx);
+  tft.fillScreen(CARS_BLACK);
+  
+  // 1. Checkerboard Header (Top 20px)
+  int w = tft.width();
+  int sqSize = 10;
+  for (int y = 0; y < 20; y += sqSize) {
+    for (int x = 0; x < w; x += sqSize) {
+      bool black = ((x/sqSize) + (y/sqSize)) % 2 == 0;
+      tft.fillRect(x, y, sqSize, sqSize, black ? CARS_BLACK : CARS_WHITE);
+    }
+  }
 
-  // Header
-  printFit(kTextMarginPx, 20, projectName(), 2, lineWidth);
+  // 2. Red Banner
+  tft.fillRect(0, 20, w, 30, CARS_RED);
+  tft.setTextColor(CARS_WHITE);
   tft.setTextSize(2);
-  tft.setCursor(kTextMarginPx, 40);
-  tft.print("v");
-  tft.print(projectVersion());
-
-  // Details (smaller font, wrapped)
-  uint16_t y = 80;
+  tft.setCursor(10, 27);
+  tft.print("CARS EYES");
+  
+  // 3. Info Content
+  int y = 60;
+  tft.setTextColor(CARS_WHITE); 
   tft.setTextSize(2);
-  tft.setCursor(kTextMarginPx, y);
-  tft.print("SSID:");
-  y += 20;
-  y = printWrap(ssidNow, 1, kTextMarginPx, y, lineWidth);
-  y += 20;
-
-  tft.setCursor(kTextMarginPx, y);
-  tft.print("IP:");
-  y += 20;
-  y = printWrap(wifiNow ? ipNow.toString() : String("0.0.0.0"), 1, kTextMarginPx, y, lineWidth);
-  y += 20;
-
-  tft.setCursor(kTextMarginPx, y);
-  tft.print("mDNS:");
-  y += 20;
-  // Check actual mDNS state dynamically instead of cached boot-time flag
-  bool mdnsActive = wifiNow && Network::isMdnsRunning();
-  y = printWrap(mdnsActive ? String(kSystemConfig.mdnsHost) : String("disabled"), 1, kTextMarginPx, y, lineWidth);
-  y += 20;
-
-  // Eye animation status
+  
+  // WiFi
+  tft.setCursor(10, y);
+  tft.print("WiFi: ");
+  if (wifiNow) {
+    tft.setTextColor(0x07E0); // Green
+    tft.print("ON");
+  } else {
+    tft.setTextColor(CARS_RED);
+    tft.print("OFF");
+  }
+  
+  y += 25;
+  if (wifiNow) {
+     tft.setTextSize(1);
+     tft.setTextColor(CARS_YELLOW);
+     tft.setCursor(10, y);
+     tft.printf("SSID: %s", ssidNow.c_str());
+     y += 15;
+     tft.setCursor(10, y);
+     tft.printf("IP: %s", ipNow.toString().c_str());
+     y += 15;
+     tft.setCursor(10, y);
+     tft.printf("mDNS: %s.local", kSystemConfig.mdnsHost);
+  }
+  
+  // Eyes Status (Bottom)
+  y = 120;
+  tft.drawLine(0, y, w, y, CARS_RED);
+  y += 10;
+  
   #if defined(ENV_ESP32S3_N16R8)
-  tft.setCursor(kTextMarginPx, y);
-  tft.print("Eyes:");
-  y += 20;
   const NeoPixel::EyeState& eyeState = NeoPixel::getState();
   const char* animNames[] = {"IDLE", "BLINK", "WINK_L", "WINK_R", "LOOK_L", "LOOK_R", 
                               "LOOK_U", "LOOK_D", "HAPPY", "SAD", "ANGRY", "SURPRISED", "SLEEP"};
   const int animIndex = static_cast<int>(eyeState.currentAnimation);
   const char* animName = (animIndex >= 0 && animIndex < 13) ? animNames[animIndex] : "UNKNOWN";
-  y = printWrap(String(animName) + (eyeState.autoPlay ? " [AUTO]" : ""), 1, kTextMarginPx, y, lineWidth);
-  y += 15;
   
-  tft.setCursor(kTextMarginPx, y);
-  tft.print("Bright:");
-  y += 20;
-  y = printWrap(String(eyeState.brightness) + "/255", 1, kTextMarginPx, y, lineWidth);
+  tft.setTextSize(2);
+  tft.setTextColor(CARS_WHITE);
+  tft.setCursor(10, y);
+  tft.print("MODE:");
+  tft.setTextColor(CARS_YELLOW);
+  tft.setCursor(70, y);
+  tft.print(animName);
+  
+  if (eyeState.autoPlay) {
+      tft.setTextColor(0x07E0);
+      tft.setTextSize(1);
+      tft.setCursor(w - 40, y + 5);
+      tft.print("AUTO");
+  }
   #endif
+  
+  // Decorative Lightning
+  drawLightning(w - 30, tft.height() - 40, 20, CARS_YELLOW);
 }
 
 void drawRebootPrompt(uint8_t percent) {
