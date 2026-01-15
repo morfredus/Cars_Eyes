@@ -1,6 +1,6 @@
 # NeoPixel Patterns Documentation - Animated Eyes
 
-**Version:** 1.5.19  
+**Version:** 1.5.20  
 **Minimum version:** 1.0.0  
 **Language:** English  
 **Revision Date:** January 14, 2026  
@@ -365,4 +365,5 @@ NeoPixel::setAutoPlay(true);  // Alternates randomly between animations
 ## Source Files
 [neopixel.cpp](../src/neopixel.cpp) - Pattern definitions  
 [neopixel.h](../include/neopixel.h) - Public interface
+
 

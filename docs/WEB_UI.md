@@ -1,6 +1,6 @@
 # Web UI & Networking
 
-**Version:** 1.5.19  
+**Version:** 1.5.20  
 **Minimum version:** 1.0.0  
 **Language:** English  
 
@@ -190,4 +190,5 @@ server.on("/api/temperature", ...);
 ```
 
 See [Arduino WebServer documentation](https://github.com/espressif/arduino-esp32/tree/master/libraries/WebServer) for more.
+
 

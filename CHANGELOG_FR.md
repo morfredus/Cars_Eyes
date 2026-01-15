@@ -5,6 +5,19 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/)
 
 ---
 
+## [1.5.20] - 2026-01-15
+
+### Modifié
+- **Amélioration Patterns Multi-Couleurs** : Enrichissement de toutes les 11 animations avec ombrage couleur tertiaire pour plus de réalisme.
+  - Ajout de gradations tonales secondaires/tertiaires sur iris, pupilles et paupières.
+  - IDLE, SLEEP, BLINK utilisent désormais profondeur 3-tons pour apparence dimensionnelle.
+  - LOOK_LEFT/RIGHT/UP/DOWN : Pupilles décalées avec ombrage multi-couches pour meilleure perception de direction.
+  - HAPPY : Yeux plus brillants et expressifs avec reflets dorés et ombres externes.
+  - SAD : Expression approfondie avec sourcils tertiaires sombres et paupières inférieures tombantes.
+  - ANGRY : Regard féroce renforcé avec paupières supérieures sombres et joues ombrées.
+  - SURPRISED : Iris 3-tons avec reflets externes pour effet de choc.
+  - Résultat : Animations 8×8 pixels plus réalistes et expressives malgré les contraintes de résolution.
+
 ## [1.5.19] - 2026-01-15
 
 ### Modifié
