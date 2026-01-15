@@ -5,6 +5,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.5.22] - 2026-01-15
+
+### Fixed
+- **Notification Box Layout Stability**: Fixed cosmetic issue where notification messages caused page height shifts.
+  - Changed notification box from dynamic `display:none/block` to fixed `height:48px` with `opacity` transitions.
+  - Notification area now always reserves space in page layout, preventing layout shift when messages appear or disappear.
+  - Improved perceived stability of web UI dashboard experience.
+  - Visual effect unchanged: messages still fade in/out smoothly over 300ms with auto-hide after 5 seconds.
+
 ## [1.5.21] - 2026-01-15
 
 ### Changed

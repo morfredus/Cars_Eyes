@@ -1,6 +1,6 @@
 # Pin Mapping Guide
 
-**Version:** 1.5.21  
+**Version:** 1.5.22  
 **Minimum version:** 0.2.0  
 **Language:** English  
 
@@ -303,6 +303,7 @@ If using I2C instead of SPI for additional sensors, any free GPIO pair works:
 - **SDA/SCL** recommended: GPIO21/GPIO22 (ESP32) or GPIO41/GPIO42 (S3)
 
 See [ADD_MODULES.md](ADD_MODULES.md) for sensor integration examples.
+
 
 
 

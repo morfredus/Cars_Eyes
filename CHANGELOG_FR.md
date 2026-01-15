@@ -5,6 +5,15 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/)
 
 ---
 
+## [1.5.22] - 2026-01-15
+
+### Corrigé
+- **Stabilité de la Mise en Page de la Boîte de Notification** : Correction du problème cosmétique où les messages de notification causaient des changements de hauteur de page.
+  - Changement de la boîte de notification de `display:none/block` dynamique à `height:48px` fixe avec transitions `opacity`.
+  - La zone de notification réserve maintenant toujours de l'espace dans la mise en page, évitant les changements de disposition quand les messages apparaissent ou disparaissent.
+  - Amélioration de la stabilité perçue de l'expérience du tableau de bord de l'interface web.
+  - Effet visuel inchangé : les messages s'estompent encore en douceur sur 300ms avec masquage automatique après 5 secondes.
+
 ## [1.5.21] - 2026-01-15
 
 ### Modifié

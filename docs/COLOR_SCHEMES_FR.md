@@ -1,6 +1,6 @@
 # Schémas de Couleurs NeoPixel
 
-**Version:** 1.5.21  
+**Version:** 1.5.22  
 **Version minimale:** 1.2.0  
 **Langage:** Français  
 **Date:** 14 janvier 2026  
@@ -222,6 +222,7 @@ Pour questions ou suggestions sur les couleurs:
 - API REST disponible pour intégrations
 
 **Minimum version:** 1.2.0
+
 
 
 

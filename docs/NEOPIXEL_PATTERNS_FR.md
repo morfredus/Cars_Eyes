@@ -1,6 +1,6 @@
 # Documentation des Patterns NeoPixel - Yeux Animés
 
-**Version:** 1.5.21  
+**Version:** 1.5.22  
 **Version minimale:** 1.0.0  
 **Langage:** Français  
 **Date de révision:** 14 janvier 2026  
@@ -365,6 +365,7 @@ NeoPixel::setAutoPlay(true);  // Alterne aléatoirement entre animations
 ## Fichier source
 [neopixel.cpp](../src/neopixel.cpp) - Définitions des patterns  
 [neopixel.h](../include/neopixel.h) - Interface publique
+
 
 
 
