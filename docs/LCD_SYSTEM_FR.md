@@ -1,6 +1,6 @@
 # Système d'Écran LCD
 
-**Version:** 1.5.19  
+**Version:** 1.5.21  
 **Version minimale:** 1.0.0  
 **Langage:** Français  
 
@@ -125,4 +125,6 @@ tft.print(3.14159);
 ```
 
 Voir [documentation Adafruit GFX](https://github.com/adafruit/Adafruit-GFX-Library).
+
+
 

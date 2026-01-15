@@ -1,6 +1,6 @@
 # NeoPixel Patterns Visualization - Graphical Guide
 
-**Version:** 1.5.19  
+**Version:** 1.5.21  
 **Minimum version:** 1.0.0  
 **Language:** English  
 **Date:** January 14, 2026  
@@ -396,4 +396,6 @@ Pattern IDLE (new):
 **Generated:** January 14, 2026  
 **Format:** ASCII Art visualization  
 **Resolution:** 8×8 pixels per eye
+
+
 
