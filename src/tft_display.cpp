@@ -221,15 +221,23 @@ void updateMainScreen(bool force) {
     }
   }
 
-  // 2. Red Banner
-  tft.fillRect(0, 20, w, 30, CARS_RED);
+  // 2. Red Banner (agrandie pour la version)
+  tft.fillRect(0, 20, w, 45, CARS_RED);
   tft.setTextColor(CARS_WHITE);
   tft.setTextSize(2);
   tft.setCursor(10, 27);
   tft.print("CARS EYES");
   
-  // 3. Info Content
-  int y = 60;
+  // Version sous le titre
+  tft.setTextSize(1);
+  tft.setTextColor(CARS_YELLOW);
+  String versionStr = "v";
+  versionStr += projectVersion();
+  tft.setCursor(10, 45);
+  tft.print(versionStr);
+  
+  // 3. Info Content (décalé vers le bas)
+  int y = 75;
   tft.setTextColor(CARS_WHITE); 
   tft.setTextSize(2);
   
@@ -256,11 +264,11 @@ void updateMainScreen(bool force) {
      y += 15;
      tft.setCursor(10, y);
      tft.printf("mDNS: %s.local", kSystemConfig.mdnsHost);
+     y += 20;  // Espace après mDNS
   }
   
   // Eyes Status (Bottom)
-  // Shifted down to avoid overlapping with mDNS text (y=115)
-  y = 135; 
+  // Ligne de séparation rouge après mDNS
   tft.drawLine(0, y, w, y, CARS_RED);
   y += 10;
   

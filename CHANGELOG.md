@@ -5,6 +5,67 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.5.15] - 2026-01-15
+
+### Fixed
+- **Pixel Editor Pattern Loading**: Fixed Pixel Editor to load patterns from server storage instead of unreliable localStorage.
+  - Modified `loadPatterns()` to fetch from `/api/custom/get` (server RAM)
+  - localStorage now only used as fallback and for temporary UI state during editing
+  - Editor now displays previously saved patterns when opened
+  - Ensures consistency between Dashboard CUSTOM button and Pixel Editor
+  - Both now use server-side storage as single source of truth
+
+## [1.5.14] - 2026-01-15
+
+### Fixed
+- **CUSTOM Pattern Storage - Root Cause Fix**: Identified and resolved fundamental issue with localStorage persistence on ESP32.
+  - **Root Cause**: Browser localStorage is NOT persistent across page reloads on embedded devices; data is lost on navigation.
+  - **Solution**: Moved pattern storage from client-side localStorage to server-side RAM (global arrays).
+  - **New API**: Added `/api/custom/get` endpoint to retrieve saved patterns from server.
+  - **Updated Flow**:
+    1. Pixel Editor saves patterns → `/api/custom/apply` → stored in server RAM (g_customPatternLeft/Right)
+    2. Dashboard CUSTOM button → loads from `/api/custom/get` → applies via `/api/custom/apply`
+    3. Patterns now persist throughout session (until device restart)
+
+## [1.5.13] - 2026-01-15
+
+### Fixed
+- **CUSTOM Pattern Loading - Final Fix**: Resolved persistent issues with CUSTOM button pattern loading and application.
+  - Changed data format from hexadecimal to decimal (consistent with internal storage).
+  - Both Pixel Editor and Dashboard now use identical format: decimal comma-separated values.
+  - Simplified validation: now accepts patterns with at least one pixel drawn instead of requiring both eyes.
+  - Added comprehensive console logging for debugging pattern application flow.
+  - Implemented URL encoding for safe transmission of pattern data.
+  - Enhanced error handling with detailed user feedback via alerts and messages.
+  - Verified API endpoint compatibility with both formats (hex and decimal support via strtol base-0).
+
+## [1.5.12] - 2026-01-15
+
+### Fixed
+- **LCD Display Layout**: Fixed red separator line and MODE information positioning on LCD screen.
+  - Red separator line now correctly positioned after mDNS information instead of overlapping.
+  - MODE section dynamically placed below mDNS with proper 20px spacing.
+  - Improved visual hierarchy and readability of LCD status display.
+
+## [1.5.11] - 2026-01-15
+
+### Fixed
+- **CUSTOM Pattern Loading**: Fixed CUSTOM button (animation 16) to properly load and apply patterns from localStorage before activating the animation.
+  - Added `applyCustomFromStorage()` JavaScript function to retrieve saved patterns.
+  - CUSTOM button now displays patterns created in the Pixel Editor.
+  - Shows alert if no custom pattern found, prompting user to create one first.
+
+### Changed
+- **HAPPY Animation**: Significantly improved expressiveness of HAPPY animation for more intense joy representation.
+  - Larger, wider-open eyes.
+  - Brighter pupils with enhanced sparkle effect.
+  - More pronounced smile curvature in lower eyelids.
+  - Increased contrast between frames for more dynamic appearance.
+- **LCD Display**: Added version number display below "CARS EYES" title on LCD screen.
+  - Version shown in small yellow text (size 1).
+  - Red banner expanded from 30px to 45px height.
+  - All content shifted down to y=75 to accommodate version display.
+
 ## [1.5.10] - 2026-01-15
 
 ### Added

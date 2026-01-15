@@ -1,6 +1,6 @@
 # NeoPixel Patterns Documentation - Animated Eyes
 
-**Version:** 1.5.10  
+**Version:** 1.5.15  
 **Minimum version:** 1.0.0  
 **Language:** English  
 **Revision Date:** January 14, 2026  

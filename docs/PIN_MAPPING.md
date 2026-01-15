@@ -1,6 +1,6 @@
 # Pin Mapping Guide
 
-**Version:** 1.5.10  
+**Version:** 1.5.15  
 **Minimum version:** 0.2.0  
 **Language:** English  
 

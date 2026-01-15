@@ -1,6 +1,6 @@
 # Web UI & Networking
 
-**Version:** 1.5.10  
+**Version:** 1.5.15  
 **Minimum version:** 1.0.0  
 **Language:** English  
 

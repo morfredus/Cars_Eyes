@@ -1,6 +1,6 @@
 # Guide Utilisateur
 
-**Version:** 1.5.10  
+**Version:** 1.5.15  
 **Langage:** Français  
 **Version minimale:** 1.0.0  
 

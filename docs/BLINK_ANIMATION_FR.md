@@ -1,6 +1,6 @@
 # Clignotement Animé - Pattern #03 BLINK
 
-**Version:** 1.5.10  
+**Version:** 1.5.15  
 **Version minimale:** 1.3.0  
 **Langage:** Français  
 **Date:** 14 janvier 2026  

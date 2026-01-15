@@ -1,6 +1,6 @@
 # Schémas de Couleurs NeoPixel
 
-**Version:** 1.5.10  
+**Version:** 1.5.15  
 **Version minimale:** 1.2.0  
 **Langage:** Français  
 **Date:** 14 janvier 2026  

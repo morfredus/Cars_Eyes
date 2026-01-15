@@ -9,6 +9,18 @@ namespace HttpServer {
 
 static ::WebServer server(80);
 
+// Global storage for custom patterns (in server RAM)
+static uint32_t g_customPatternLeft[64] = {0};
+static uint32_t g_customPatternRight[64] = {0};
+static bool g_patternsInitialized = false;
+
+// Save patterns to server RAM
+static void saveCustomPatterns(const uint32_t* left, const uint32_t* right) {
+  if (left) memcpy(g_customPatternLeft, left, 64 * sizeof(uint32_t));
+  if (right) memcpy(g_customPatternRight, right, 64 * sizeof(uint32_t));
+  g_patternsInitialized = true;
+}
+
 void init() {
   if (!kSystemConfig.enableWebUi) {
     return;
@@ -238,7 +250,7 @@ void init() {
       String patternLeftStr = server.arg("pattern_left");
       String patternRightStr = server.arg("pattern_right");
       
-      // Parse left pattern: comma-separated hex values
+      // Parse left pattern: comma-separated values
       uint32_t patternLeft[64] = {0};
       int indexL = 0, startL = 0;
       for (int i = 0; i <= patternLeftStr.length() && indexL < 64; i++) {
@@ -251,7 +263,7 @@ void init() {
         }
       }
       
-      // Parse right pattern: comma-separated hex values
+      // Parse right pattern: comma-separated values
       uint32_t patternRight[64] = {0};
       int indexR = 0, startR = 0;
       for (int i = 0; i <= patternRightStr.length() && indexR < 64; i++) {
@@ -263,6 +275,9 @@ void init() {
           startR = i + 1;
         }
       }
+      
+      // Save patterns to server RAM
+      saveCustomPatterns(patternLeft, patternRight);
       
       // Apply to selected eye(s)
       if (eyeStr == "left" || eyeStr == "both") {
@@ -326,6 +341,22 @@ void init() {
     #else
     server.send(501, "application/json", "{\"status\":\"error\",\"message\":\"NeoPixel not available\"}");
     #endif
+  });
+
+  server.on("/api/custom/get", []() {
+    // Return saved patterns as JSON (decimal format)
+    String response = "{\"status\":\"ok\",\"left\":[";
+    for (int i = 0; i < 64; i++) {
+      response += String(g_customPatternLeft[i]);
+      if (i < 63) response += ",";
+    }
+    response += "],\"right\":[";
+    for (int i = 0; i < 64; i++) {
+      response += String(g_customPatternRight[i]);
+      if (i < 63) response += ",";
+    }
+    response += "]}";
+    server.send(200, "application/json", response);
   });
 
   server.begin();

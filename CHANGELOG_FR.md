@@ -5,6 +5,67 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/)
 
 ---
 
+## [1.5.15] - 2026-01-15
+
+### Corrigé
+- **Chargement Pattern Éditeur de Pixels** : Correction de l'éditeur pour charger les patterns depuis le stockage serveur au lieu du localStorage non fiable.
+  - Modification de `loadPatterns()` pour récupérer depuis `/api/custom/get` (RAM serveur)
+  - localStorage utilisé uniquement comme fallback et pour l'état UI temporaire pendant l'édition
+  - L'éditeur affiche maintenant les patterns précédemment sauvegardés à l'ouverture
+  - Assure la cohérence entre le bouton CUSTOM du Tableau de Bord et l'Éditeur de Pixels
+  - Les deux utilisent maintenant le stockage côté serveur comme source unique de vérité
+
+## [1.5.14] - 2026-01-15
+
+### Corrigé
+- **Stockage Pattern CUSTOM - Correction Racine** : Identification et résolution du problème fondamental de persistance localStorage sur ESP32.
+  - **Cause Racine** : Le localStorage du navigateur n'est PAS persistant entre les rechargements de page sur les appareils embarqués ; les données sont perdues lors de la navigation.
+  - **Solution** : Déplacement du stockage des patterns de localStorage côté client vers RAM côté serveur (tableaux globaux).
+  - **Nouvelle API** : Ajout du point de terminaison `/api/custom/get` pour récupérer les patterns sauvegardés depuis le serveur.
+  - **Flux Mis à Jour** :
+    1. Éditeur de Pixels enregistre les patterns → `/api/custom/apply` → stockés en RAM du serveur
+    2. Bouton CUSTOM du Tableau de Bord → charge depuis `/api/custom/get` → applique via `/api/custom/apply`
+    3. Les patterns persistent maintenant tout au long de la session
+
+## [1.5.13] - 2026-01-15
+
+### Corrigé
+- **Chargement Pattern CUSTOM - Correction Finale** : Résolution des problèmes persistants de chargement et d'application des patterns du bouton CUSTOM.
+  - Format des données changé de l'hexadécimal au décimal (conforme au stockage interne).
+  - L'Éditeur de Pixels et le Tableau de Bord utilisent maintenant le même format : valeurs décimales séparées par des virgules.
+  - Validation simplifiée : accepte maintenant les patterns avec au moins un pixel dessiné au lieu d'exiger les deux yeux.
+  - Journalisation console complète pour déboguer le flux d'application des patterns.
+  - Encodage d'URL implémenté pour une transmission sécurisée des données de pattern.
+  - Gestion d'erreur amliorée avec retours détaillés à l'utilisateur via alertes et messages.
+  - Compatibilité du point de terminaison API vérifiée avec les deux formats (support hex et décimal via strtol base-0).
+
+## [1.5.12] - 2026-01-15
+
+### Corrigé
+- **Disposition Affichage LCD** : Correction du positionnement de la ligne de séparation rouge et de l'information MODE sur l'écran LCD.
+  - Ligne de séparation rouge maintenant correctement positionnée après l'information mDNS au lieu de chevaucher.
+  - Section MODE placée dynamiquement sous mDNS avec un espacement approprié de 20px.
+  - Amélioration de la hiérarchie visuelle et de la lisibilité de l'affichage d'état LCD.
+
+## [1.5.11] - 2026-01-15
+
+### Corrigé
+- **Chargement Pattern CUSTOM** : Correction du bouton CUSTOM (animation 16) pour charger et appliquer correctement les motifs depuis localStorage avant d'activer l'animation.
+  - Ajout de la fonction JavaScript `applyCustomFromStorage()` pour récupérer les motifs sauvegardés.
+  - Le bouton CUSTOM affiche maintenant les motifs créés dans l'Éditeur de Pixels.
+  - Affiche une alerte si aucun motif personnalisé n'est trouvé, invitant l'utilisateur à en créer un d'abord.
+
+### Modifié
+- **Animation HAPPY** : Amélioration significative de l'expressivité de l'animation HAPPY pour représenter une joie plus intense.
+  - Yeux plus larges et grand ouverts.
+  - Pupilles plus brillantes avec effet d'éclat amélioré.
+  - Courbure de sourire plus prononcée dans les paupières inférieures.
+  - Contraste augmenté entre les frames pour une apparence plus dynamique.
+- **Affichage LCD** : Ajout du numéro de version sous le titre "CARS EYES" sur l'écran LCD.
+  - Version affichée en petit texte jaune (taille 1).
+  - Bannière rouge élargie de 30px à 45px de hauteur.
+  - Tout le contenu décalé vers le bas à y=75 pour accueillir l'affichage de la version.
+
 ## [1.5.10] - 2026-01-15
 
 ### Ajouté

@@ -77,9 +77,10 @@ button:hover { background: #5568d3; }
   html += "<button class=\"eye-btn\" onclick=\"setAnim(13)\">⬅️ TURN LEFT</button>";
   html += "<button class=\"eye-btn\" onclick=\"setAnim(14)\">➡️ TURN RIGHT</button>";
   html += "<button class=\"eye-btn\" onclick=\"setAnim(15)\">⚠️ HAZARD</button>";
-  html += "<button class=\"eye-btn\" onclick=\"setAnim(16)\">✏️ CUSTOM</button>";
+  html += "<button class=\"eye-btn\" onclick=\"setAnim(16)\" style=\"background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);\">✏️ CUSTOM</button>";
+  html += "<a href=\"/custom\" style=\"text-decoration:none;\"><button class=\"eye-btn\" style=\"background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);\">🎨 Pixel Editor</button></a>";
   html += "</div>";
-  html += "<div style=\"margin-top: 15px;\"><a href=\"/custom\"><button style=\"background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);\">🎨 Pixel Editor</button></a></div>";
+  html += "</div>";
   
   // Color scheme presets
   html += "<div class=\"color-scheme-group\">";
@@ -129,7 +130,63 @@ function updateButtons() {
 function setAnim(id) {
   currentAnimation = id;
   updateButtons();
-  fetch('/api/eyes/animation?id=' + id).then(r => r.json()).then(d => console.log(d));
+  // Si CUSTOM (16), charger d'abord les patterns depuis localStorage
+  if (id === 16) {
+    applyCustomFromStorage();
+  } else {
+    fetch('/api/eyes/animation?id=' + id).then(r => r.json()).then(d => console.log(d));
+  }
+}
+
+function applyCustomFromStorage() {
+  try {
+    // Au lieu de localStorage, charger depuis le serveur
+    fetch('/api/custom/get')
+      .then(r => r.json())
+      .then(data => {
+        if (!data || !data.left || !data.right) {
+          alert('No custom pattern found. Please create one in the Pixel Editor first.');
+          return;
+        }
+        
+        // Vérifier qu'au moins un pixel est dessiné
+        const totalPixels = data.left.reduce((a,b) => a + (b ? 1 : 0), 0) + data.right.reduce((a,b) => a + (b ? 1 : 0), 0);
+        if (totalPixels === 0) {
+          alert('No pixels drawn. Please create a pattern in the Pixel Editor first.');
+          return;
+        }
+        
+        // Format: nombres décimaux séparés par des virgules
+        const patternLeftStr = data.left.join(',');
+        const patternRightStr = data.right.join(',');
+        
+        const url = `/api/custom/apply?eye=both&pattern_left=${encodeURIComponent(patternLeftStr)}&pattern_right=${encodeURIComponent(patternRightStr)}`;
+        console.log('Applying custom pattern from server storage');
+        
+        fetch(url)
+          .then(r => r.json())
+          .then(d => {
+            console.log('Custom pattern response:', d);
+            if (d.status === 'ok') {
+              console.log('✅ Custom pattern applied successfully');
+            } else {
+              console.error('Error:', d.message);
+              alert('Error: ' + d.message);
+            }
+          })
+          .catch(e => {
+            console.error('Error applying custom pattern:', e);
+            alert('Error: ' + e);
+          });
+      })
+      .catch(e => {
+        console.error('Error fetching pattern from server:', e);
+        alert('Error: ' + e);
+      });
+  } catch (e) {
+    console.error('Error in applyCustomFromStorage:', e);
+    alert('Error: ' + e);
+  }
 }
 function setColor(type, hex) {
   const rgb = parseInt(hex.slice(1), 16);
@@ -332,9 +389,11 @@ let gridLeft = new Array(GRID_SIZE).fill(0);
 let gridRight = new Array(GRID_SIZE).fill(0);
 
 function initGrids() {
-  loadPatterns();
+  // Render vides d'abord, loadPatterns() re-rendra quand chargé
   renderGrid('gridLeft', gridLeft);
   renderGrid('gridRight', gridRight);
+  // Charger patterns depuis le serveur (asynchrone)
+  loadPatterns();
 }
 
 function renderGrid(containerId, grid) {
@@ -343,20 +402,31 @@ function renderGrid(containerId, grid) {
   for (let i = 0; i < GRID_SIZE; i++) {
     const pixel = document.createElement('div');
     pixel.className = 'pixel';
-    const color = grid[i] ? '#' + grid[i].toString(16).padStart(6, '0') : '#000000';
+    let color = '#000000';
+    if (grid[i]) {
+      const hex = typeof grid[i] === 'number' ? grid[i] : parseInt(grid[i]);
+      color = '#' + (hex >>> 0).toString(16).padStart(6, '0').toUpperCase();
+      pixel.classList.add('selected');
+    }
     pixel.style.backgroundColor = color;
-    if (grid[i]) pixel.classList.add('selected');
     pixel.onclick = () => togglePixel(containerId, i, pixel, grid);
     container.appendChild(pixel);
   }
 }
 
 function togglePixel(gridId, index, element, gridArray) {
-  const color = document.getElementById('pixelColor').value;
-  gridArray[index] = gridArray[index] ? 0 : parseInt(color.replace('#', '0x'));
-  const colorHex = gridArray[index] ? color : '#000000';
-  element.style.backgroundColor = colorHex;
-  element.classList.toggle('selected');
+  const colorInput = document.getElementById('pixelColor').value;
+  const colorValue = parseInt(colorInput.replace('#', '0x'));
+  
+  if (gridArray[index]) {
+    gridArray[index] = 0;
+    element.style.backgroundColor = '#000000';
+    element.classList.remove('selected');
+  } else {
+    gridArray[index] = colorValue;
+    element.style.backgroundColor = colorInput;
+    element.classList.add('selected');
+  }
   savePatterns();
 }
 
@@ -384,24 +454,56 @@ function clearBothGrids() {
 }
 
 function savePatterns() {
+  // Sauvegarder localement pour l'UI (non persistant mais utile pendant l'édition)
   localStorage.setItem('customPatternLeft', JSON.stringify(gridLeft));
   localStorage.setItem('customPatternRight', JSON.stringify(gridRight));
 }
 
 function loadPatterns() {
-  const left = localStorage.getItem('customPatternLeft');
-  const right = localStorage.getItem('customPatternRight');
-  if (left) gridLeft = JSON.parse(left);
-  if (right) gridRight = JSON.parse(right);
+  // Charger depuis le serveur (persistant en RAM)
+  fetch('/api/custom/get')
+    .then(r => r.json())
+    .then(data => {
+      if (data && data.left && data.right) {
+        gridLeft = data.left;
+        gridRight = data.right;
+        console.log('✅ Patterns loaded from server');
+      } else {
+        // Fallback: localStorage (non persistant mais pour compatibilité)
+        const left = localStorage.getItem('customPatternLeft');
+        const right = localStorage.getItem('customPatternRight');
+        if (left) gridLeft = JSON.parse(left);
+        if (right) gridRight = JSON.parse(right);
+        console.log('Loaded from localStorage (fallback)');
+      }
+      // Re-render les grilles après chargement
+      renderGrid('gridLeft', gridLeft);
+      renderGrid('gridRight', gridRight);
+    })
+    .catch(e => {
+      console.error('Error loading patterns from server:', e);
+      // Fallback: localStorage
+      const left = localStorage.getItem('customPatternLeft');
+      const right = localStorage.getItem('customPatternRight');
+      if (left) gridLeft = JSON.parse(left);
+      if (right) gridRight = JSON.parse(right);
+      renderGrid('gridLeft', gridLeft);
+      renderGrid('gridRight', gridRight);
+    });
 }
 
 function applyCustomPattern() {
-  const patternLeftStr = gridLeft.map(c => c.toString()).join(',');
-  const patternRightStr = gridRight.map(c => c.toString()).join(',');
+  // Format: envoyez les nombres décimaux séparés par des virgules (consistant avec le stockage localStorage)
+  const patternLeftStr = gridLeft.join(',');
+  const patternRightStr = gridRight.join(',');
   
-  fetch(`/api/custom/apply?eye=both&pattern_left=${patternLeftStr}&pattern_right=${patternRightStr}`)
+  const url = `/api/custom/apply?eye=both&pattern_left=${encodeURIComponent(patternLeftStr)}&pattern_right=${encodeURIComponent(patternRightStr)}`;
+  console.log('Editor: Applying pattern, URL length:', url.length);
+  
+  fetch(url)
     .then(r => r.json())
     .then(d => {
+      console.log('Editor response:', d);
       if (d.status === 'ok') {
         showMessage('✅ Custom patterns applied and activated!', 'success');
         setTimeout(() => window.location.href = '/', 2000);
@@ -409,7 +511,10 @@ function applyCustomPattern() {
         showMessage('❌ Error: ' + d.message, 'error');
       }
     })
-    .catch(e => showMessage('❌ Error: ' + e, 'error'));
+    .catch(e => {
+      console.error('Error:', e);
+      showMessage('❌ Error: ' + e, 'error');
+    });
 }
 
 function showMessage(text, type) {

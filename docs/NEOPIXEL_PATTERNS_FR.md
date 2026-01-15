@@ -1,6 +1,6 @@
 # Documentation des Patterns NeoPixel - Yeux Animés
 
-**Version:** 1.5.10  
+**Version:** 1.5.15  
 **Version minimale:** 1.0.0  
 **Langage:** Français  
 **Date de révision:** 14 janvier 2026  
