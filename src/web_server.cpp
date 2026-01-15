@@ -22,6 +22,10 @@ void init() {
     server.send(200, "text/html", WebUI::buildOtaPage());
   });
 
+  server.on("/custom", HTTP_GET, []() {
+    server.send(200, "text/html", WebUI::buildCustomEditorPage());
+  });
+
   server.on(
     "/update", HTTP_POST,
     []() {
@@ -184,6 +188,44 @@ void init() {
     } else {
       server.send(400, "application/json", "{\"status\":\"error\",\"message\":\"Missing enabled parameter\"}");
     }
+    #else
+    server.send(501, "application/json", "{\"status\":\"error\",\"message\":\"NeoPixel not available\"}");
+    #endif
+  });
+
+  server.on("/api/eyes/custom/pixel", []() {
+    #if defined(ENV_ESP32S3_N16R8)
+    if (server.hasArg("eye") && server.hasArg("x") && server.hasArg("y") && server.hasArg("color")) {
+      const String eye = server.arg("eye");
+      const int x = server.arg("x").toInt();
+      const int y = server.arg("y").toInt();
+      const uint32_t color = (uint32_t)server.arg("color").toInt();
+      
+      if (x >= 0 && x < 8 && y >= 0 && y < 8) {
+        if (eye == "left") {
+          NeoPixel::setPixelLeft(x, y, color);
+        } else if (eye == "right") {
+          NeoPixel::setPixelRight(x, y, color);
+        } else {
+          server.send(400, "application/json", "{\"status\":\"error\",\"message\":\"Invalid eye\"}");
+          return;
+        }
+        server.send(200, "application/json", "{\"status\":\"ok\",\"x\":" + String(x) + ",\"y\":" + String(y) + "}");
+      } else {
+        server.send(400, "application/json", "{\"status\":\"error\",\"message\":\"Coordinates out of range\"}");
+      }
+    } else {
+      server.send(400, "application/json", "{\"status\":\"error\",\"message\":\"Missing parameters\"}");
+    }
+    #else
+    server.send(501, "application/json", "{\"status\":\"error\",\"message\":\"NeoPixel not available\"}");
+    #endif
+  });
+
+  server.on("/api/eyes/custom/clear", []() {
+    #if defined(ENV_ESP32S3_N16R8)
+    NeoPixel::clear();
+    server.send(200, "application/json", "{\"status\":\"ok\",\"message\":\"Custom pattern cleared\"}");
     #else
     server.send(501, "application/json", "{\"status\":\"error\",\"message\":\"NeoPixel not available\"}");
     #endif

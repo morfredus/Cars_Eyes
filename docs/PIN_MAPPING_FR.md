@@ -1,6 +1,6 @@
 # Guide de Mapping des Broches
 
-**Version:** 1.5.9  
+**Version:** 1.5.10  
 **Version minimale:** 0.2.0  
 **Langage:** Français  
 

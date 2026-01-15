@@ -19,6 +19,13 @@ String buildRootPage();
 String buildOtaPage();
 
 /**
+ * Build the custom pixel editor page HTML.
+ * Allows pixel-by-pixel customization with color selection.
+ * @return HTML string for custom editor page
+ */
+String buildCustomEditorPage();
+
+/**
  * Build the system status JSON response.
  * Contains project info, hardware details, network status, and eye state.
  * @return JSON string with system status

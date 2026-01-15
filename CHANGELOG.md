@@ -5,6 +5,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.5.10] - 2026-01-15
+
+### Added
+- **Custom Pixel Editor**: New web-based pixel editor for creating custom patterns.
+  - 8x8 grid interface for each eye
+  - Per-pixel color selection
+  - Real-time preview of pattern
+  - Apply, Clear, and Randomize functions
+  - Accessible via `/custom` endpoint
+- **CUSTOM Animation**: Animation ID 16 now available for displaying custom pixel patterns.
+- **API Endpoints**:
+  - `/api/eyes/custom/pixel`: Set individual pixel color (eye, x, y, color)
+  - `/api/eyes/custom/clear`: Clear all custom pixels
+- **Web UI**: Added CUSTOM button to animation controls and "Pixel Editor" link on dashboard.
+
 ## [1.5.9] - 2026-01-15
 
 ### Fixed

@@ -1,6 +1,6 @@
 # NeoPixel Patterns Visualization - Graphical Guide
 
-**Version:** 1.5.9  
+**Version:** 1.5.10  
 **Minimum version:** 1.0.0  
 **Language:** English  
 **Date:** January 14, 2026  

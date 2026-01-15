@@ -1,6 +1,6 @@
 # Neopixel Eyes
 
-> **Version:** 1.5.9  
+> **Version:** 1.5.10  
 > **Minimum Version:** 1.0.0
 
 **Animated eye system using two 8x8 NeoPixel matrices for ESP32-S3, styled like Cars movie characters.**

@@ -1,6 +1,6 @@
 # User Guide
 
-**Version:** 1.5.9  
+**Version:** 1.5.10  
 **Language:** English  
 **Minimum version:** 1.0.0  
 

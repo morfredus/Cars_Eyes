@@ -1,6 +1,6 @@
 # Project Structure
 
-**Version:** 1.5.9  
+**Version:** 1.5.10  
 **Minimum version:** 0.1.0  
 **Language:** English  
 

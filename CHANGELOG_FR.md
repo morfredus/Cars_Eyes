@@ -5,6 +5,21 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/)
 
 ---
 
+## [1.5.10] - 2026-01-15
+
+### Ajouté
+- **Éditeur de pixels personnalisé** : Nouvel éditeur de pixels basé sur le web pour créer des motifs personnalisés.
+  - Interface de grille 8x8 pour chaque oeil
+  - Sélection de couleur par pixel
+  - Aperçu en temps réel du motif
+  - Fonctions appliquer, effacer et aléatoire
+  - Accessible via le point de terminaison `/custom`
+- **Animation CUSTOM** : ID d'animation 16 maintenant disponible pour afficher des motifs de pixels personnalisés.
+- **Points de terminaison API**:
+  - `/api/eyes/custom/pixel` : Définir la couleur de pixel individuelle (oeil, x, y, couleur)
+  - `/api/eyes/custom/clear` : Effacer tous les pixels personnalisés
+- **Interface Web UI** : Bouton CUSTOM ajouté aux contrôles d'animation et lien "Pixel Editor" sur le tableau de bord.
+
 ## [1.5.9] - 2026-01-15
 
 ### Corrigé

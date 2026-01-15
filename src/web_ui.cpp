@@ -77,7 +77,9 @@ button:hover { background: #5568d3; }
   html += "<button class=\"eye-btn\" onclick=\"setAnim(13)\">⬅️ TURN LEFT</button>";
   html += "<button class=\"eye-btn\" onclick=\"setAnim(14)\">➡️ TURN RIGHT</button>";
   html += "<button class=\"eye-btn\" onclick=\"setAnim(15)\">⚠️ HAZARD</button>";
+  html += "<button class=\"eye-btn\" onclick=\"setAnim(16)\">✏️ CUSTOM</button>";
   html += "</div>";
+  html += "<div style=\"margin-top: 15px;\"><a href=\"/custom\"><button style=\"background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);\">🎨 Pixel Editor</button></a></div>";
   
   // Color scheme presets
   html += "<div class=\"color-scheme-group\">";
@@ -166,7 +168,7 @@ function updateStatus() {
   fetch('/api/eyes/status').then(r => r.json()).then(d => {
     currentAnimation = d.animation;
     updateButtons();
-    const animNames = ['IDLE','BLINK','WINK LEFT','WINK RIGHT','LOOK LEFT','LOOK RIGHT','LOOK UP','LOOK DOWN','HAPPY','SAD','ANGRY','SURPRISED','SLEEP','TURN LEFT','TURN RIGHT','HAZARD'];
+    const animNames = ['IDLE','BLINK','WINK LEFT','WINK RIGHT','LOOK LEFT','LOOK RIGHT','LOOK UP','LOOK DOWN','HAPPY','SAD','ANGRY','SURPRISED','SLEEP','TURN LEFT','TURN RIGHT','HAZARD','CUSTOM'];
     document.getElementById('currentAnim').textContent = animNames[d.animation] || 'UNKNOWN';
     document.getElementById('brightVal').textContent = d.brightness;
     document.getElementById('brightness').value = d.brightness;
@@ -209,6 +211,150 @@ String buildOtaPage() {
   html += "<script>";
   html += WebStyles::getOtaScript();
   html += "</script></body></html>";
+  return html;
+}
+
+String buildCustomEditorPage() {
+  String html;
+  html.reserve(8000);
+  html += "<!doctype html><html lang=\"en\"><head><meta charset=\"UTF-8\">";
+  html += "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">";
+  html += "<title>Pixel Editor - " + String(projectName()) + "</title>";
+  html += "<style>";
+  html += R"rawliteral(
+body { font-family: 'Segoe UI', Tahoma, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); margin: 0; padding: 20px; }
+.container { max-width: 800px; margin: 0 auto; }
+h1 { color: white; text-align: center; }
+.section { background: white; border-radius: 15px; padding: 25px; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+.section-title { font-size: 1.5em; margin-bottom: 20px; color: #333; border-bottom: 2px solid #667eea; padding-bottom: 10px; }
+.pixel-grid { display: inline-grid; grid-template-columns: repeat(8, 1fr); gap: 4px; padding: 20px; background: #f0f0f0; border-radius: 10px; }
+.pixel { width: 40px; height: 40px; border: 2px solid #ccc; border-radius: 5px; background: #000; cursor: pointer; transition: transform 0.1s; }
+.pixel:hover { transform: scale(1.1); }
+.pixel.selected { border-color: #667eea; box-shadow: 0 0 8px #667eea; }
+.controls { display: flex; gap: 15px; align-items: center; flex-wrap: wrap; margin-top: 20px; }
+.color-input { display: flex; align-items: center; gap: 10px; }
+.color-input label { font-weight: 600; color: #333; }
+input[type="color"] { width: 60px; height: 40px; border: none; border-radius: 5px; cursor: pointer; }
+.buttons { display: flex; gap: 10px; flex-wrap: wrap; }
+button { background: #667eea; color: white; border: none; padding: 12px 20px; border-radius: 5px; cursor: pointer; font-weight: 600; font-size: 1em; transition: background 0.2s; }
+button:hover { background: #5568d3; }
+button.danger { background: #f44336; }
+button.danger:hover { background: #da190b; }
+button.success { background: #4caf50; }
+button.success:hover { background: #388e3c; }
+button.back { background: #999; }
+button.back:hover { background: #777; }
+.info { background: #e3f2fd; border-left: 4px solid #2196f3; padding: 15px; border-radius: 5px; margin-bottom: 20px; color: #1565c0; }
+.instruction { font-size: 0.9em; margin-top: 10px; color: #666; }
+)rawliteral";
+  html += "</style></head><body>";
+  html += "<div class=\"container\">";
+  html += "<h1>✏️ Custom Pixel Editor</h1>";
+  
+  html += "<div class=\"section\">";
+  html += "<div class=\"info\">Click on pixels to toggle them on/off. Choose a color, then click 'Apply Pattern' to send to device.</div>";
+  
+  html += "<div class=\"section-title\">Grid Editor (8x8)</div>";
+  html += "<div class=\"pixel-grid\" id=\"pixelGrid\"></div>";
+  
+  html += "<div class=\"controls\">";
+  html += "<div class=\"color-input\"><label>Color:</label><input type=\"color\" id=\"pixelColor\" value=\"#FF4500\"></div>";
+  html += "</div>";
+  
+  html += "<div class=\"buttons\">";
+  html += "<button class=\"success\" onclick=\"applyPattern()\">✓ Apply Pattern</button>";
+  html += "<button class=\"danger\" onclick=\"clearGrid()\">🗑️ Clear All</button>";
+  html += "<button onclick=\"randomize()\">🎲 Randomize</button>";
+  html += "<button class=\"back\" onclick=\"location.href='/'\">← Back</button>";
+  html += "</div>";
+  html += "<div class=\"instruction\">• Off pixels = black (off)<br/>• On pixels = selected color (on)<br/>• Color changes apply only when you click 'Apply Pattern'</div>";
+  html += "</div>";
+  html += "</div>";
+  
+  html += R"rawliteral(<script>
+const GRID_SIZE = 8;
+const TOTAL_PIXELS = GRID_SIZE * GRID_SIZE;
+let pixelStates = new Array(TOTAL_PIXELS).fill(0);
+
+function initGrid() {
+  const grid = document.getElementById('pixelGrid');
+  grid.innerHTML = '';
+  for (let i = 0; i < TOTAL_PIXELS; i++) {
+    const pixel = document.createElement('div');
+    pixel.className = 'pixel';
+    pixel.id = 'pixel-' + i;
+    pixel.onclick = () => togglePixel(i);
+    if (pixelStates[i]) {
+      pixel.style.background = document.getElementById('pixelColor').value;
+      pixel.classList.add('selected');
+    }
+    grid.appendChild(pixel);
+  }
+}
+
+function togglePixel(index) {
+  pixelStates[index] = pixelStates[index] ? 0 : 1;
+  const pixel = document.getElementById('pixel-' + index);
+  if (pixelStates[index]) {
+    pixel.style.background = document.getElementById('pixelColor').value;
+    pixel.classList.add('selected');
+  } else {
+    pixel.style.background = '#000';
+    pixel.classList.remove('selected');
+  }
+}
+
+function applyPattern() {
+  const color = document.getElementById('pixelColor').value;
+  const rgb = parseInt(color.slice(1), 16);
+  
+  let requests = [];
+  for (let i = 0; i < TOTAL_PIXELS; i++) {
+    if (pixelStates[i]) {
+      const x = i % 8;
+      const y = Math.floor(i / 8);
+      requests.push(
+        fetch(`/api/eyes/custom/pixel?eye=left&x=${x}&y=${y}&color=${rgb}`)
+          .then(r => r.json())
+      );
+      requests.push(
+        fetch(`/api/eyes/custom/pixel?eye=right&x=${x}&y=${y}&color=${rgb}`)
+          .then(r => r.json())
+      );
+    }
+  }
+  
+  Promise.all(requests).then(results => {
+    fetch('/api/eyes/animation?id=16').then(r => r.json()).then(d => {
+      alert('Pattern applied!');
+      console.log(d);
+    });
+  }).catch(e => {
+    alert('Error applying pattern: ' + e);
+    console.error(e);
+  });
+}
+
+function clearGrid() {
+  pixelStates = new Array(TOTAL_PIXELS).fill(0);
+  initGrid();
+  fetch('/api/eyes/custom/clear').then(r => r.json()).then(d => console.log(d));
+}
+
+function randomize() {
+  pixelStates = pixelStates.map(() => Math.random() > 0.5 ? 1 : 0);
+  initGrid();
+}
+
+document.getElementById('pixelColor').addEventListener('change', () => {
+  document.querySelectorAll('.pixel.selected').forEach(pixel => {
+    pixel.style.background = document.getElementById('pixelColor').value;
+  });
+});
+
+initGrid();
+</script></body></html>)rawliteral";
+  
   return html;
 }
 
