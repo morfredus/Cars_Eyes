@@ -33,87 +33,71 @@ void handle() {
 
   // --- Turn Signal Logic ---
   
-  // Debounce/Change Detection B1 (Left)
-  if (b1 != btn1State && (now - btn1LastChange > 50)) {
-       btn1State = b1;
-       btn1LastChange = now;
-       
-       if (b1 == LOW) { // Pressed
-           // Check for Hazard (Both pressed)
-           if (b2 == LOW) {
-               NeoPixel::toggleTurnSignal(NeoPixel::AnimationType::HAZARD, true);
-               warningActive = true;
-           } else {
-               warningActive = false;
-               // Start Timer for long press detection
-               signalLong1 = false; 
-           }
-       } else { // Released
-           if (!warningActive) {
-               // Calculate duration
-               uint32_t pressDur = now - btn1LastChange; // Wait, lastChange was just updated. logic error.
-               // We need separate tracking for press start time. 
-           }
-       }
-  }
-  
-  // Revised Logic for reliability
-  static uint32_t b1PressStart = 0;
-  static uint32_t b2PressStart = 0;
-  static bool b1Handled = false;
-  static bool b2Handled = false;
+    // --- Turn Signal Logic ---
+  static bool lastB1 = HIGH;
+  static bool lastB2 = HIGH;
+  static uint32_t pressStart1 = 0;
+  static uint32_t pressStart2 = 0;
+  static bool handled1 = false;
+  static bool handled2 = false;
+  static bool hazardActive = false;
 
-  // Handle B1
-  if (b1 == LOW && btn1State == HIGH) { // Falling Edge
-      btn1State = LOW;
-      b1PressStart = now;
-      b1Handled = false;
-  } else if (b1 == HIGH && btn1State == LOW) { // Rising Edge
-      btn1State = HIGH;
-      if (!b1Handled && !warningActive) {
-          // Short Press Release -> Trigger Short Signal
-          NeoPixel::toggleTurnSignal(NeoPixel::AnimationType::TURN_LEFT, false);
+  // 1. Hazard Detection (Both Pressed)
+  // If both buttons are down, trigger hazard immediately
+  if (b1 == LOW && b2 == LOW) {
+      if (!hazardActive) {
+          NeoPixel::toggleTurnSignal(NeoPixel::AnimationType::HAZARD, true); // Continuous
+          hazardActive = true;
+          handled1 = true; // Block individual triggers
+          handled2 = true;
       }
-      warningActive = false; // Reset warning flag on release
-  }
-  
-  // Handle B2
-  if (b2 == LOW && btn2State == HIGH) { // Falling Edge
-      btn2State = LOW;
-      b2PressStart = now;
-      b2Handled = false;
-  } else if (b2 == HIGH && btn2State == LOW) { // Rising Edge
-      btn2State = HIGH;
-      if (!b2Handled && !warningActive) {
-          // Short Press Release -> Trigger Short Signal
-          NeoPixel::toggleTurnSignal(NeoPixel::AnimationType::TURN_RIGHT, false);
-      }
-      warningActive = false;
+  } 
+  else if (b1 == HIGH && b2 == HIGH) {
+      hazardActive = false; // Reset when both released
   }
 
-  // Continuous Checks
-  if (btn1State == LOW && btn2State == LOW) {
-      if (!warningActive) {
-          NeoPixel::toggleTurnSignal(NeoPixel::AnimationType::HAZARD, true);
-          warningActive = true;
-          b1Handled = true; // Prevent single triggers
-          b2Handled = true;
-      }
-  } else {
-      // Long Press Checks
-      if (btn1State == LOW && !b1Handled && !warningActive) {
-          if (now - b1PressStart > 500) {
-              NeoPixel::toggleTurnSignal(NeoPixel::AnimationType::TURN_LEFT, true);
-              b1Handled = true; 
+  // 2. Button 1 (Left)
+  if (b1 != lastB1) { // Edge
+      if (b1 == LOW) { // Press
+          pressStart1 = now;
+          handled1 = false;
+      } else { // Release
+          if (!handled1 && !hazardActive) {
+              // Short press release
+              NeoPixel::toggleTurnSignal(NeoPixel::AnimationType::TURN_LEFT, false);
           }
       }
-      if (btn2State == LOW && !b2Handled && !warningActive) {
-          if (now - b2PressStart > 500) {
-              NeoPixel::toggleTurnSignal(NeoPixel::AnimationType::TURN_RIGHT, true);
-              b2Handled = true;
-          }
+      lastB1 = b1;
+  }
+  // B1 Long Press
+  if (b1 == LOW && !handled1 && !hazardActive) {
+      if (now - pressStart1 > 500) {
+           NeoPixel::toggleTurnSignal(NeoPixel::AnimationType::TURN_LEFT, true);
+           handled1 = true;
       }
   }
+
+  // 3. Button 2 (Right)
+  if (b2 != lastB2) { // Edge
+      if (b2 == LOW) { // Press
+          pressStart2 = now;
+          handled2 = false;
+      } else { // Release
+          if (!handled2 && !hazardActive) {
+              // Short press release
+              NeoPixel::toggleTurnSignal(NeoPixel::AnimationType::TURN_RIGHT, false);
+          }
+      }
+      lastB2 = b2;
+  }
+  // B2 Long Press
+  if (b2 == LOW && !handled2 && !hazardActive) {
+      if (now - pressStart2 > 500) {
+           NeoPixel::toggleTurnSignal(NeoPixel::AnimationType::TURN_RIGHT, true);
+           handled2 = true;
+      }
+  }
+
 
 
   // --- Boot Button Logic (Existing) ---

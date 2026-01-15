@@ -19,6 +19,18 @@
 - Avoid S3 strapping pins 45/46 and ESP32 strapping pins 0/2/4/5/12/15 for outputs unless required.
 - After changes, sync the documentation and wiring diagrams.
 
+## Physical Controls (Buttons)
+The system supports 3 physical buttons for direct control:
+- **Button 1 (GPIO 0 BOOT)**: Hold during boot for Firmware Mode. In App: Short press/hold for **Left Turn Signal**.
+- **Button 2 (User 1)**: Short press/hold for **Left Turn Signal** (Primary mapping).
+- **Button 3 (User 2)**: Short press/hold for **Right Turn Signal**.
+
+**Signal Logic:**
+- **Short Press (< 0.5s)**: Activates signal for configured duration (Default 3s).
+- **Long Press (> 0.5s)**: Activates signal indefinitely until pressed again.
+- **Hazard Mode**: Press **Button 2 + Button 3** simultaneously to toggle Hazard lights (Both arrows).
+- While signaling, the opposite eye remains in "Idle" mode (open and live).
+
 ## WiFi behavior
 - Uses `WiFiMulti`: all networks from `secrets.h` are tried in order.
 - LCD boot screen shows progress; on success, SSID and IP appear on the main screen.

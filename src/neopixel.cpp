@@ -331,26 +331,26 @@ static const uint8_t PATTERN_SURPRISED_FRAME1[64] = {
 
 // --- PATTERN #16: ARROW RIGHT (Turn Signal) --------------------------------
 static const uint8_t PATTERN_ARROW_RIGHT[64] = {
-  0, 0, 0, 0, 0, 0, 0, 0,
-  0, 0, 100, 0, 0, 0, 0, 0,
-  0, 0, 100, 100, 0, 0, 0, 0,
-  0, 0, 100, 100, 100, 0, 0, 0,
-  0, 0, 100, 100, 100, 100, 0, 0,
-  0, 0, 100, 100, 100, 0, 0, 0,
-  0, 0, 100, 100, 0, 0, 0, 0,
-  0, 0, 100, 0, 0, 0, 0, 0
+  0, 0, 0, 0, 0, 100, 0, 0,
+  0, 0, 0, 0, 0, 100, 100, 0,
+  100, 100, 100, 100, 100, 100, 100, 0,
+  100, 100, 100, 100, 100, 100, 100, 100,
+  100, 100, 100, 100, 100, 100, 100, 100,
+  100, 100, 100, 100, 100, 100, 100, 0,
+  0, 0, 0, 0, 0, 100, 100, 0,
+  0, 0, 0, 0, 0, 100, 0, 0
 };
 
 // --- PATTERN #17: ARROW LEFT (Turn Signal) --------------------------------
 static const uint8_t PATTERN_ARROW_LEFT[64] = {
-  0, 0, 0, 0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0, 100, 0, 0,
-  0, 0, 0, 0, 100, 100, 0, 0,
-  0, 0, 0, 100, 100, 100, 0, 0,
-  0, 0, 100, 100, 100, 100, 0, 0,
-  0, 0, 0, 100, 100, 100, 0, 0,
-  0, 0, 0, 0, 100, 100, 0, 0,
-  0, 0, 0, 0, 0, 100, 0, 0
+  0, 0, 100, 0, 0, 0, 0, 0,
+  0, 100, 100, 0, 0, 0, 0, 0,
+  0, 100, 100, 100, 100, 100, 100, 100,
+  100, 100, 100, 100, 100, 100, 100, 100,
+  100, 100, 100, 100, 100, 100, 100, 100,
+  0, 100, 100, 100, 100, 100, 100, 100,
+  0, 100, 100, 0, 0, 0, 0, 0,
+  0, 0, 100, 0, 0, 0, 0, 0
 };
 
 // --- PATTERN #18: HAZARD (Both Arrows Out) ---------------------------------
@@ -412,6 +412,7 @@ static void drawPattern(Adafruit_NeoPixel& eye, const uint8_t* pattern, uint32_t
       else if (code == 1) finalColor = primary;
       else if (code == 2) finalColor = secondary;
       else if (code == 3) finalColor = tertiary;
+      else if (code == 100) finalColor = primary; // Support for turn signal intensity
       
       eye.setPixelColor(idx, finalColor);
     }
@@ -730,9 +731,11 @@ void update() {
        patternRight = getPatternForAnimation(AnimationType::BLINK, g_eyeState.animationFrame);
     } else if (anim == AnimationType::TURN_LEFT) {
        patternLeft = getPatternForAnimation(AnimationType::TURN_LEFT, g_eyeState.animationFrame);
-       patternRight = NULL; // Blank
+       // Keep Right Eye Idle
+       patternRight = getPatternForAnimation(AnimationType::IDLE, g_eyeState.animationFrame);
     } else if (anim == AnimationType::TURN_RIGHT) {
-       patternLeft = NULL; // Blank
+       // Keep Left Eye Idle
+       patternLeft = getPatternForAnimation(AnimationType::IDLE, g_eyeState.animationFrame);
        patternRight = getPatternForAnimation(AnimationType::TURN_RIGHT, g_eyeState.animationFrame);
     } else if (anim == AnimationType::HAZARD) {
        // Use Left Arrow on Left, Right Arrow on Right

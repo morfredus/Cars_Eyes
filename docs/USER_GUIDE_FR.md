@@ -19,6 +19,18 @@
 - Eviter les broches de strapping S3 (45/46) et ESP32 (0/2/4/5/12/15) en sortie sauf necessite.
 - Apres modification, aligner la documentation et le cablage.
 
+## Contrôles Physiques (Boutons)
+Le système gère 3 boutons pour un contrôle direct :
+- **Bouton 1 (GPIO 0 BOOT)** : Maintenir au démarrage pour le mode Firmware. Dans l'App : Clignotant Gauche (ou Reset).
+- **Bouton 2 (User 1)** : Appui court/long pour **Clignotant Gauche**.
+- **Bouton 3 (User 2)** : Appui court/long pour **Clignotant Droit**.
+
+**Logique des Clignotants :**
+- **Appui Court (< 0.5s)** : Active le clignotant pour une durée définie (Défaut 3s).
+- **Appui Long (> 0.5s)** : Active le clignotant indéfiniment jusqu'au prochain appui.
+- **Mode Warning** : Appuyer sur **Bouton 2 + Bouton 3** simultanément pour activer/désactiver les Warnings.
+- Pendant le clignotement, l'œil opposé reste en mode "Normal" (Idle).
+
 ## WiFi
 - Utilise `WiFiMulti` : tous les reseaux de `secrets.h` sont testes en sequence.
 - L'ecran de boot affiche la progression; en cas de succes, SSID et IP sont visibles.

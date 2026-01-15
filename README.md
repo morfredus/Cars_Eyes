@@ -1,6 +1,6 @@
 # Neopixel Eyes
 
-> **Version:** 1.3.2  
+> **Version:** 1.5.4  
 > **Minimum Version:** 1.0.0
 
 **Animated eye system using two 8x8 NeoPixel matrices for ESP32-S3, styled like Cars movie characters.**
@@ -13,6 +13,8 @@
 
 - **Dual 8x8 NeoPixel Matrix Eyes** - Left and right eye control with independent or synchronized animations
 - **13 Built-in Animations** - IDLE, BLINK, WINK, LOOK (left/right/up/down), HAPPY, SAD, ANGRY, SURPRISED, SLEEP
+- **Turn Signals & Hazards** - Button-controlled Left/Right automotive signals and Hazard warning mode.
+- **Settings Persistence** - Automatically saves brightness, color, scheme, and signal duration to memory.
 - **Modern Web UI** - Real-time control interface without page reloads
 - **Auto-Play Mode** - Random animation sequences for lifelike behavior
 - **Color Customization** - Primary and secondary color control via web interface

@@ -5,6 +5,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.5.4] - 2026-01-15
+
+### Changed
+- **Turn Signal Design**: Updated arrow patterns to use the full width of the matrix (8 pixels), simulating a more realistic automotive arrow style.
+
+## [1.5.3] - 2026-01-15
+
+### Fixed
+- **Rendering**: Fixed rendering engine to correctly interpret the specialized pixel code (100) used for Turn Signal patterns, which was previously resulting in blank output.
+
+## [1.5.2] - 2026-01-15
+
+### Fixed
+- **Button Logic**: Completely rewrote button handling logic to fix unresponsiveness on Button 1 and improve press detection.
+- **Turn Signal Visuals**: The "non-signaling" eye now remains open (Idle pattern) instead of turning off while the other signal is active.
+- **Hazard Mode**: Corrected detection for simultaneous button presses (Warning mode).
+
 ## [1.5.1] - 2026-01-15
 
 ### Fixed

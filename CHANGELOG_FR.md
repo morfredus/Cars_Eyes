@@ -5,6 +5,23 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/)
 
 ---
 
+## [1.5.4] - 2026-01-15
+
+### Modifié
+- **Design Clignotant** : Mise à jour des motifs de flèches pour utiliser toute la largeur de la matrice (8 pixels), simulant un style de flèche automobile plus réaliste.
+
+## [1.5.3] - 2026-01-15
+
+### Corrigé
+- **Rendu** : Correction du moteur de rendu qui n'interprétait pas correctement le code pixel spécial (100) utilisé pour les motifs de clignotants, ce qui entraînait un affichage vide.
+
+## [1.5.2] - 2026-01-15
+
+### Corrigé
+- **Logique Boutons** : Réécriture complète de la gestion des boutons pour corriger l'absence de réponse du Bouton 1 et améliorer la détection des appuis.
+- **Visuel Clignotants** : L'œil "non clignotant" reste maintenant ouvert (animation Idle) au lieu de s'éteindre complètement.
+- **Mode Warning** : Correction de la détection de l'appui simultané (Warning).
+
 ## [1.5.1] - 2026-01-15
 
 ### Corrigé

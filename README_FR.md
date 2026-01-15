@@ -1,6 +1,6 @@
 # Neopixel Eyes (Yeux Animés)
 
-> **Version :** 1.3.2  
+> **Version :** 1.5.4  
 > **Version minimum :** 1.0.0
 
 **Système d'yeux animés utilisant deux matrices NeoPixel 8x8 pour ESP32-S3, inspiré des personnages du film Cars.**
@@ -13,6 +13,8 @@
 
 - **Matrices NeoPixel 8x8 Doubles** - Contrôle des yeux gauche et droit avec animations indépendantes ou synchronisées
 - **13 Animations Intégrées** - IDLE, BLINK, WINK, LOOK (gauche/droite/haut/bas), HAPPY, SAD, ANGRY, SURPRISED, SLEEP
+- **Clignotants & Warnings** - Contrôle physique (boutons) pour clignotants gauche/droite et mode Warning.
+- **Persistance des Réglages** - Sauvegarde automatique (Flash) de la luminosité, des couleurs et de la durée.
 - **Interface Web Moderne** - Contrôle en temps réel sans rechargement de page
 - **Mode Auto-Play** - Séquences d'animations aléatoires pour un comportement réaliste
 - **Personnalisation des Couleurs** - Contrôle des couleurs primaire et secondaire via l'interface web
