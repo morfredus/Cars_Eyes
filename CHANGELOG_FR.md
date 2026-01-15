@@ -5,6 +5,12 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/)
 
 ---
 
+## [1.5.19] - 2026-01-15
+
+### Modifié
+- **Cohérence du Nom du Projet** : Nom officiel fixé à "Cars Eyes" dans le README et la documentation.
+- **Animation SLEEP** : Paupières fermées redessinées avec ombrage et léger mouvement respiratoire pour un rendu plus naturel.
+
 ## [1.5.18] - 2026-01-15
 
 ### Modifié
@@ -269,7 +275,7 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/)
 
 ## [1.0.0] - 2026-01-13
 
-### Création du projet NeoPixel Eyes
+### Création du projet Cars Eyes
 Première version stable du contrôleur d'yeux animés avec matrices NeoPixel 8x8.
 
 ### Matériel supporté

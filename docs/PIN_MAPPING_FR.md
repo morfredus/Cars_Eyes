@@ -1,6 +1,6 @@
 # Guide de Mapping des Broches
 
-**Version:** 1.5.18  
+**Version:** 1.5.19  
 **Version minimale:** 0.2.0  
 **Langage:** Français  
 
@@ -303,3 +303,4 @@ Pour les capteurs I2C, tout paire GPIO libre convient :
 - **SDA/SCL recommandes :** GPIO21/22 (ESP32) ou GPIO41/42 (S3)
 
 Voir [ADD_MODULES_FR.md](ADD_MODULES_FR.md) pour exemples d'integration.
+
