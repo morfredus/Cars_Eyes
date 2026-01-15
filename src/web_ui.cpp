@@ -58,6 +58,9 @@ button:hover { background: #5568d3; }
   html += "</style></head><body><div class=\"shell\">";
   html += "<h1><span class=\"status-indicator status-online\" id=\"statusDot\"></span>" + String(projectName()) + " <span class=\"badge\">v" + String(projectVersion()) + "</span></h1>";
   
+  // Notification message zone (fixed height to prevent page shift)
+  html += "<div id=\"notificationBox\" style=\"background:#ecf0f1;border-left:4px solid #667eea;padding:12px;border-radius:8px;margin:0 auto 20px;max-width:1200px;min-height:20px;display:none;font-size:0.95em;color:#333;transition:all 0.3s;\"></div>";
+  
   // Eye Control Section
   html += "<div class=\"section\"><div class=\"section-title\">🚗 Eye Animation Control</div>";
   html += "<div class=\"eye-controls\">";
@@ -121,6 +124,37 @@ button:hover { background: #5568d3; }
   // JavaScript for interactivity
   html += R"rawliteral(<script>
 let currentAnimation = 0;
+
+function showNotification(message, type = 'info') {
+  const box = document.getElementById('notificationBox');
+  box.textContent = message;
+  box.style.display = 'block';
+  
+  // Change color based on type
+  if (type === 'success') {
+    box.style.borderLeftColor = '#27ae60';
+    box.style.background = '#d5f4e6';
+    box.style.color = '#27ae60';
+  } else if (type === 'error') {
+    box.style.borderLeftColor = '#e74c3c';
+    box.style.background = '#fadbd8';
+    box.style.color = '#e74c3c';
+  } else if (type === 'warning') {
+    box.style.borderLeftColor = '#f39c12';
+    box.style.background = '#fef5e7';
+    box.style.color = '#f39c12';
+  } else {
+    box.style.borderLeftColor = '#667eea';
+    box.style.background = '#ebf5fb';
+    box.style.color = '#667eea';
+  }
+  
+  // Auto-hide after 5 seconds
+  setTimeout(() => {
+    box.style.display = 'none';
+  }, 5000);
+}
+
 function updateButtons() {
   document.querySelectorAll('.eye-btn').forEach((btn, idx) => {
     btn.classList.remove('active');
@@ -145,14 +179,14 @@ function applyCustomFromStorage() {
       .then(r => r.json())
       .then(data => {
         if (!data || !data.left || !data.right) {
-          alert('No custom pattern found. Please create one in the Pixel Editor first.');
+          showNotification('⚠️ No custom pattern found. Please create one in the Pixel Editor first.', 'warning');
           return;
         }
         
         // Vérifier qu'au moins un pixel est dessiné
         const totalPixels = data.left.reduce((a,b) => a + (b ? 1 : 0), 0) + data.right.reduce((a,b) => a + (b ? 1 : 0), 0);
         if (totalPixels === 0) {
-          alert('No pixels drawn. Please create a pattern in the Pixel Editor first.');
+          showNotification('⚠️ No pixels drawn. Please create a pattern in the Pixel Editor first.', 'warning');
           return;
         }
         
@@ -169,23 +203,24 @@ function applyCustomFromStorage() {
             console.log('Custom pattern response:', d);
             if (d.status === 'ok') {
               console.log('✅ Custom pattern applied successfully');
+              showNotification('✅ Custom pattern applied successfully!', 'success');
             } else {
               console.error('Error:', d.message);
-              alert('Error: ' + d.message);
+              showNotification('❌ Error: ' + d.message, 'error');
             }
           })
           .catch(e => {
             console.error('Error applying custom pattern:', e);
-            alert('Error: ' + e);
+            showNotification('❌ Error applying custom pattern: ' + e, 'error');
           });
       })
       .catch(e => {
         console.error('Error fetching pattern from server:', e);
-        alert('Error: ' + e);
+        showNotification('❌ Error fetching pattern from server: ' + e, 'error');
       });
   } catch (e) {
     console.error('Error in applyCustomFromStorage:', e);
-    alert('Error: ' + e);
+    showNotification('❌ Error: ' + e, 'error');
   }
 }
 function setColor(type, hex) {

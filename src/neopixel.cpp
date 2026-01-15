@@ -43,6 +43,11 @@ static bool g_signalLongPress = false;
 static unsigned long g_signalStartTime = 0;
 static AnimationType g_previousAnimation = AnimationType::IDLE;
 
+// Custom Pattern State
+static uint32_t g_customPatternLeft[64] = {0};
+static uint32_t g_customPatternRight[64] = {0};
+static bool g_hasCustomPatterns = false;
+
 // ============================================================================
 // COLOR SCHEME DEFINITIONS
 // ============================================================================
@@ -506,6 +511,15 @@ void loadSettings() {
   int savedAnim = prefs.getInt("anim", (int)AnimationType::IDLE);
   g_eyeState.currentAnimation = (AnimationType)savedAnim;
   
+  // Load custom patterns
+  g_hasCustomPatterns = prefs.getBool("has_custom", false);
+  if (g_hasCustomPatterns) {
+    // Load left pattern
+    prefs.getBytes("custom_l", g_customPatternLeft, 64 * sizeof(uint32_t));
+    // Load right pattern
+    prefs.getBytes("custom_r", g_customPatternRight, 64 * sizeof(uint32_t));
+  }
+  
   prefs.end();
 }
 
@@ -518,6 +532,14 @@ void saveSettings() {
   prefs.putInt("scheme", (int)g_currentScheme);
   prefs.putUShort("sig_dur", g_signalDurationMs);
   prefs.putInt("anim", (int)g_eyeState.currentAnimation);
+  
+  // Save custom patterns
+  prefs.putBool("has_custom", g_hasCustomPatterns);
+  if (g_hasCustomPatterns) {
+    prefs.putBytes("custom_l", g_customPatternLeft, 64 * sizeof(uint32_t));
+    prefs.putBytes("custom_r", g_customPatternRight, 64 * sizeof(uint32_t));
+  }
+  
   prefs.end();
 }
 
@@ -604,8 +626,9 @@ void init() {
   statusLed.clear();
   statusLed.setBrightness(64);
   
-  // Apply loaded animation
-  setAnimation(g_eyeState.currentAnimation);
+  // Always start with IDLE animation at boot regardless of saved state
+  g_eyeState.currentAnimation = AnimationType::IDLE;
+  update();
 }
 
 void setBrightness(uint8_t brightness) {
@@ -718,6 +741,26 @@ void update() {
     }
     
     if (g_eyeState.animationFrame > 200) g_eyeState.animationFrame = 0;
+    
+    // Handle CUSTOM pattern separately
+    if (anim == AnimationType::CUSTOM && g_hasCustomPatterns) {
+      // Display custom patterns directly (no animation frames)
+      eyeLeft.clear();
+      eyeRight.clear();
+      
+      // Apply custom pattern left
+      for (int i = 0; i < 64; i++) {
+        eyeLeft.setPixelColor(i, g_customPatternLeft[i]);
+      }
+      
+      // Apply custom pattern right
+      for (int i = 0; i < 64; i++) {
+        eyeRight.setPixelColor(i, g_customPatternRight[i]);
+      }
+      
+      show();
+      return;
+    }
 
     const uint8_t* patternLeft = getPatternForAnimation(anim, g_eyeState.animationFrame);
     const uint8_t* patternRight = patternLeft; // Default same
@@ -770,6 +813,34 @@ void update() {
     
     show();
   }
+}
+
+void setCustomPatternLeft(const uint32_t* pattern) {
+  if (pattern) {
+    memcpy(g_customPatternLeft, pattern, 64 * sizeof(uint32_t));
+    g_hasCustomPatterns = true;
+    saveSettings();
+  }
+}
+
+void setCustomPatternRight(const uint32_t* pattern) {
+  if (pattern) {
+    memcpy(g_customPatternRight, pattern, 64 * sizeof(uint32_t));
+    g_hasCustomPatterns = true;
+    saveSettings();
+  }
+}
+
+const uint32_t* getCustomPatternLeft() {
+  return g_customPatternLeft;
+}
+
+const uint32_t* getCustomPatternRight() {
+  return g_customPatternRight;
+}
+
+bool hasCustomPatterns() {
+  return g_hasCustomPatterns;
 }
 
 void setPixelLeft(uint8_t x, uint8_t y, uint32_t c) { if(x<8&&y<8) eyeLeft.setPixelColor(xyToIndex(x,y),c); }

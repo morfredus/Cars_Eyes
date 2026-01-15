@@ -9,18 +9,6 @@ namespace HttpServer {
 
 static ::WebServer server(80);
 
-// Global storage for custom patterns (in server RAM)
-static uint32_t g_customPatternLeft[64] = {0};
-static uint32_t g_customPatternRight[64] = {0};
-static bool g_patternsInitialized = false;
-
-// Save patterns to server RAM
-static void saveCustomPatterns(const uint32_t* left, const uint32_t* right) {
-  if (left) memcpy(g_customPatternLeft, left, 64 * sizeof(uint32_t));
-  if (right) memcpy(g_customPatternRight, right, 64 * sizeof(uint32_t));
-  g_patternsInitialized = true;
-}
-
 void init() {
   if (!kSystemConfig.enableWebUi) {
     return;
@@ -276,8 +264,9 @@ void init() {
         }
       }
       
-      // Save patterns to server RAM
-      saveCustomPatterns(patternLeft, patternRight);
+      // Save patterns to NeoPixel persistent storage
+      NeoPixel::setCustomPatternLeft(patternLeft);
+      NeoPixel::setCustomPatternRight(patternRight);
       
       // Apply to selected eye(s)
       if (eyeStr == "left" || eyeStr == "both") {
@@ -345,14 +334,17 @@ void init() {
 
   server.on("/api/custom/get", []() {
     // Return saved patterns as JSON (decimal format)
+    const uint32_t* customLeft = NeoPixel::getCustomPatternLeft();
+    const uint32_t* customRight = NeoPixel::getCustomPatternRight();
+    
     String response = "{\"status\":\"ok\",\"left\":[";
     for (int i = 0; i < 64; i++) {
-      response += String(g_customPatternLeft[i]);
+      response += String(customLeft[i]);
       if (i < 63) response += ",";
     }
     response += "],\"right\":[";
     for (int i = 0; i < 64; i++) {
-      response += String(g_customPatternRight[i]);
+      response += String(customRight[i]);
       if (i < 63) response += ",";
     }
     response += "]}";

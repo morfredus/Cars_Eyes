@@ -5,6 +5,42 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/)
 
 ---
 
+## [1.5.18] - 2026-01-15
+
+### Modifié
+- **Animation au Boot - Toujours IDLE** : Modification de la séquence de démarrage pour toujours commencer avec l'animation IDLE indépendamment de l'état sauvegardé.
+  - Modification de la fonction `init()` pour forcer `AnimationType::IDLE` au démarrage.
+  - Les paramètres (luminosité, couleurs, schéma) sont toujours chargés depuis le stockage persistant.
+  - Seul l'état de l'animation est remplacé pour assurer une expérience de démarrage cohérente.
+  - Évite que des animations inattendues (comme CUSTOM ou SLEEP) persistent après un redémarrage.
+
+### Corrigé
+- **Mises à jour de la Documentation** : Mise à jour des numéros de version dans tous les fichiers de documentation (README, /docs).
+  - README.md et README_FR.md mis à jour à la version 1.5.18.
+  - Les 20 fichiers de documentation dans /docs mis à jour à la version 1.5.18.
+  - Assure la cohérence des versions dans toute la documentation du projet.
+
+## [1.5.17] - 2026-01-15
+
+### Modifié
+- **Améliorations UI - Aucun Popup Bloquant** : Suppression de tous les popups JavaScript bloquants (alert) et remplacement par des messages de notification inline.
+  - Ajout d'une boîte de notification à hauteur fixe en haut du tableau de bord (évite les changements de longueur de page).
+  - Création de la fonction `showNotification(message, type)` avec masquage automatique après 5 secondes.
+  - Support de plusieurs types de notification : succès (vert), erreur (rouge), avertissement (orange), info (bleu).
+  - Tous les messages d'erreur et d'avertissement s'affichent maintenant inline sans interrompre le flux de travail.
+  - Expérience utilisateur améliorée : retours d'information non intrusifs pour toutes les opérations.
+
+## [1.5.16] - 2026-01-15
+
+### Corrigé
+- **Stockage Persistant Pattern CUSTOM** : Implémentation du stockage persistant complet pour les patterns custom utilisant Preferences (NVS).
+  - Les patterns custom sont maintenant sauvegardés en mémoire flash et survivent aux redémarrages.
+  - Ajout de nouvelles fonctions API NeoPixel : `setCustomPatternLeft()`, `setCustomPatternRight()`, `getCustomPatternLeft()`, `getCustomPatternRight()`, `hasCustomPatterns()`.
+  - Modification de la fonction `update()` pour afficher correctement les patterns custom lorsque `AnimationType::CUSTOM` est actif.
+  - Migration du stockage des patterns de la RAM web_server.cpp vers le stockage persistant neopixel.cpp.
+  - Les patterns custom sont automatiquement chargés au démarrage et sauvegardés à chaque modification.
+  - Correction du problème où le bouton CUSTOM n'affichait pas les patterns créés dans l'Éditeur de Pixels.
+
 ## [1.5.15] - 2026-01-15
 
 ### Corrigé

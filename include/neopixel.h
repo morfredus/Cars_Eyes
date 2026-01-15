@@ -208,6 +208,40 @@ void setPixelRight(uint8_t x, uint8_t y, uint32_t color);
 void show();
 
 // ============================================================================
+// CUSTOM PATTERN CONTROL
+// ============================================================================
+
+/**
+ * Set custom pattern for left eye (64 pixels).
+ * @param pattern Array of 64 RGB color values
+ */
+void setCustomPatternLeft(const uint32_t* pattern);
+
+/**
+ * Set custom pattern for right eye (64 pixels).
+ * @param pattern Array of 64 RGB color values
+ */
+void setCustomPatternRight(const uint32_t* pattern);
+
+/**
+ * Get custom pattern for left eye.
+ * @return Pointer to 64-element color array
+ */
+const uint32_t* getCustomPatternLeft();
+
+/**
+ * Get custom pattern for right eye.
+ * @return Pointer to 64-element color array
+ */
+const uint32_t* getCustomPatternRight();
+
+/**
+ * Check if custom patterns have been defined.
+ * @return True if custom patterns are set
+ */
+bool hasCustomPatterns();
+
+// ============================================================================
 // STATUS LED (GPIO48)
 // ============================================================================
 

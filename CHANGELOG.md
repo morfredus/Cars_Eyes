@@ -5,6 +5,42 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.5.18] - 2026-01-15
+
+### Changed
+- **Boot Animation - Always IDLE**: Modified boot sequence to always start with IDLE animation regardless of saved state.
+  - Changed `init()` function to force `AnimationType::IDLE` at startup.
+  - Settings (brightness, colors, scheme) are still loaded from persistent storage.
+  - Only animation state is overridden to ensure consistent boot experience.
+  - Prevents unexpected animations (like CUSTOM or SLEEP) from persisting across reboots.
+
+### Fixed
+- **Documentation Updates**: Updated version numbers in all documentation files (README, /docs).
+  - README.md and README_FR.md updated to version 1.5.18.
+  - All 20 documentation files in /docs updated to version 1.5.18.
+  - Ensures version consistency across entire project documentation.
+
+## [1.5.17] - 2026-01-15
+
+### Changed
+- **UI Improvements - No Blocking Popups**: Removed all blocking JavaScript popups (alert) and replaced with inline notification messages.
+  - Added fixed-height notification box at the top of the dashboard (prevents page length changes).
+  - Created `showNotification(message, type)` function with auto-hide after 5 seconds.
+  - Support for multiple notification types: success (green), error (red), warning (orange), info (blue).
+  - All error and warning messages now display inline without interrupting user workflow.
+  - Improved user experience: non-intrusive feedback for all operations.
+
+## [1.5.16] - 2026-01-15
+
+### Fixed
+- **CUSTOM Pattern Persistent Storage**: Implemented full persistent storage for custom patterns using Preferences (NVS).
+  - Custom patterns now saved to flash memory and survive device reboots.
+  - Added new NeoPixel API functions: `setCustomPatternLeft()`, `setCustomPatternRight()`, `getCustomPatternLeft()`, `getCustomPatternRight()`, `hasCustomPatterns()`.
+  - Modified `update()` function to properly display custom patterns when `AnimationType::CUSTOM` is active.
+  - Migrated pattern storage from web_server.cpp RAM to neopixel.cpp persistent storage.
+  - Custom patterns are automatically loaded at startup and saved on every modification.
+  - Fixed issue where CUSTOM button did not display patterns created in Pixel Editor.
+
 ## [1.5.15] - 2026-01-15
 
 ### Fixed

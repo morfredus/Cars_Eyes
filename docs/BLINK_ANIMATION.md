@@ -1,6 +1,6 @@
 # Animated Blinking - Pattern #03 BLINK
 
-**Version:** 1.5.15  
+**Version:** 1.5.18  
 **Minimum version:** 1.3.0  
 **Language:** English  
 **Date:** January 14, 2026  
