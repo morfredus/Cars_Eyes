@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.5.6] - 2026-01-15
+
+### Fixed
+- **Compilation**: Fixed a variable redeclaration error in `tft_display.cpp` which caused the build to fail in version 1.5.5.
+
 ## [1.5.5] - 2026-01-15
 
 ### Fixed

@@ -265,7 +265,7 @@ void updateMainScreen(bool force) {
   y += 10;
   
   #if defined(ENV_ESP32S3_N16R8)
-  const NeoPixel::EyeState& eyeState = NeoPixel::getState();
+  // eyeState is already declared at the top of the function
   const char* animNames[] = {"IDLE", "BLINK", "WINK_L", "WINK_R", "LOOK_L", "LOOK_R", 
                               "LOOK_U", "LOOK_D", "HAPPY", "SAD", "ANGRY", "SURPRISED", "SLEEP"};
   const int animIndex = static_cast<int>(eyeState.currentAnimation);
