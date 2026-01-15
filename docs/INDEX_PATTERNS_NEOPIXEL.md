@@ -1,6 +1,6 @@
 # 📋 Index - NeoPixel Patterns Revision (01/14/2026)
 
-**Version:** 1.5.20  
+**Version:** 1.5.21  
 **Minimum version:** 1.0.0  
 **Language:** English  
 **Date:** January 14, 2026
@@ -287,5 +287,6 @@ NeoPixel::setTertiaryColor(0x00113311);
 **Statut:** ✅ **COMPLET** - 14/01/2026  
 **Qualité:** ✅ **PRODUCTION READY**  
 **Documentation:** ✅ **EXHAUSTIVE**
+
 
 

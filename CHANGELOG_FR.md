@@ -5,6 +5,16 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/)
 
 ---
 
+## [1.5.21] - 2026-01-15
+
+### Modifié
+- **Amélioration Animation SAD** : Approfondissement de l'expressivité émotionnelle du pattern SAD.
+  - Frame 0 : Sourcils maintenant inclinés vers le bas aux coins internes avec ombrage renforcé (codes 33-32) pour mieux transmettre la tristesse.
+  - Frame 1 : Sourcils complètement remplis avec effet de tremblement (rangée complète de code 32) simulant des pleurs actifs; larmes suggérées aux coins inférieurs (code 23).
+  - Iris maintenant fortement plissée (réduction profondeur codes 10-31) montrant la tension émotionnelle.
+  - Comportement de la paupière inférieure amélioré : animation tremblante crée un retour visuel de détresse émotionnelle.
+  - Résultat : Expression de tristesse plus nuancée et identifiable qui transmet une profondeur émotionnelle authentique malgré les contraintes 8×8 pixels.
+
 ## [1.5.20] - 2026-01-15
 
 ### Modifié

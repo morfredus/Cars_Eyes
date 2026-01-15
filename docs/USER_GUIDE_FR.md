@@ -1,6 +1,6 @@
 # Guide Utilisateur
 
-**Version:** 1.5.20  
+**Version:** 1.5.21  
 **Langage:** Français  
 **Version minimale:** 1.0.0  
 
@@ -62,5 +62,6 @@ Le système gère 3 boutons pour un contrôle direct :
 - Favoriser les libs natives; ajouter des deps tierces avec parcimonie.
 - Tester les deux environnements apres chaque changement; respecter les notes GPIO.
 - Chaque increment de version doit etre documente dans README/CHANGELOG.
+
 
 

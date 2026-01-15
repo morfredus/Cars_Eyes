@@ -5,6 +5,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.5.21] - 2026-01-15
+
+### Changed
+- **SAD Animation Enhancement**: Deepened emotional expressiveness of the SAD pattern.
+  - Frame 0: Eyebrows now angled downward at inner corners with enhanced shading (codes 33-32) for stronger sadness conveyance.
+  - Frame 1: Eyebrows completely filled with trembling effect (full row of code 32) simulating active crying; added tear suggestions at lower eye corners (code 23).
+  - Iris now tightly squinted (codes 10-31 depth reduction) showing emotional strain.
+  - Lower eyelid behavior enhanced: trembling animation creates visual feedback of emotional distress.
+  - Result: More nuanced and relatable sad expression that conveys genuine emotional depth despite 8×8 pixel constraints.
+
 ## [1.5.20] - 2026-01-15
 
 ### Changed
