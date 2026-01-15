@@ -233,18 +233,67 @@ void init() {
 
   server.on("/api/custom/apply", []() {
     #if defined(ENV_ESP32S3_N16R8)
-    if (server.hasArg("eye") && server.hasArg("pattern")) {
+    if (server.hasArg("eye") && server.hasArg("pattern_left") && server.hasArg("pattern_right")) {
+      String eyeStr = server.arg("eye");
+      String patternLeftStr = server.arg("pattern_left");
+      String patternRightStr = server.arg("pattern_right");
+      
+      // Parse left pattern: comma-separated hex values
+      uint32_t patternLeft[64] = {0};
+      int indexL = 0, startL = 0;
+      for (int i = 0; i <= patternLeftStr.length() && indexL < 64; i++) {
+        if (patternLeftStr[i] == ',' || i == patternLeftStr.length()) {
+          int end = (i == patternLeftStr.length()) ? i : i;
+          String colorStr = patternLeftStr.substring(startL, end);
+          patternLeft[indexL] = (uint32_t)strtol(colorStr.c_str(), NULL, 0);
+          indexL++;
+          startL = i + 1;
+        }
+      }
+      
+      // Parse right pattern: comma-separated hex values
+      uint32_t patternRight[64] = {0};
+      int indexR = 0, startR = 0;
+      for (int i = 0; i <= patternRightStr.length() && indexR < 64; i++) {
+        if (patternRightStr[i] == ',' || i == patternRightStr.length()) {
+          int end = (i == patternRightStr.length()) ? i : i;
+          String colorStr = patternRightStr.substring(startR, end);
+          patternRight[indexR] = (uint32_t)strtol(colorStr.c_str(), NULL, 0);
+          indexR++;
+          startR = i + 1;
+        }
+      }
+      
+      // Apply to selected eye(s)
+      if (eyeStr == "left" || eyeStr == "both") {
+        for (int i = 0; i < 64; i++) {
+          int y = i / 8;
+          int x = i % 8;
+          NeoPixel::setPixelLeft(x, y, patternLeft[i]);
+        }
+      }
+      if (eyeStr == "right" || eyeStr == "both") {
+        for (int i = 0; i < 64; i++) {
+          int y = i / 8;
+          int x = i % 8;
+          NeoPixel::setPixelRight(x, y, patternRight[i]);
+        }
+      }
+      
+      NeoPixel::show();
+      NeoPixel::setAnimation(NeoPixel::AnimationType::CUSTOM);
+      
+      server.send(200, "application/json", "{\"status\":\"ok\",\"message\":\"Custom pattern applied\"}");
+    } else if (server.hasArg("eye") && server.hasArg("pattern")) {
+      // Legacy single pattern support
       String eyeStr = server.arg("eye");
       String patternStr = server.arg("pattern");
       
-      // Parse pattern: comma-separated hex values
       uint32_t pattern[64] = {0};
-      int index = 0;
-      int start = 0;
-      
-      for (int i = 0; i < patternStr.length() && index < 64; i++) {
-        if (patternStr[i] == ',' || i == patternStr.length() - 1) {
-          int end = (i == patternStr.length() - 1) ? i + 1 : i;
+      int index = 0, start = 0;
+      for (int i = 0; i <= patternStr.length() && index < 64; i++) {
+        if (patternStr[i] == ',' || i == patternStr.length()) {
+          int end = (i == patternStr.length()) ? i : i;
           String colorStr = patternStr.substring(start, end);
           pattern[index] = (uint32_t)strtol(colorStr.c_str(), NULL, 0);
           index++;
@@ -252,7 +301,6 @@ void init() {
         }
       }
       
-      // Apply to selected eye(s)
       if (eyeStr == "left" || eyeStr == "both") {
         for (int i = 0; i < 64; i++) {
           int y = i / 8;
@@ -273,7 +321,7 @@ void init() {
       
       server.send(200, "application/json", "{\"status\":\"ok\",\"message\":\"Custom pattern applied\"}");
     } else {
-      server.send(400, "application/json", "{\"status\":\"error\",\"message\":\"Missing eye or pattern parameter\"}");
+      server.send(400, "application/json", "{\"status\":\"error\",\"message\":\"Missing pattern parameters\"}");
     }
     #else
     server.send(501, "application/json", "{\"status\":\"error\",\"message\":\"NeoPixel not available\"}");
