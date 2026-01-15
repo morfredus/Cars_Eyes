@@ -5,6 +5,11 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/)
 
 ---
 
+## [1.5.1] - 2026-01-15
+
+### Corrigé
+- **Logique Bouton Boot**: Correction d'une inversion dans la logique de détection du bouton boot introduite en 1.5.0 qui causait une boucle de redémarrage.
+
 ## [1.5.0] - 2026-01-15
 
 ### Ajouté

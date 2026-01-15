@@ -117,7 +117,9 @@ void handle() {
 
 
   // --- Boot Button Logic (Existing) ---
-  if (bBoot && !ui.rebootPrompt) {
+  const bool bootPressed = bBoot; 
+  
+  if (bootPressed && !ui.rebootPrompt) {
     ui.rebootPrompt = true;
     ui.rebootHoldStart = millis();
     TftDisplay::drawRebootPrompt(0);

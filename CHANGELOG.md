@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.5.1] - 2026-01-15
+
+### Fixed
+- **Boot Button Logic**: Corrected an inversion in the boot button detection logic introduced in 1.5.0 which caused a reboot prompt loop.
+
 ## [1.5.0] - 2026-01-15
 
 ### Added

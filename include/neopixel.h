@@ -153,6 +153,29 @@ void setAutoPlay(bool enabled);
  */
 bool isAutoPlayEnabled();
 
+/*
+ * Sets Turn Signal duration (ms) for short press
+ */
+void setSignalDuration(uint16_t durationMs);
+uint16_t getSignalDuration();
+
+/**
+ * Activate a turn signal or hazard mode.
+ * @param type TURN_LEFT, TURN_RIGHT or HAZARD
+ * @param longPress If true, stays on until cancelled. If false, turns off after duration.
+ */
+void toggleTurnSignal(AnimationType type, bool longPress);
+
+/**
+ * Load settings from persistent memory (Preferences)
+ */
+void loadSettings();
+
+/**
+ * Save settings to persistent memory (Preferences)
+ */
+void saveSettings();
+
 /**
  * Update animation state (call in loop).
  * Handles animation frame updates and auto-play.
