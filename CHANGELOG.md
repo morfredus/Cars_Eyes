@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.4.2] - 2026-01-15
+
+### Fixed
+- **Main Screen Layout**: Moved the separator line and "MODE" status down to prevent overlapping with the mDNS address line.
+
 ## [1.4.1] - 2026-01-15
 
 ### Changed

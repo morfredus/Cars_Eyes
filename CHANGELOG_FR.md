@@ -5,6 +5,11 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/)
 
 ---
 
+## [1.4.2] - 2026-01-15
+
+### Corrigé
+- **Mise en page Écran Principal**: Déplacement de la ligne de séparation et du statut "MODE" vers le bas pour éviter le chevauchement avec la ligne d'adresse mDNS.
+
 ## [1.4.1] - 2026-01-15
 
 ### Modifié

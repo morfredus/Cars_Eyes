@@ -237,7 +237,8 @@ void updateMainScreen(bool force) {
   }
   
   // Eyes Status (Bottom)
-  y = 120;
+  // Shifted down to avoid overlapping with mDNS text (y=115)
+  y = 135; 
   tft.drawLine(0, y, w, y, CARS_RED);
   y += 10;
   
