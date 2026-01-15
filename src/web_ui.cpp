@@ -59,7 +59,7 @@ button:hover { background: #5568d3; }
   html += "<h1><span class=\"status-indicator status-online\" id=\"statusDot\"></span>" + String(projectName()) + " <span class=\"badge\">v" + String(projectVersion()) + "</span></h1>";
   
   // Notification message zone (fixed height to prevent page shift)
-  html += "<div id=\"notificationBox\" style=\"background:#ecf0f1;border-left:4px solid #667eea;padding:12px;border-radius:8px;margin:0 auto 20px;max-width:1200px;min-height:20px;display:none;font-size:0.95em;color:#333;transition:all 0.3s;\"></div>";
+  html += "<div id=\"notificationBox\" style=\"background:#ecf0f1;border-left:4px solid #667eea;padding:12px;border-radius:8px;margin:0 auto 20px;max-width:1200px;height:48px;min-height:48px;max-height:48px;overflow:hidden;font-size:0.95em;color:#333;transition:all 0.3s;opacity:0;pointer-events:none;\"></div>";
   
   // Eye Control Section
   html += "<div class=\"section\"><div class=\"section-title\">🚗 Eye Animation Control</div>";
@@ -128,7 +128,8 @@ let currentAnimation = 0;
 function showNotification(message, type = 'info') {
   const box = document.getElementById('notificationBox');
   box.textContent = message;
-  box.style.display = 'block';
+  box.style.opacity = '1';
+  box.style.pointerEvents = 'auto';
   
   // Change color based on type
   if (type === 'success') {
@@ -151,7 +152,8 @@ function showNotification(message, type = 'info') {
   
   // Auto-hide after 5 seconds
   setTimeout(() => {
-    box.style.display = 'none';
+    box.style.opacity = '0';
+    box.style.pointerEvents = 'none';
   }, 5000);
 }
 
