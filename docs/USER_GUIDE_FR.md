@@ -1,4 +1,8 @@
-# Guide Utilisateur (FR)
+# Guide Utilisateur
+
+**Version:** 1.5.9  
+**Langage:** Français  
+**Version minimale:** 1.0.0  
 
 ## Configurer
 - Secrets : copier `include/secrets_example.h` vers `include/secrets.h` et ajouter vos SSID/mots de passe.

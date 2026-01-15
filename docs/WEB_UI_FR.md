@@ -1,4 +1,8 @@
-# Interface Web et réseau (FR)
+# Interface Web et Réseau
+
+**Version:** 1.5.9  
+**Version minimale:** 1.0.0  
+**Langage:** Français  
 
 ## Vue d'ensemble
 Le système inclut un serveur web embarqué sur le port **80**. Deux endpoints :

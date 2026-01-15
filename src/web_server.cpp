@@ -70,8 +70,14 @@ void init() {
     #if defined(ENV_ESP32S3_N16R8)
     if (server.hasArg("id")) {
       const int animId = server.arg("id").toInt();
-      if (animId >= 0 && animId <= 13) {
-        NeoPixel::setAnimation(static_cast<NeoPixel::AnimationType>(animId));
+      if (animId >= 0 && animId <= 16) {
+        // TURN_LEFT (13) and TURN_RIGHT (14) use short-press behavior (duration-based timeout)
+        // HAZARD (15) stays active like normal animations
+        if (animId == 13 || animId == 14) {
+          NeoPixel::toggleTurnSignal(static_cast<NeoPixel::AnimationType>(animId), false);
+        } else {
+          NeoPixel::setAnimation(static_cast<NeoPixel::AnimationType>(animId));
+        }
         server.send(200, "application/json", "{\"status\":\"ok\",\"animation\":" + String(animId) + "}");
       } else {
         server.send(400, "application/json", "{\"status\":\"error\",\"message\":\"Invalid animation ID\"}");

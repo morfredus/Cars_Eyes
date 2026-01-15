@@ -1,6 +1,8 @@
-# Clignotement Animé - Pattern #03 BLINK (v1.3.0)
+# Clignotement Animé - Pattern #03 BLINK
 
-**Version:** 1.3.0  
+**Version:** 1.5.9  
+**Version minimale:** 1.3.0  
+**Langage:** Français  
 **Date:** 14 janvier 2026  
 **Changement:** Implémentation d'une vraie animation de clignotement
 

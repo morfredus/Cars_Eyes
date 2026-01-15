@@ -5,6 +5,34 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/)
 
 ---
 
+## [1.5.9] - 2026-01-15
+
+### Corrigé
+- **Comportement du mode Hazard** : Correction du bouton warning/hazard pour rester actif en tant qu'animation normale au lieu de s'arrêter après un délai d'expiration.
+  - **TURN_LEFT** (13) : Répond au timeout configuré.
+  - **TURN_RIGHT** (14) : Répond au timeout configuré.
+  - **HAZARD** (15) : Reste maintenant actif indéfiniment jusqu'à la sélection d'une autre animation (comme les animations standard).
+- **Logique des signaux Web UI** : Différenciation du comportement des signaux - seuls les clignotants utilisent le timeout, le mode hazard se comporte comme les animations persistantes.
+
+## [1.5.8] - 2026-01-15
+
+### Corrigé
+- **Clignotants Web UI** : Correction du dysfonctionnement des boutons clignotants dans l'interface web.
+  - **TURN_LEFT** : S'arrête maintenant correctement après la durée configurée (comme le bouton physique).
+  - **TURN_RIGHT** : Maintenant réactif et fonctionnel.
+  - **HAZARD** : Maintenant réactif et fonctionnel.
+- **Validation ID Animation** : Extension de la validation API de 13 à 16 IDs d'animation.
+- **Timeout Signal** : Les clignotants via web UI utilisent maintenant correctement `toggleTurnSignal()` avec timeout basé sur la durée au lieu d'un `setAnimation()` permanent.
+
+## [1.5.7] - 2026-01-15
+
+### Ajouté
+- **Clignotants Interface Web**: Ajout des boutons manquants pour le contrôle des clignotants au tableau de bord web.
+  - Bouton Clignotant Gauche (animation TURN_LEFT)
+  - Bouton Clignotant Droit (animation TURN_RIGHT)
+  - Bouton Warning/Hazard (animation HAZARD avec les deux flèches)
+- **Liste Animations UI**: Mise à jour de la liste des animations du web UI pour inclure les 16 animations complètes incluant les clignotants.
+
 ## [1.5.6] - 2026-01-15
 
 ### Corrigé

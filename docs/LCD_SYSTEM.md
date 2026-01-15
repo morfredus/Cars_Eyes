@@ -1,4 +1,8 @@
-# LCD System (EN)
+# LCD System
+
+**Version:** 1.5.9  
+**Minimum version:** 1.0.0  
+**Language:** English  
 
 ## Overview
 The template uses an **Adafruit ST7789** 240×240 SPI display with the Adafruit GFX library. The display shows three screens:

@@ -1,4 +1,8 @@
-# Structure du projet (FR)
+# Structure du Projet
+
+**Version:** 1.5.9  
+**Version minimale:** 0.1.0  
+**Langage:** Français  
 
 ## Arborescence
 ```

@@ -1,24 +1,24 @@
-# Visualisation des Patterns NeoPixel - Guide Graphique
+# NeoPixel Patterns Visualization - Graphical Guide
 
 **Version:** 1.5.9  
-**Version minimale:** 1.0.0  
-**Langage:** Français  
-**Date:** 14 janvier 2026  
+**Minimum version:** 1.0.0  
+**Language:** English  
+**Date:** January 14, 2026  
 
-Ce document fournit une représentation visuelle complète des 16 patterns avec toutes leurs variantes.
+This document provides a complete visual representation of all 16 patterns with their variations.
 
-## Légende des symboles
+## Symbol Legend
 
 ```
-  0 = . (pixel éteint - noir)
-  1 = ◉ (couleur primaire - orange)
-  2 = ◇ (couleur secondaire - blanc/highlight)
-  3 = ● (couleur tertiaire - ombre/pupille)
+  0 = . (pixel off - black)
+  1 = ◉ (primary color - orange)
+  2 = ◇ (secondary color - white/highlight)
+  3 = ● (tertiary color - shadow/pupil)
 ```
 
 ---
 
-## Pattern #01 - IDLE (Yeux au repos)
+## Pattern #01 - IDLE (Eyes at Rest)
 
 ```
 . . . . . . . .
@@ -31,11 +31,11 @@ Ce document fournit une représentation visuelle complète des 16 patterns avec 
 . . . . . . . .
 ```
 
-**Note:** Pupille sombre (●) au centre, iris (◉) autour, paupières (◇) haut/bas
+**Note:** Dark pupil (●) in center, iris (◉) around it, eyelids (◇) top/bottom
 
 ---
 
-## Pattern #02 - SLEEP (Yeux fermés)
+## Pattern #02 - SLEEP (Eyes Closed)
 
 ```
 . . . . . . . .
@@ -48,11 +48,11 @@ Ce document fournit une représentation visuelle complète des 16 patterns avec 
 . . . . . . . .
 ```
 
-**Note:** Paupière épaisse avec highlights, effet fermé
+**Note:** Thick eyelid with highlights, closed effect
 
 ---
 
-## Pattern #03 - BLINK (Clignement)
+## Pattern #03 - BLINK (Blinking)
 
 ```
 . . . . . . . .
@@ -65,11 +65,11 @@ Ce document fournit une représentation visuelle complète des 16 patterns avec 
 . . . . . . . .
 ```
 
-**Note:** Iris comprimée, paupières fermantes
+**Note:** Compressed iris, closing eyelids
 
 ---
 
-## Pattern #04 - LOOK_LEFT (Regard gauche)
+## Pattern #04 - LOOK_LEFT (Looking Left)
 
 ```
 . . . . . . . .
@@ -82,11 +82,11 @@ Ce document fournit une représentation visuelle complète des 16 patterns avec 
 . . . . . . . .
 ```
 
-**Note:** Pupille décalée à gauche, ombrage latéral (●)
+**Note:** Pupil shifted left, lateral shading (●)
 
 ---
 
-## Pattern #05 - LOOK_RIGHT (Regard droit)
+## Pattern #05 - LOOK_RIGHT (Looking Right)
 
 ```
 . . . . . . . .
@@ -99,11 +99,11 @@ Ce document fournit une représentation visuelle complète des 16 patterns avec 
 . . . . . . . .
 ```
 
-**Note:** Pupille décalée à droite, miroir de LOOK_LEFT
+**Note:** Pupil shifted right, mirror of LOOK_LEFT
 
 ---
 
-## Pattern #06 - LOOK_UP (Regard haut)
+## Pattern #06 - LOOK_UP (Looking Up)
 
 ```
 . . ◇ ◇ ◇ ◇ . .
@@ -116,11 +116,11 @@ Ce document fournit une représentation visuelle complète des 16 patterns avec 
 . . . . . . . .
 ```
 
-**Note:** Pupille remontée, paupière haute relevée
+**Note:** Pupil moved upward, top eyelid raised
 
 ---
 
-## Pattern #07 - LOOK_DOWN (Regard bas)
+## Pattern #07 - LOOK_DOWN (Looking Down)
 
 ```
 . . . . . . . .
@@ -133,11 +133,11 @@ Ce document fournit une représentation visuelle complète des 16 patterns avec 
 . . . . . . . .
 ```
 
-**Note:** Pupille baissée, paupière basse abaissée
+**Note:** Pupil moved downward, bottom eyelid lowered
 
 ---
 
-## Pattern #08 - HAPPY (Joyeux)
+## Pattern #08 - HAPPY (Happy)
 
 ```
 . . ◇ ◇ ◇ ◇ . .
@@ -150,11 +150,11 @@ Ce document fournit une représentation visuelle complète des 16 patterns avec 
 . . . ◇ ◇ . . .
 ```
 
-**Note:** Yeux grands ouverts, reflet de joie (◇) au centre, rides
+**Note:** Eyes wide open, joy reflection (◇) in center, smile lines
 
 ---
 
-## Pattern #09 - SAD (Triste)
+## Pattern #09 - SAD (Sad)
 
 ```
 . ◇ ◇ ◇ ◇ ◇ . .
@@ -167,11 +167,11 @@ Ce document fournit une représentation visuelle complète des 16 patterns avec 
 . . . . . . . .
 ```
 
-**Note:** Iris comprimée, paupières tombantes, larme en bas
+**Note:** Compressed iris, drooping eyelids, tear at bottom
 
 ---
 
-## Pattern #10 - ANGRY (Furieux)
+## Pattern #10 - ANGRY (Angry)
 
 ```
 ◉ ◇ ◇ ◉ ◉ . . .
@@ -184,11 +184,11 @@ Ce document fournit une représentation visuelle complète des 16 patterns avec 
 . . . . . . . .
 ```
 
-**Note:** Plissé intense, iris comprimée, regard agressif
+**Note:** Intense squint, compressed iris, aggressive gaze
 
 ---
 
-## Pattern #11 - SURPRISED (Surpris)
+## Pattern #11 - SURPRISED (Surprised)
 
 ```
 . ◇ ◇ ◇ ◇ ◇ . .
@@ -201,15 +201,15 @@ Ce document fournit une représentation visuelle complète des 16 patterns avec 
 . . . . . . . .
 ```
 
-**Note:** Yeux extrêmement ouverts, pupilles massives, reflets de choc
+**Note:** Extremely wide open eyes, massive pupils, shock reflections
 
 ---
 
-## Pattern #12 - WINK_LEFT (Clin d'œil Gauche)
+## Pattern #12 - WINK_LEFT (Left Eye Wink)
 
-L'œil gauche affiche le pattern BLINK tandis que l'œil droit reste IDLE :
+Left eye shows BLINK pattern while right eye stays IDLE:
 ```
-Œil Gauche:         Œil Droit:
+Left Eye:           Right Eye:
 . . . . . . . .    . . . . . . . .
 . . ◇ ◇ ◇ ◇ . .    . . ◇ ◇ ◇ ◇ . .
 . ◇ ◇ ◉ ◉ ◇ ◇ .   . ◇ ◉ ● ● ◉ ◇ .
@@ -220,15 +220,15 @@ L'œil gauche affiche le pattern BLINK tandis que l'œil droit reste IDLE :
 . . . . . . . .    . . . . . . . .
 ```
 
-**Note:** Clin d'œil asymétrique - gauche se ferme tandis que le droit reste ouvert
+**Note:** Asymmetric wink - left closes while right remains open
 
 ---
 
-## Pattern #13 - WINK_RIGHT (Clin d'œil Droit)
+## Pattern #13 - WINK_RIGHT (Right Eye Wink)
 
-L'œil gauche reste IDLE tandis que l'œil droit affiche le pattern BLINK :
+Left eye stays IDLE while right eye shows BLINK pattern:
 ```
-Œil Gauche:         Œil Droit:
+Left Eye:           Right Eye:
 . . . . . . . .    . . . . . . . .
 . . ◇ ◇ ◇ ◇ . .    . . ◇ ◇ ◇ ◇ . .
 . ◇ ◉ ● ● ◉ ◇ .   . ◇ ◇ ◉ ◉ ◇ ◇ .
@@ -239,11 +239,11 @@ L'œil gauche reste IDLE tandis que l'œil droit affiche le pattern BLINK :
 . . . . . . . .    . . . . . . . .
 ```
 
-**Note:** Clin d'œil asymétrique - droit se ferme tandis que le gauche reste ouvert
+**Note:** Asymmetric wink - right closes while left remains open
 
 ---
 
-## Pattern #14 - LOOK_UP (Regard vers le Haut)
+## Pattern #14 - LOOK_UP (Looking Upward)
 
 ```
 . . ◇ ◇ ◇ ◇ . .
@@ -256,11 +256,11 @@ L'œil gauche reste IDLE tandis que l'œil droit affiche le pattern BLINK :
 . . . . . . . .
 ```
 
-**Note:** Pupille déplacée vers le haut, paupière supérieure levée, paupière inférieure baissée
+**Note:** Pupil moved upward, top eyelid raised, bottom lid down
 
 ---
 
-## Pattern #15 - TURN_LEFT (Flèche Gauche - Clignotant)
+## Pattern #15 - TURN_LEFT (Arrow Left - Turn Signal)
 
 ```
 . . ▓ . . . . .
@@ -273,13 +273,13 @@ L'œil gauche reste IDLE tandis que l'œil droit affiche le pattern BLINK :
 . . ▓ . . . . .
 ```
 
-**Note:** Flèche pointant à gauche utilisant la couleur ambre/primaire pour les clignotants
-- Code pixel spécial (100) s'affiche en couleur primaire
-- Remplit toute la largeur de la matrice pour visibilité automobile
+**Note:** Left-pointing arrow using amber/primary color for turn signals
+- Special pixel code (100) renders as primary color
+- Fills entire matrix width for automotive visibility
 
 ---
 
-## Pattern #16 - TURN_RIGHT (Flèche Droite - Clignotant)
+## Pattern #16 - TURN_RIGHT (Arrow Right - Turn Signal)
 
 ```
 . . . . . . ▓ . .
@@ -292,17 +292,17 @@ L'œil gauche reste IDLE tandis que l'œil droit affiche le pattern BLINK :
 . . . . . . ▓ . .
 ```
 
-**Note:** Flèche pointant à droite utilisant la couleur ambre/primaire pour les clignotants
-- Code pixel spécial (100) s'affiche en couleur primaire
-- Remplit toute la largeur de la matrice pour visibilité automobile
+**Note:** Right-pointing arrow using amber/primary color for turn signals
+- Special pixel code (100) renders as primary color  
+- Fills entire matrix width for automotive visibility
 
 ---
 
-## Pattern #17 - HAZARD (Les Deux Flèches - Mode Hazard)
+## Pattern #17 - HAZARD (Both Arrows - Hazard Warning)
 
-Lorsqu'elle est activée, les deux yeux affichent simultanément :
+When activated, both eyes display simultaneously:
 ```
-Œil Gauche (TURN_LEFT):   Œil Droit (TURN_RIGHT):
+Left Eye (TURN_LEFT):     Right Eye (TURN_RIGHT):
 . . ▓ . . . . .          . . . . . . ▓ . .
 . ▓ ▓ . . . . .          . . . . . . ▓ ▓ .
 ▓ ▓ ▓ ▓ ▓ ▓ ▓ .         . ▓ ▓ ▓ ▓ ▓ ▓ ▓
@@ -313,17 +313,17 @@ Lorsqu'elle est activée, les deux yeux affichent simultanément :
 . . ▓ . . . . .          . . . . . . ▓ . .
 ```
 
-**Note:** Les deux flèches affichées simultanément pour le mode hazard/warning
-- Activé par appui simultané de boutons (Bouton 1 + Bouton 2)
-- Crée un effet d'avertissement bi-directionnel
+**Note:** Both arrows displayed simultaneously for hazard/warning mode
+- Activated by simultaneous button press (Button 1 + Button 2)
+- Creates bi-directional warning effect
 
 ---
 
-## Comparaison visuelle: AVANT → APRÈS
+## Visual Comparison: BEFORE → AFTER
 
-### AVANT (2 couleurs, plat)
+### BEFORE (2 colors, flat)
 ```
-Pattern IDLE (ancien):
+Pattern IDLE (old):
 . . . . . . . .
 . . 1 1 1 1 . .
 . 1 2 2 2 2 1 .
@@ -333,12 +333,12 @@ Pattern IDLE (ancien):
 . . 1 1 1 1 . .
 . . . . . . . .
 
-= 2 niveaux : Paupière(1) + Centre(2)
+= 2 levels: Eyelid(1) + Center(2)
 ```
 
-### APRÈS (3 couleurs, 3D)
+### AFTER (3 colors, 3D)
 ```
-Pattern IDLE (nouveau):
+Pattern IDLE (new):
 . . . . . . . .
 . . ◇ ◇ ◇ ◇ . .
 . ◇ ◉ ● ● ◉ ◇ .
@@ -348,51 +348,51 @@ Pattern IDLE (nouveau):
 . . . ◉ ◉ . . .
 . . . . . . . .
 
-= 3 niveaux + détails:
-  - Paupière(◇) avec highlights
-  - Iris(◉) naturelle
-  - Pupille(●) sombre
-  - Cils en bas
+= 3 levels + details:
+  - Eyelid(◇) with highlights
+  - Natural iris(◉)
+  - Dark pupil(●)
+  - Lashes at bottom
 ```
 
-**Gain:** +40% de détail visuel
+**Gain:** +40% visual detail
 
 ---
 
-## Guide de couleurs
+## Color Schemes
 
 ### Configuration #1: Orange (Cars)
-- ◉ Primaire = RGB(255, 69, 0) - Orange Pixar
-- ◇ Secondaire = RGB(255, 255, 255) - Blanc pur
-- ● Tertiaire = RGB(26, 9, 0) - Marron très foncé
+- ◉ Primary = RGB(255, 69, 0) - Pixar Orange
+- ◇ Secondary = RGB(255, 255, 255) - Pure White
+- ● Tertiary = RGB(26, 9, 0) - Very Dark Brown
 
-### Configuration #2: Bleu (Nuit)
-- ◉ Primaire = RGB(0, 102, 255) - Bleu lumineux
-- ◇ Secondaire = RGB(153, 221, 255) - Bleu clair
-- ● Tertiaire = RGB(0, 17, 85) - Bleu très foncé
+### Configuration #2: Blue (Night)
+- ◉ Primary = RGB(0, 102, 255) - Bright Blue
+- ◇ Secondary = RGB(153, 221, 255) - Light Blue
+- ● Tertiary = RGB(0, 17, 85) - Very Dark Blue
 
-### Configuration #3: Vert (Amical)
-- ◉ Primaire = RGB(51, 255, 51) - Vert lime
-- ◇ Secondaire = RGB(221, 255, 221) - Vert très clair
-- ● Tertiaire = RGB(17, 51, 17) - Vert très foncé
-
----
-
-## Recommandations d'utilisation
-
-| Pattern | Contexte | Durée typique |
-|---------|----------|---------------|
-| IDLE | Affichage par défaut | Continu |
-| SLEEP | Mode sommeil | Continu |
-| BLINK | Animation rapide | 100-200ms |
-| LOOK_* | Navigation/attention | 1-2 secondes |
-| HAPPY | Confirmation positive | 1-2 secondes |
-| SAD | Erreur/regret | 2-3 secondes |
-| ANGRY | Alerte/urgence | 2-3 secondes |
-| SURPRISED | Notification surprise | 1-2 secondes |
+### Configuration #3: Green (Friendly)
+- ◉ Primary = RGB(51, 255, 51) - Lime Green
+- ◇ Secondary = RGB(221, 255, 221) - Very Light Green
+- ● Tertiary = RGB(17, 51, 17) - Very Dark Green
 
 ---
 
-**Généré:** 14 janvier 2026  
+## Usage Recommendations
+
+| Pattern | Context | Typical Duration |
+|---------|---------|------------------|
+| IDLE | Default display | Continuous |
+| SLEEP | Sleep mode | Continuous |
+| BLINK | Fast animation | 100-200ms |
+| LOOK_* | Navigation/attention | 1-2 seconds |
+| HAPPY | Positive confirmation | 1-2 seconds |
+| SAD | Error/regret | 2-3 seconds |
+| ANGRY | Alert/urgency | 2-3 seconds |
+| SURPRISED | Surprise notification | 1-2 seconds |
+
+---
+
+**Generated:** January 14, 2026  
 **Format:** ASCII Art visualization  
-**Résolution:** 8×8 pixels per eye
+**Resolution:** 8×8 pixels per eye

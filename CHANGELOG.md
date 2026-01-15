@@ -5,6 +5,34 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.5.9] - 2026-01-15
+
+### Fixed
+- **Hazard Mode Behavior**: Fixed hazard/warning button to remain active as a normal animation instead of timing out.
+  - **TURN_LEFT** (13): Responds to configured duration timeout.
+  - **TURN_RIGHT** (14): Responds to configured duration timeout.
+  - **HAZARD** (15): Now stays active indefinitely until another animation is selected (like standard animations).
+- **Web UI Signal Logic**: Differentiated signal behavior - only turn signals use timeout, hazard mode behaves like persistent animations.
+
+## [1.5.8] - 2026-01-15
+
+### Fixed
+- **Web UI Turn Signals**: Fixed turn signal buttons in web UI not functioning correctly.
+  - **TURN_LEFT**: Now properly stops after configured duration (like physical button).
+  - **TURN_RIGHT**: Now responsive and functional.
+  - **HAZARD**: Now responsive and functional.
+- **Animation ID Validation**: Extended API validation from 13 to 16 animation IDs.
+- **Signal Timeout**: Turn signals via web UI now correctly use `toggleTurnSignal()` with duration-based timeout instead of permanent `setAnimation()`.
+
+## [1.5.7] - 2026-01-15
+
+### Added
+- **Web UI Turn Signals**: Added missing buttons for turn signal control to the web dashboard.
+  - Left Turn Signal button (TURN_LEFT animation)
+  - Right Turn Signal button (TURN_RIGHT animation)
+  - Hazard Warning button (HAZARD animation with both arrows)
+- **UI Animation List**: Updated web UI animation list to include all 16 animations including turn signals.
+
 ## [1.5.6] - 2026-01-15
 
 ### Fixed

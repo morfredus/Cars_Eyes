@@ -1,6 +1,9 @@
-# Documentation - Schémas de couleurs NeoPixel (v1.2.0)
+# Schémas de Couleurs NeoPixel
 
-**Version:** 1.2.0  
+**Version:** 1.5.9  
+**Version minimale:** 1.2.0  
+**Langage:** Français  
+**Date:** 14 janvier 2026  
 **Date:** 14 janvier 2026  
 **Changement:** Ajout des schémas de couleurs complémentaires
 

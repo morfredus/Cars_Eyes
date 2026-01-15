@@ -1,6 +1,8 @@
-# Documentation - NeoPixel Color Schemes (v1.2.0)
+# NeoPixel Color Schemes
 
-**Version:** 1.2.0  
+**Version:** 1.5.9  
+**Minimum version:** 1.2.0  
+**Language:** English  
 **Date:** January 14, 2026  
 **Change:** Added complementary color schemes
 

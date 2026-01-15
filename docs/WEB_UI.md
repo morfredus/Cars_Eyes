@@ -1,4 +1,8 @@
-# Web UI & Networking (EN)
+# Web UI & Networking
+
+**Version:** 1.5.9  
+**Minimum version:** 1.0.0  
+**Language:** English  
 
 ## Web UI Overview
 The system includes a built-in web server serving on port **80**. Two endpoints:

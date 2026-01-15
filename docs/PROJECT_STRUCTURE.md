@@ -1,4 +1,8 @@
-# Project Structure (EN)
+# Project Structure
+
+**Version:** 1.5.9  
+**Minimum version:** 0.1.0  
+**Language:** English  
 
 ## File Tree
 ```

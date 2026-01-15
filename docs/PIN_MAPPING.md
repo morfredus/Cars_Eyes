@@ -1,4 +1,8 @@
-# Pin Mapping Guide (EN)
+# Pin Mapping Guide
+
+**Version:** 1.5.9  
+**Minimum version:** 0.2.0  
+**Language:** English  
 
 > **Minimum version:** 0.2.0
 

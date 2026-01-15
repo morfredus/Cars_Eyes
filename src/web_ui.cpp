@@ -52,6 +52,8 @@ button:hover { background: #5568d3; }
 .status-indicator { width: 12px; height: 12px; border-radius: 50%; display: inline-block; margin-right: 8px; }
 .status-online { background: #4caf50; box-shadow: 0 0 8px #4caf50; }
 .status-offline { background: #f44336; box-shadow: 0 0 8px #f44336; }
+.blinking { animation: blinker 1.5s linear infinite; }
+@keyframes blinker { 0% { opacity: 1; } 50% { opacity: 0; } 100% { opacity: 1; } }
 )rawliteral";
   html += "</style></head><body><div class=\"shell\">";
   html += "<h1><span class=\"status-indicator status-online\" id=\"statusDot\"></span>" + String(projectName()) + " <span class=\"badge\">v" + String(projectVersion()) + "</span></h1>";
@@ -72,6 +74,9 @@ button:hover { background: #5568d3; }
   html += "<button class=\"eye-btn\" onclick=\"setAnim(10)\">😠 ANGRY</button>";
   html += "<button class=\"eye-btn\" onclick=\"setAnim(11)\">😲 SURPRISED</button>";
   html += "<button class=\"eye-btn\" onclick=\"setAnim(12)\">😴 SLEEP</button>";
+  html += "<button class=\"eye-btn\" onclick=\"setAnim(13)\">⬅️ TURN LEFT</button>";
+  html += "<button class=\"eye-btn\" onclick=\"setAnim(14)\">➡️ TURN RIGHT</button>";
+  html += "<button class=\"eye-btn\" onclick=\"setAnim(15)\">⚠️ HAZARD</button>";
   html += "</div>";
   
   // Color scheme presets
@@ -161,7 +166,7 @@ function updateStatus() {
   fetch('/api/eyes/status').then(r => r.json()).then(d => {
     currentAnimation = d.animation;
     updateButtons();
-    const animNames = ['IDLE','BLINK','WINK LEFT','WINK RIGHT','LOOK LEFT','LOOK RIGHT','LOOK UP','LOOK DOWN','HAPPY','SAD','ANGRY','SURPRISED','SLEEP'];
+    const animNames = ['IDLE','BLINK','WINK LEFT','WINK RIGHT','LOOK LEFT','LOOK RIGHT','LOOK UP','LOOK DOWN','HAPPY','SAD','ANGRY','SURPRISED','SLEEP','TURN LEFT','TURN RIGHT','HAZARD'];
     document.getElementById('currentAnim').textContent = animNames[d.animation] || 'UNKNOWN';
     document.getElementById('brightVal').textContent = d.brightness;
     document.getElementById('brightness').value = d.brightness;

@@ -1,4 +1,8 @@
-# User Guide (EN)
+# User Guide
+
+**Version:** 1.5.9  
+**Language:** English  
+**Minimum version:** 1.0.0  
 
 ## Configure
 - Secrets: copy `include/secrets_example.h` to `include/secrets.h` and list SSID/password pairs.
@@ -58,3 +62,16 @@ The system supports 3 physical buttons for direct control:
 - Prefer platform libraries first; add third-party deps sparingly in `[env]`.
 - Test both environments after changes; watch GPIO safety notes above.
 - Commit updates with matching README/CHANGELOG updates for every version bump.
+
+## Physical Controls (Buttons) - Extended
+The system supports additional physical controls for enhanced signaling:
+- **Button 4 (User 3)**: Short press/hold for **Warning Signal** (flashes both left and right signals).
+- **Button 5 (User 4)**: Short press/hold for **Panic Signal** (flashes signals and turns on headlights).
+
+**Extended Signal Logic:**
+- **Warning Signal**: Activates both left and right turn signals alternately.
+- **Panic Signal**: Activates all signals and headlights; press again to cancel.
+
+## Note
+- Ensure all buttons are correctly wired and configured in `board_config.h`.
+- Test each button's functionality after setup to confirm correct operation.
