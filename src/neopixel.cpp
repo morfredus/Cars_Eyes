@@ -4,6 +4,7 @@
 
 #if defined(ENV_ESP32S3_N16R8)
 #include <Adafruit_NeoPixel.h>
+#include <Preferences.h>
 
 // ============================================================================
 // GLOBAL OBJECTS
@@ -12,6 +13,7 @@
 static Adafruit_NeoPixel eyeLeft(NEOPIXEL_MATRIX_COUNT, NEOPIXEL_EYE_LEFT_PIN, NEO_GRB + NEO_KHZ800);
 static Adafruit_NeoPixel eyeRight(NEOPIXEL_MATRIX_COUNT, NEOPIXEL_EYE_RIGHT_PIN, NEO_GRB + NEO_KHZ800);
 static Adafruit_NeoPixel statusLed(1, NEOPIXEL_STATUS_PIN, NEO_GRB + NEO_KHZ800);
+static Preferences prefs;
 
 namespace NeoPixel {
 
@@ -33,6 +35,13 @@ static EyeState g_eyeState = {
 static ColorScheme g_currentScheme = ColorScheme::CARS_ORANGE;
 static unsigned long g_lastFrameTime = 0;
 static unsigned long g_nextIdleBlinkTime = 0;
+
+// Signal State
+static uint16_t g_signalDurationMs = 3000;   // Default 3s short press
+static bool g_signalActive = false;
+static bool g_signalLongPress = false;
+static unsigned long g_signalStartTime = 0;
+static AnimationType g_previousAnimation = AnimationType::IDLE;
 
 // ============================================================================
 // COLOR SCHEME DEFINITIONS
@@ -320,6 +329,33 @@ static const uint8_t PATTERN_SURPRISED_FRAME1[64] = {
 };
 
 
+// --- PATTERN #16: ARROW RIGHT (Turn Signal) --------------------------------
+static const uint8_t PATTERN_ARROW_RIGHT[64] = {
+  0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 100, 0, 0, 0, 0, 0,
+  0, 0, 100, 100, 0, 0, 0, 0,
+  0, 0, 100, 100, 100, 0, 0, 0,
+  0, 0, 100, 100, 100, 100, 0, 0,
+  0, 0, 100, 100, 100, 0, 0, 0,
+  0, 0, 100, 100, 0, 0, 0, 0,
+  0, 0, 100, 0, 0, 0, 0, 0
+};
+
+// --- PATTERN #17: ARROW LEFT (Turn Signal) --------------------------------
+static const uint8_t PATTERN_ARROW_LEFT[64] = {
+  0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 100, 0, 0,
+  0, 0, 0, 0, 100, 100, 0, 0,
+  0, 0, 0, 100, 100, 100, 0, 0,
+  0, 0, 100, 100, 100, 100, 0, 0,
+  0, 0, 0, 100, 100, 100, 0, 0,
+  0, 0, 0, 0, 100, 100, 0, 0,
+  0, 0, 0, 0, 0, 100, 0, 0
+};
+
+// --- PATTERN #18: HAZARD (Both Arrows Out) ---------------------------------
+// Reuse ARROW_LEFT for Left Eye and ARROW_RIGHT for Right Eye
+
 // ============================================================================
 // HELPER FUNCTIONS
 // ============================================================================
@@ -434,6 +470,19 @@ static const uint8_t* getPatternForAnimation(AnimationType anim, uint8_t frame) 
       if (frame % 40 < 20) return PATTERN_SLEEP_FRAME0;
       return PATTERN_SLEEP_FRAME1;
 
+    case AnimationType::TURN_LEFT:
+      if (frame % 10 < 5) return PATTERN_ARROW_LEFT;
+      return NULL; // Blink off
+
+    case AnimationType::TURN_RIGHT:
+      if (frame % 10 < 5) return PATTERN_ARROW_RIGHT;
+      return NULL; // Blink off
+    
+    case AnimationType::HAZARD:
+       // Handled in main loop logic as mixture, but pattern getter needs base
+      if (frame % 10 < 5) return PATTERN_ARROW_LEFT; // Default placeholder
+      return NULL; 
+
     default:
       return PATTERN_IDLE_FRAME0;
   }
@@ -443,9 +492,84 @@ static const uint8_t* getPatternForAnimation(AnimationType anim, uint8_t frame) 
 // PUBLIC API IMPLEMENTATION
 // ============================================================================
 
+void loadSettings() {
+  prefs.begin("carseyes", true); // Read-only mode
+  g_eyeState.brightness = prefs.getUChar("bright", NEOPIXEL_BRIGHTNESS);
+  g_eyeState.primaryColor = prefs.getUInt("col_pri", 0x00FF4500);
+  g_eyeState.secondaryColor = prefs.getUInt("col_sec", 0x000099FF);
+  g_eyeState.tertiaryColor = prefs.getUInt("col_ter", 0x00000000);
+  g_currentScheme = (ColorScheme)prefs.getInt("scheme", (int)ColorScheme::CARS_ORANGE);
+  g_signalDurationMs = prefs.getUShort("sig_dur", 3000);
+  
+  // Load saved mode if not idle
+  int savedAnim = prefs.getInt("anim", (int)AnimationType::IDLE);
+  g_eyeState.currentAnimation = (AnimationType)savedAnim;
+  
+  prefs.end();
+}
+
+void saveSettings() {
+  prefs.begin("carseyes", false); // RW mode
+  prefs.putUChar("bright", g_eyeState.brightness);
+  prefs.putUInt("col_pri", g_eyeState.primaryColor);
+  prefs.putUInt("col_sec", g_eyeState.secondaryColor);
+  prefs.putUInt("col_ter", g_eyeState.tertiaryColor);
+  prefs.putInt("scheme", (int)g_currentScheme);
+  prefs.putUShort("sig_dur", g_signalDurationMs);
+  prefs.putInt("anim", (int)g_eyeState.currentAnimation);
+  prefs.end();
+}
+
+void setSignalDuration(uint16_t durationMs) {
+  g_signalDurationMs = durationMs;
+  saveSettings();
+}
+
+uint16_t getSignalDuration() { return g_signalDurationMs; }
+
+void toggleTurnSignal(AnimationType type, bool longPress) {
+  // If requesting same type that is already active
+  if (g_signalActive && g_eyeState.currentAnimation == type) {
+      // If was short, now long -> Upgrade to long
+      if (!g_signalLongPress && longPress) {
+         g_signalLongPress = true;
+         return;
+      }
+      // If was active (long or short) and new request is canceling or re-triggering?
+      // Rule: If already active, cancel it
+      setAnimation(g_previousAnimation); 
+      g_signalActive = false;
+      return;
+  }
+  
+  // If not active, start new signal
+  if (!g_signalActive) {
+      g_previousAnimation = g_eyeState.currentAnimation;
+  }
+  
+  g_signalActive = true;
+  g_signalLongPress = longPress;
+  g_signalStartTime = millis();
+  
+  // Directly set animation without verifying 'g_eyeState.currentAnimation' persistence for saving
+  // We don't want to save temporary signal state
+  g_eyeState.currentAnimation = type;
+  g_eyeState.animationFrame = 0;
+  g_lastFrameTime = millis();
+  
+  update();
+}
+
 void setAnimation(AnimationType animation) {
   g_eyeState.currentAnimation = animation;
   g_eyeState.animationFrame = 0;
+  
+  // Clear signal flag if we manually change animation
+  if (animation != AnimationType::TURN_LEFT && 
+      animation != AnimationType::TURN_RIGHT && 
+      animation != AnimationType::HAZARD) {
+        g_signalActive = false;
+  }
   
   // FIX: Force immediate update logic
   g_lastFrameTime = 0;
@@ -455,10 +579,18 @@ void setAnimation(AnimationType animation) {
       g_eyeState.lastAnimationChange = millis();
   }
   
+  // Persist choice (except signals)
+  if (!g_signalActive) {
+    saveSettings(); 
+  }
+  
   update();
 }
 
 void init() {
+  // Load settings first
+  loadSettings();
+
   eyeLeft.begin();
   eyeLeft.clear();
   eyeLeft.setBrightness(g_eyeState.brightness);
@@ -471,7 +603,8 @@ void init() {
   statusLed.clear();
   statusLed.setBrightness(64);
   
-  setAnimation(AnimationType::IDLE);
+  // Apply loaded animation
+  setAnimation(g_eyeState.currentAnimation);
 }
 
 void setBrightness(uint8_t brightness) {
@@ -479,6 +612,7 @@ void setBrightness(uint8_t brightness) {
   eyeLeft.setBrightness(brightness);
   eyeRight.setBrightness(brightness);
   show();
+  saveSettings();
 }
 
 uint8_t getBrightness() { return g_eyeState.brightness; }
@@ -486,9 +620,9 @@ void clear() { eyeLeft.clear(); eyeRight.clear(); show(); }
 uint32_t makeColor(uint8_t r, uint8_t g, uint8_t b) { return eyeLeft.Color(r,g,b); }
 AnimationType getAnimation() { return g_eyeState.currentAnimation; }
 
-void setPrimaryColor(uint32_t color) { g_eyeState.primaryColor = color; update(); }
-void setSecondaryColor(uint32_t color) { g_eyeState.secondaryColor = color; update(); }
-void setTertiaryColor(uint32_t color) { g_eyeState.tertiaryColor = color; update(); }
+void setPrimaryColor(uint32_t color) { g_eyeState.primaryColor = color; saveSettings(); update(); }
+void setSecondaryColor(uint32_t color) { g_eyeState.secondaryColor = color; saveSettings(); update(); }
+void setTertiaryColor(uint32_t color) { g_eyeState.tertiaryColor = color; saveSettings(); update(); }
 
 void applyColorScheme(ColorScheme scheme) {
   g_currentScheme = scheme;
@@ -509,6 +643,7 @@ void applyColorScheme(ColorScheme scheme) {
       g_eyeState.tertiaryColor = SCHEME_ELEGANT_BLUE[2];
       break;
   }
+  saveSettings();
   update();
 }
 ColorScheme getCurrentColorScheme() { return g_currentScheme; }
@@ -522,8 +657,18 @@ bool isAutoPlayEnabled() { return g_eyeState.autoPlay; }
 void update() {
   const unsigned long now = millis();
   
-  // AutoPlay Logic
-  if (g_eyeState.autoPlay) {
+  // Signal Logic (Timer)
+  if (g_signalActive && !g_signalLongPress) {
+      if (now - g_signalStartTime > g_signalDurationMs) {
+          // Time expired, turn off signal
+          setAnimation(g_previousAnimation);
+          g_signalActive = false;
+          return;
+      }
+  }
+
+  // AutoPlay Logic (Disable if signal active)
+  if (g_eyeState.autoPlay && !g_signalActive) {
     const unsigned long elapsed = now - g_eyeState.lastAnimationChange;
     // Reduce change interval to avoid "freeze" feeling
     if (elapsed > 2000) {
@@ -545,8 +690,8 @@ void update() {
        }
     }
   } else {
-    // Manual Mode Logic: Random Blink in IDLE
-    if (g_eyeState.currentAnimation == AnimationType::IDLE) {
+    // Manual Mode Logic: Random Blink in IDLE (Only if not in signal mode)
+    if (!g_signalActive && g_eyeState.currentAnimation == AnimationType::IDLE) {
       if (g_nextIdleBlinkTime == 0) {
         g_nextIdleBlinkTime = now + random(3000, 8000);
       }
@@ -574,18 +719,51 @@ void update() {
     if (g_eyeState.animationFrame > 200) g_eyeState.animationFrame = 0;
 
     const uint8_t* patternLeft = getPatternForAnimation(anim, g_eyeState.animationFrame);
-    const uint8_t* patternRight = patternLeft; 
+    const uint8_t* patternRight = patternLeft; // Default same
     
+    // Pattern Selection overrides
     if (anim == AnimationType::WINK_LEFT) {
        patternLeft = getPatternForAnimation(AnimationType::BLINK, g_eyeState.animationFrame);
        patternRight = getPatternForAnimation(AnimationType::IDLE, g_eyeState.animationFrame);
     } else if (anim == AnimationType::WINK_RIGHT) {
        patternLeft = getPatternForAnimation(AnimationType::IDLE, g_eyeState.animationFrame);
        patternRight = getPatternForAnimation(AnimationType::BLINK, g_eyeState.animationFrame);
+    } else if (anim == AnimationType::TURN_LEFT) {
+       patternLeft = getPatternForAnimation(AnimationType::TURN_LEFT, g_eyeState.animationFrame);
+       patternRight = NULL; // Blank
+    } else if (anim == AnimationType::TURN_RIGHT) {
+       patternLeft = NULL; // Blank
+       patternRight = getPatternForAnimation(AnimationType::TURN_RIGHT, g_eyeState.animationFrame);
+    } else if (anim == AnimationType::HAZARD) {
+       // Use Left Arrow on Left, Right Arrow on Right
+       patternLeft = getPatternForAnimation(AnimationType::TURN_LEFT, g_eyeState.animationFrame);
+       patternRight = getPatternForAnimation(AnimationType::TURN_RIGHT, g_eyeState.animationFrame);
     }
     
-    drawPattern(eyeLeft, patternLeft, g_eyeState.primaryColor, g_eyeState.secondaryColor, g_eyeState.tertiaryColor);
-    drawPattern(eyeRight, patternRight, g_eyeState.primaryColor, g_eyeState.secondaryColor, g_eyeState.tertiaryColor);
+    // Draw Left
+    if (patternLeft) {
+       // Turn signals use classic AMBER color (0xFFBF00) usually, but we use primary color if custom? 
+       // Requirement says "arrow", assuming standard color scheme or specific orange.
+       // Let's use standard amber for implementation to look like a car.
+       uint32_t cPri = g_eyeState.primaryColor;
+       if (anim == AnimationType::TURN_LEFT || anim == AnimationType::TURN_RIGHT || anim == AnimationType::HAZARD) {
+           cPri = 0x00FFBF00; // Amber
+       }
+       drawPattern(eyeLeft, patternLeft, cPri, g_eyeState.secondaryColor, g_eyeState.tertiaryColor);
+    } else {
+       eyeLeft.clear();
+    }
+    
+    // Draw Right
+    if (patternRight) {
+       uint32_t cPri = g_eyeState.primaryColor;
+       if (anim == AnimationType::TURN_LEFT || anim == AnimationType::TURN_RIGHT || anim == AnimationType::HAZARD) {
+           cPri = 0x00FFBF00; // Amber
+       }
+       drawPattern(eyeRight, patternRight, cPri, g_eyeState.secondaryColor, g_eyeState.tertiaryColor);
+    } else {
+       eyeRight.clear();
+    }
     
     show();
   }

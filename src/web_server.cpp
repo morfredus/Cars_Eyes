@@ -102,6 +102,24 @@ void init() {
     #endif
   });
 
+  server.on("/api/eyes/signal_duration", []() {
+    #if defined(ENV_ESP32S3_N16R8)
+    if (server.hasArg("value")) {
+      const int val = server.arg("value").toInt();
+      if (val >= 100 && val <= 60000) {
+        NeoPixel::setSignalDuration((uint16_t)val);
+        server.send(200, "application/json", "{\"status\":\"ok\",\"signal_duration\":" + String(val) + "}");
+      } else {
+        server.send(400, "application/json", "{\"status\":\"error\",\"message\":\"Invalid duration\"}");
+      }
+    } else {
+      server.send(400, "application/json", "{\"status\":\"error\",\"message\":\"Missing value parameter\"}");
+    }
+    #else
+    server.send(501, "application/json", "{\"status\":\"error\",\"message\":\"NeoPixel not available\"}");
+    #endif
+  });
+
   server.on("/api/eyes/color", []() {
     #if defined(ENV_ESP32S3_N16R8)
     if (server.hasArg("type") && server.hasArg("value")) {

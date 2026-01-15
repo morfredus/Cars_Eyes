@@ -25,6 +25,9 @@ enum class AnimationType {
   ANGRY,           // Angry expression
   SURPRISED,       // Surprised expression
   SLEEP,           // Sleeping (eyes closed)
+  TURN_LEFT,       // Arrow Left (Turn Signal)
+  TURN_RIGHT,      // Arrow Right (Turn Signal)
+  HAZARD,          // Hazard lights
   CUSTOM           // Custom pattern from web UI
 };
 

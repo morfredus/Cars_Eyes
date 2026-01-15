@@ -5,6 +5,19 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/)
 
 ---
 
+## [1.5.0] - 2026-01-15
+
+### Ajouté
+- **Clignotants**: Nouvelle fonctionnalité activée par les boutons physiques.
+  - Bouton 1 : Clignotant Gauche (Flèche Gauche).
+  - Bouton 2 : Clignotant Droit (Flèche Droite).
+  - Bouton 1+2 : Mode Warning (Les deux flèches).
+  - Appui Court : Actif pour une durée configurable.
+  - Appui Long : Actif indéfiniment jusqu'à annulation.
+- **Sauvegarde Mémoire**: Les paramètres sont maintenant sauvegardés en mémoire NVS et restaurés au démarrage.
+  - Sauvegarde : Luminosité, Couleurs, Mode Animation, Thème, Durée clignotant.
+- **Configuration Web UI**: Ajout d'un slider pour configurer la durée du clignotant (défaut 3000ms).
+
 ## [1.4.2] - 2026-01-15
 
 ### Corrigé

@@ -92,6 +92,9 @@ button:hover { background: #5568d3; }
   html += "<div class=\"slider-label\"><label>Brightness: <span id=\"brightVal\">32</span></label></div>";
   html += "<input type=\"range\" min=\"0\" max=\"255\" value=\"32\" id=\"brightness\" oninput=\"setBright(this.value)\">";
   
+  html += "<div class=\"slider-label\"><label>Turn Signal Duration (ms): <span id=\"sigDurVal\">3000</span></label></div>";
+  html += "<input type=\"range\" min=\"1000\" max=\"10000\" step=\"500\" value=\"3000\" id=\"sigDur\" onchange=\"setSigDur(this.value)\" oninput=\"document.getElementById('sigDurVal').textContent=this.value\">";
+  
   html += "<div class=\"slider-label\"><label>Auto-Play Mode</label><label class=\"switch\"><input type=\"checkbox\" id=\"autoplay\" onchange=\"setAutoPlay(this.checked)\"><span class=\"slider\"></span></label></div>";
   html += "</div>";
   
@@ -143,6 +146,9 @@ function setBright(val) {
   document.getElementById('brightVal').textContent = val;
   fetch('/api/eyes/brightness?value=' + val).then(r => r.json()).then(d => console.log(d));
 }
+function setSigDur(val) {
+  fetch('/api/eyes/signal_duration?value=' + val).then(r => r.json()).then(d => console.log(d));
+}
 function setAutoPlay(enabled) {
   fetch('/api/eyes/autoplay?enabled=' + (enabled ? '1' : '0')).then(r => r.json()).then(d => console.log(d));
 }
@@ -159,6 +165,10 @@ function updateStatus() {
     document.getElementById('currentAnim').textContent = animNames[d.animation] || 'UNKNOWN';
     document.getElementById('brightVal').textContent = d.brightness;
     document.getElementById('brightness').value = d.brightness;
+    if (d.signalDuration) {
+       document.getElementById('sigDur').value = d.signalDuration;
+       document.getElementById('sigDurVal').textContent = d.signalDuration;
+    }
     document.getElementById('autoplay').checked = d.autoplay;
     document.getElementById('primaryColor').value = '#' + d.primary_color.toString(16).padStart(6, '0');
     document.getElementById('secondaryColor').value = '#' + d.secondary_color.toString(16).padStart(6, '0');
@@ -224,6 +234,7 @@ String buildEyeStatusJson() {
   String json = "{";
   json += "\"animation\":" + String(static_cast<int>(state.currentAnimation)) + ",";
   json += "\"brightness\":" + String(state.brightness) + ",";
+  json += "\"signalDuration\":" + String(NeoPixel::getSignalDuration()) + ",";
   json += "\"primary_color\":" + String(state.primaryColor) + ",";
   json += "\"secondary_color\":" + String(state.secondaryColor) + ",";
   json += "\"autoplay\":" + String(state.autoPlay ? "true" : "false");

@@ -5,6 +5,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.5.0] - 2026-01-15
+
+### Added
+- **Turn Signals**: New feature triggered by physical buttons.
+  - Button 1: Left Turn Signal (Arrow Left).
+  - Button 2: Right Turn Signal (Arrow Right).
+  - Button 1+2: Warning/Hazard Mode (Both Arrows).
+  - Short Press: Active for configurable duration.
+  - Long Press: Active indefinitely until cancelled.
+- **Persistence**: Application settings are now saved to NVS memory and restored on boot.
+  - Saves: Brightness, Selected Colors, Animation Mode, Color Scheme, Signal Duration.
+- **Web UI Configuration**: Added check slider to configure Turn Signal duration (default 3000ms).
+
 ## [1.4.2] - 2026-01-15
 
 ### Fixed
