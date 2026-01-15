@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.5.5] - 2026-01-15
+
+### Fixed
+- **LCD Display**: Fixed a bug where the "MODE" status on the LCD screen would not update when the animation was changed via the Web UI.
+
 ## [1.5.4] - 2026-01-15
 
 ### Changed

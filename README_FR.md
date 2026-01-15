@@ -1,6 +1,6 @@
 # Neopixel Eyes (Yeux Animés)
 
-> **Version :** 1.5.4  
+> **Version :** 1.5.5  
 > **Version minimum :** 1.0.0
 
 **Système d'yeux animés utilisant deux matrices NeoPixel 8x8 pour ESP32-S3, inspiré des personnages du film Cars.**

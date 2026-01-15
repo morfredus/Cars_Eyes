@@ -179,13 +179,35 @@ void updateMainScreen(bool force) {
   
   // Access UI state
   UiState::State& ui = UiState::getState();
+
+  // Access Eye state for mode check
+  #if defined(ENV_ESP32S3_N16R8)
+  const NeoPixel::EyeState& eyeState = NeoPixel::getState();
+  const NeoPixel::AnimationType currentAnim = eyeState.currentAnimation;
+  const bool autoPlay = eyeState.autoPlay;
+  #else
+  const int currentAnim = 0;
+  const bool autoPlay = false;
+  #endif
+
+  // Track previous animation state to trigger updates
+  static int lastAnimId = -1;
+  static bool lastAutoPlay = false;
   
-  if (!force && wifiNow == ui.wifiConnected && ssidNow == ui.currentSsid && ipNow == ui.currentIp) {
+  if (!force && 
+      wifiNow == ui.wifiConnected && 
+      ssidNow == ui.currentSsid && 
+      ipNow == ui.currentIp && 
+      (int)currentAnim == lastAnimId && 
+      autoPlay == lastAutoPlay) {
     return;
   }
+  
   ui.wifiConnected = wifiNow;
   ui.currentSsid = ssidNow;
   ui.currentIp = ipNow;
+  lastAnimId = (int)currentAnim;
+  lastAutoPlay = autoPlay;
 
   tft.fillScreen(CARS_BLACK);
   
