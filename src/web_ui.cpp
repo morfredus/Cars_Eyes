@@ -396,4 +396,121 @@ String buildEyeStatusJson() {
   #endif
 }
 
+String buildCustomEditorPage() {
+  String html;
+  html.reserve(8000);
+  html += "<!doctype html><html lang=\"en\"><head><meta charset=\"UTF-8\">";
+  html += "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">";
+  html += "<title>Custom Pixel Editor</title>";
+  html += "<style>";
+  html += R"rawliteral(
+body { font-family: 'Segoe UI', Tahoma, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); margin: 0; padding: 20px; }
+.container { max-width: 800px; margin: 0 auto; background: white; border-radius: 15px; padding: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); }
+h1 { color: #667eea; text-align: center; margin-bottom: 10px; }
+.subtitle { text-align: center; color: #666; margin-bottom: 30px; font-size: 0.9em; }
+.controls { display: flex; gap: 20px; margin-bottom: 30px; flex-wrap: wrap; align-items: center; }
+.control-group { display: flex; flex-direction: column; gap: 8px; }
+.control-group label { font-weight: 600; color: #333; font-size: 0.9em; }
+.control-group input[type="color"] { width: 80px; height: 50px; border: 2px solid #ddd; border-radius: 8px; cursor: pointer; }
+.control-group select { padding: 8px 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 1em; }
+.grid-container { display: flex; justify-content: center; margin-bottom: 30px; }
+.pixel-grid { display: grid; grid-template-columns: repeat(8, 60px); gap: 5px; background: #f0f0f0; padding: 15px; border-radius: 10px; }
+.pixel { width: 60px; height: 60px; border: 2px solid #999; border-radius: 5px; background: #000; cursor: pointer; transition: transform 0.1s, box-shadow 0.1s; }
+.pixel:hover { transform: scale(1.05); box-shadow: 0 0 10px rgba(102,126,234,0.5); }
+.pixel.selected { box-shadow: 0 0 15px rgba(255,255,0,0.8); }
+.buttons { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+button { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 12px 25px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 1em; transition: transform 0.2s; }
+button:hover { transform: translateY(-2px); }
+button:active { transform: translateY(0); }
+button.clear { background: #e74c3c; }
+button.apply { background: #27ae60; }
+.info { background: #ecf0f1; border-left: 4px solid #667eea; padding: 15px; border-radius: 5px; margin-top: 20px; font-size: 0.9em; color: #333; }
+  )rawliteral";
+  html += "</style></head><body>";
+  html += "<div class=\"container\">";
+  html += "<h1>🎨 Custom Pixel Editor</h1>";
+  html += "<p class=\"subtitle\">Design your own animation frame</p>";
+  
+  html += "<div class=\"controls\">";
+  html += "<div class=\"control-group\">";
+  html += "<label>Pixel Color</label>";
+  html += "<input type=\"color\" id=\"pixelColor\" value=\"#FF4500\">";
+  html += "</div>";
+  html += "<div class=\"control-group\">";
+  html += "<label>Eye</label>";
+  html += "<select id=\"selectedEye\"><option value=\"left\">Left Eye</option><option value=\"right\">Right Eye</option><option value=\"both\">Both Eyes</option></select>";
+  html += "</div>";
+  html += "</div>";
+  
+  html += "<div class=\"grid-container\">";
+  html += "<div class=\"pixel-grid\" id=\"pixelGrid\"></div>";
+  html += "</div>";
+  
+  html += "<div class=\"buttons\">";
+  html += "<button class=\"clear\" onclick=\"clearGrid()\">🗑️ Clear Grid</button>";
+  html += "<button class=\"apply\" onclick=\"applyCustomPattern()\">✅ Apply Pattern</button>";
+  html += "<button onclick=\"goHome()\">🏠 Back</button>";
+  html += "</div>";
+  
+  html += "<div class=\"info\">";
+  html += "💡 <strong>How to use:</strong> Select a color, choose which eye(s) to edit, then click pixels to paint. Click Apply to set the custom animation.";
+  html += "</div>";
+  
+  html += "</div>";
+  html += "<script>";
+  html += R"rawliteral(
+const GRID_SIZE = 64;
+let grid = new Array(GRID_SIZE).fill(0);
+
+function initGrid() {
+  const container = document.getElementById('pixelGrid');
+  container.innerHTML = '';
+  for (let i = 0; i < GRID_SIZE; i++) {
+    const pixel = document.createElement('div');
+    pixel.className = 'pixel';
+    pixel.style.backgroundColor = '#000000';
+    pixel.onclick = () => togglePixel(i, pixel);
+    container.appendChild(pixel);
+  }
+}
+
+function togglePixel(index, element) {
+  const color = document.getElementById('pixelColor').value;
+  grid[index] = grid[index] ? 0 : parseInt(color.replace('#', '0x'));
+  element.style.backgroundColor = grid[index] ? color : '#000000';
+  element.classList.toggle('selected');
+}
+
+function clearGrid() {
+  grid.fill(0);
+  document.querySelectorAll('.pixel').forEach(p => {
+    p.style.backgroundColor = '#000000';
+    p.classList.remove('selected');
+  });
+}
+
+function applyCustomPattern() {
+  const eye = document.getElementById('selectedEye').value;
+  const patternStr = grid.map(c => c.toString()).join(',');
+  fetch(`/api/custom/apply?eye=${eye}&pattern=${patternStr}`)
+    .then(r => r.json())
+    .then(d => {
+      alert('✅ Custom pattern applied!');
+      goHome();
+    })
+    .catch(e => alert('❌ Error: ' + e));
+}
+
+function goHome() {
+  window.location.href = '/';
+}
+
+initGrid();
+  )rawliteral";
+  html += "</script>";
+  html += "</body></html>";
+  
+  return html;
+}
+
 }  // namespace WebUI

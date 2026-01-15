@@ -231,6 +231,55 @@ void init() {
     #endif
   });
 
+  server.on("/api/custom/apply", []() {
+    #if defined(ENV_ESP32S3_N16R8)
+    if (server.hasArg("eye") && server.hasArg("pattern")) {
+      String eyeStr = server.arg("eye");
+      String patternStr = server.arg("pattern");
+      
+      // Parse pattern: comma-separated hex values
+      uint32_t pattern[64] = {0};
+      int index = 0;
+      int start = 0;
+      
+      for (int i = 0; i < patternStr.length() && index < 64; i++) {
+        if (patternStr[i] == ',' || i == patternStr.length() - 1) {
+          int end = (i == patternStr.length() - 1) ? i + 1 : i;
+          String colorStr = patternStr.substring(start, end);
+          pattern[index] = (uint32_t)strtol(colorStr.c_str(), NULL, 0);
+          index++;
+          start = i + 1;
+        }
+      }
+      
+      // Apply to selected eye(s)
+      if (eyeStr == "left" || eyeStr == "both") {
+        for (int i = 0; i < 64; i++) {
+          int y = i / 8;
+          int x = i % 8;
+          NeoPixel::setPixelLeft(x, y, pattern[i]);
+        }
+      }
+      if (eyeStr == "right" || eyeStr == "both") {
+        for (int i = 0; i < 64; i++) {
+          int y = i / 8;
+          int x = i % 8;
+          NeoPixel::setPixelRight(x, y, pattern[i]);
+        }
+      }
+      
+      NeoPixel::show();
+      NeoPixel::setAnimation(NeoPixel::AnimationType::CUSTOM);
+      
+      server.send(200, "application/json", "{\"status\":\"ok\",\"message\":\"Custom pattern applied\"}");
+    } else {
+      server.send(400, "application/json", "{\"status\":\"error\",\"message\":\"Missing eye or pattern parameter\"}");
+    }
+    #else
+    server.send(501, "application/json", "{\"status\":\"error\",\"message\":\"NeoPixel not available\"}");
+    #endif
+  });
+
   server.begin();
   Serial.println("[WebServer] Started on port 80 with eye control API");
 }
