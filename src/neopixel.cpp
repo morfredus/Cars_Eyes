@@ -267,24 +267,24 @@ static const uint8_t PATTERN_HAPPY_FRAME1[64] = {
 
 // --- PATTERN #09: SAD (Droopy eyes) ----------------------------------------
 static const uint8_t PATTERN_SAD_FRAME0[64] = {
-  0, 0, 33, 0, 0, 33, 0, 0, // Sourcils baissés
-  0, 23, 21, 22, 22, 21, 23, 0, // Triangle paupière
+  0, 33, 0, 0, 0, 0, 33, 0, // Sourcils baissés vers le bas (côté interne)
+  33, 32, 31, 0, 0, 31, 32, 33, // Sourcils épais avec ombre
+  0, 23, 21, 22, 22, 21, 23, 0, // Paupière supérieure tombante
   23, 21, 20, 11, 11, 20, 21, 23,
-  22, 20, 11, 30, 30, 11, 20, 22,
+  22, 20, 11, 30, 30, 11, 20, 22, // Iris plissée, fermée
   21, 20, 31, 30, 30, 31, 20, 21,
-  22, 20, 20, 11, 11, 20, 20, 22,
-  33, 22, 22, 21, 21, 22, 22, 33,
+  33, 22, 22, 21, 21, 22, 22, 33, // Paupière basse très active
   0, 0, 33, 23, 23, 33, 0, 0
 };
 static const uint8_t PATTERN_SAD_FRAME1[64] = {
-  0, 0, 33, 0, 0, 33, 0, 0,
-  0, 23, 21, 22, 22, 21, 23, 0,
+  33, 0, 33, 0, 0, 33, 0, 33, // Sourcils agités (pleurs)
+  32, 32, 32, 32, 32, 32, 32, 32, // Sourcil continu épais
+  0, 23, 21, 22, 22, 21, 23, 0, // Paupière supérieure très tombante
   23, 21, 20, 11, 11, 20, 21, 23,
-  22, 20, 11, 30, 30, 11, 20, 22,
-  21, 20, 31, 30, 30, 31, 20, 21,
-  22, 20, 20, 11, 11, 20, 20, 22,
-  33, 22, 22, 21, 21, 22, 22, 33, // Paupière basse qui tremble
-  0, 0, 33, 23, 23, 33, 0, 0
+  22, 20, 10, 31, 31, 10, 20, 22, // Iris encore plus rétrécie
+  21, 20, 30, 31, 31, 30, 20, 21,
+  32, 32, 32, 32, 32, 32, 32, 32, // Paupière basse tremblante (pleurs)
+  0, 33, 23, 33, 33, 23, 33, 0   // Larmes suggérées (coins inférieur)
 };
 
 // --- PATTERN #10: ANGRY ----------------------------------------------------
