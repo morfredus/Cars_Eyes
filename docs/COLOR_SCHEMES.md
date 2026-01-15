@@ -1,6 +1,6 @@
 # NeoPixel Color Schemes
 
-**Version:** 1.5.22  
+**Version:** 1.5.23  
 **Minimum version:** 1.2.0  
 **Language:** English  
 **Date:** January 14, 2026  
@@ -221,6 +221,7 @@ For questions or suggestions about colors:
 - REST API available for integrations
 
 **Minimum version:** 1.2.0
+
 
 
 

@@ -1,6 +1,6 @@
 # Documentation des Patterns NeoPixel - Yeux Animés
 
-**Version:** 1.5.22  
+**Version:** 1.5.23  
 **Version minimale:** 1.0.0  
 **Langage:** Français  
 **Date de révision:** 14 janvier 2026  
@@ -277,7 +277,117 @@ tertiaryColor  = 0x001a0900   // Marron foncé/noir (ombres, pupille)
 - ✓ Émotionnel: Choc/stupéfaction
 
 ---
+### **#12 - PATTERN_SLEEP: Sommeil profond**
+**État:** Yeux fermés hermétiquement  
+**Pupilles:** Cachées, lumière minimale
 
+```
+0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0    ← Paupière supérieure fermée
+1,1,1,1,1,1,1,1    ← Couverture oculaire lourde
+2,2,2,2,2,2,2,2    ← Reflet de paupière centrale
+1,1,1,1,1,1,1,1    ← Couverture inférieure
+0,0,0,0,0,0,0,0    ← Bas scellé
+0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0
+```
+
+**Caractéristiques:**
+- ✓ Complètement scellé: Couverture totale des yeux
+- ✓ Respiration: Léger pulsement optionnel
+- ✓ Réaliste: Imite l'apparence réelle du sommeil
+- ✓ Mode repos: Utilisation CPU faible
+
+---
+
+### **#13 - PATTERN_TURN_LEFT: Signal tournant à gauche**
+**État:** Flèche pointant vers la gauche  
+**Usage:** Clignotant véhicule (gauche)
+
+```
+0,0,0,1,0,0,0,0
+0,0,1,1,0,0,0,0    ← Pointe de flèche (gauche)
+0,1,1,0,0,0,0,0    ← Flèche pointant gauche
+1,1,0,0,0,0,0,0    ← Intensité du signal
+1,1,0,0,0,0,0,0    ← Activation brillante
+0,1,1,0,0,0,0,0
+0,0,1,1,0,0,0,0    ← Clarté de direction
+0,0,0,1,0,0,0,0
+```
+
+**Caractéristiques:**
+- ✓ Directionnel: Indication gauche claire
+- ✓ Luminosité: Haute intensité pour visibilité
+- ✓ Signal véhicule: Intégration sécurité
+- ✓ Prêt animation: Peut pulser pour effet clignotant
+
+---
+
+### **#14 - PATTERN_TURN_RIGHT: Signal tournant à droite**
+**État:** Flèche pointant vers la droite  
+**Usage:** Clignotant véhicule (droite)
+
+```
+0,0,0,0,1,0,0,0
+0,0,0,0,1,1,0,0    ← Pointe de flèche (droite)
+0,0,0,0,0,1,1,0    ← Flèche pointant droite
+0,0,0,0,0,0,1,1    ← Intensité du signal
+0,0,0,0,0,0,1,1    ← Activation brillante
+0,0,0,0,0,1,1,0
+0,0,0,0,1,1,0,0    ← Clarté de direction
+0,0,0,0,1,0,0,0
+```
+
+**Caractéristiques:**
+- ✓ Directionnel: Indication droite claire
+- ✓ Luminosité: Haute intensité pour visibilité
+- ✓ Signal véhicule: Intégration sécurité
+- ✓ Prêt animation: Peut pulser pour effet clignotant
+
+---
+
+### **#15 - PATTERN_HAZARD: Feux de détresse**
+**État:** Les deux flèches actives (danger/avertissement)  
+**Usage:** Signal d'alerte d'urgence
+
+```
+1,0,0,0,0,0,0,1    ← Bords gauche et droit
+1,1,0,0,0,0,1,1    ← Flèches duales avertissement
+0,1,1,0,0,1,1,0    ← Motif centre diamant
+0,0,1,1,1,1,0,0    ← Point de convergence (danger)
+0,0,1,1,1,1,0,0    ← Intensité centrale
+0,1,1,0,0,1,1,0    ← Affichage symétrique
+1,1,0,0,0,0,1,1    ← Sensibilisation duelle
+1,0,0,0,0,0,0,1
+```
+
+**Caractéristiques:**
+- ✓ Symétrique: Les deux côtés activés équitablement
+- ✓ Avertissement: Motif diamant/convergence
+- ✓ Intensité: Luminosité maximale pour alerte
+- ✓ Urgence: Distinct des clignotants
+
+---
+
+### **#16 - PATTERN_CUSTOM: Motif défini par l'utilisateur**
+**État:** Programmable via interface web  
+**Usage:** Animations personnalisées, expressions utilisateur
+
+```
+Défini par l'utilisateur (16 valeurs RGB par ligne, 8 lignes)
+Configurable via interface web
+Mises à jour en temps réel sans redémarrage
+Maximum 512 octets par motif personnalisé
+```
+
+**Caractéristiques:**
+- ✓ Flexible: N'importe quel motif 8×8 pixels possible
+- ✓ Interactif: Édition en direct via tableau de bord web
+- ✓ Persistant: Sauvegardé en mémoire flash
+- ✓ Créatif: Expressions utilisateur illimitées
+
+---
 ## Schéma de couleurs recommandées
 
 ### Configuration #1: Cars (Orange vif)
@@ -365,6 +475,7 @@ NeoPixel::setAutoPlay(true);  // Alterne aléatoirement entre animations
 ## Fichier source
 [neopixel.cpp](../src/neopixel.cpp) - Définitions des patterns  
 [neopixel.h](../include/neopixel.h) - Interface publique
+
 
 
 

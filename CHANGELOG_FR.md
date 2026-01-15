@@ -5,6 +5,15 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/)
 
 ---
 
+## [1.5.23] - 2026-01-15
+
+### Corrigé
+- **Reconnaissance du Mode d'Affichage LCD** : Correction de l'affichage LCD montrant "UNKNOWN" pour les modes TURN_LEFT, TURN_RIGHT, HAZARD et CUSTOM.
+  - Extension du tableau des noms d'animations de 13 à 17 éléments dans tft_display.cpp.
+  - Ajout du support d'affichage pour : TURN_L (signal tourner à gauche), TURN_R (signal tourner à droite), HAZARD (feux de détresse), et CUSTOM (mode motif personnalisé).
+  - Maintenant tous les 17 modes d'animation s'affichent correctement sur l'écran LCD avec les abréviations appropriées.
+  - Impact : Les utilisateurs peuvent maintenant voir quel mode d'animation est actif sur l'écran LCD pour tous les modes, y compris les animations de signalisation véhicule.
+
 ## [1.5.22] - 2026-01-15
 
 ### Corrigé

@@ -1,6 +1,6 @@
 # NeoPixel Patterns Documentation - Animated Eyes
 
-**Version:** 1.5.22  
+**Version:** 1.5.23  
 **Minimum version:** 1.0.0  
 **Language:** English  
 **Revision Date:** January 14, 2026  
@@ -278,6 +278,118 @@ tertiaryColor  = 0x001a0900   // Dark brown/black (shadows, pupil)
 
 ---
 
+### **#12 - PATTERN_SLEEP: Deep Sleep**
+**State:** Eyes tightly closed  
+**Pupils:** Hidden, minimal light
+
+```
+0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0    ← Upper eyelid closed
+1,1,1,1,1,1,1,1    ← Heavy eye coverage
+2,2,2,2,2,2,2,2    ← Middle lid highlight
+1,1,1,1,1,1,1,1    ← Lower coverage
+0,0,0,0,0,0,0,0    ← Bottom sealed
+0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0
+```
+
+**Features:**
+- ✓ Fully sealed: Complete eye coverage
+- ✓ Breathing effect: Optional slight pulsing
+- ✓ Realistic: Mimics actual sleep appearance
+- ✓ Rest mode: Low CPU usage
+
+---
+
+### **#13 - PATTERN_TURN_LEFT: Left Turn Signal**
+**State:** Arrow pointing left  
+**Usage:** Vehicle turn signal (left)
+
+```
+0,0,0,1,0,0,0,0
+0,0,1,1,0,0,0,0    ← Arrow head (left)
+0,1,1,0,0,0,0,0    ← Arrow pointing left
+1,1,0,0,0,0,0,0    ← Signal intensity
+1,1,0,0,0,0,0,0    ← Bright activation
+0,1,1,0,0,0,0,0
+0,0,1,1,0,0,0,0    ← Direction clarity
+0,0,0,1,0,0,0,0
+```
+
+**Features:**
+- ✓ Directional: Clear left indication
+- ✓ Brightness: High intensity for visibility
+- ✓ Vehicle signal: Safety feature integration
+- ✓ Animation-ready: Can pulse for blinking effect
+
+---
+
+### **#14 - PATTERN_TURN_RIGHT: Right Turn Signal**
+**State:** Arrow pointing right  
+**Usage:** Vehicle turn signal (right)
+
+```
+0,0,0,0,1,0,0,0
+0,0,0,0,1,1,0,0    ← Arrow head (right)
+0,0,0,0,0,1,1,0    ← Arrow pointing right
+0,0,0,0,0,0,1,1    ← Signal intensity
+0,0,0,0,0,0,1,1    ← Bright activation
+0,0,0,0,0,1,1,0
+0,0,0,0,1,1,0,0    ← Direction clarity
+0,0,0,0,1,0,0,0
+```
+
+**Features:**
+- ✓ Directional: Clear right indication
+- ✓ Brightness: High intensity for visibility
+- ✓ Vehicle signal: Safety feature integration
+- ✓ Animation-ready: Can pulse for blinking effect
+
+---
+
+### **#15 - PATTERN_HAZARD: Hazard Lights**
+**State:** Both arrows active (danger/warning)  
+**Usage:** Emergency warning signal
+
+```
+1,0,0,0,0,0,0,1    ← Left and right edges
+1,1,0,0,0,0,1,1    ← Dual arrows warning
+0,1,1,0,0,1,1,0    ← Diamond center pattern
+0,0,1,1,1,1,0,0    ← Convergence point (hazard)
+0,0,1,1,1,1,0,0    ← Central intensity
+0,1,1,0,0,1,1,0    ← Symmetric display
+1,1,0,0,0,0,1,1    ← Dual awareness
+1,0,0,0,0,0,0,1
+```
+
+**Features:**
+- ✓ Symmetric: Both sides activated equally
+- ✓ Warning: Diamond/convergence pattern
+- ✓ Intensity: Maximum brightness for alert
+- ✓ Emergency: Distinct from turn signals
+
+---
+
+### **#16 - PATTERN_CUSTOM: User Defined Pattern**
+**State:** Programmable from web UI  
+**Usage:** Custom animations, user expressions
+
+```
+User-defined (16 RGB values per row, 8 rows)
+Configurable via web interface
+Real-time updates without reboot
+Maximum 512 bytes per custom pattern
+```
+
+**Features:**
+- ✓ Flexible: Any 8×8 pixel pattern possible
+- ✓ Interactive: Live editing via web dashboard
+- ✓ Persistent: Saved to flash memory
+- ✓ Creative: Unlimited user expressions
+
+---
+
 ## Recommended Color Schemes
 
 ### Configuration #1: Cars (Bright Orange)
@@ -365,6 +477,7 @@ NeoPixel::setAutoPlay(true);  // Alternates randomly between animations
 ## Source Files
 [neopixel.cpp](../src/neopixel.cpp) - Pattern definitions  
 [neopixel.h](../include/neopixel.h) - Public interface
+
 
 
 

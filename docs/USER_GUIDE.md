@@ -1,6 +1,6 @@
 # User Guide
 
-**Version:** 1.5.22  
+**Version:** 1.5.23  
 **Language:** English  
 **Minimum version:** 1.0.0  
 
@@ -75,6 +75,7 @@ The system supports additional physical controls for enhanced signaling:
 ## Note
 - Ensure all buttons are correctly wired and configured in `board_config.h`.
 - Test each button's functionality after setup to confirm correct operation.
+
 
 
 

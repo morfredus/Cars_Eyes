@@ -1,6 +1,6 @@
 # Interface Web et Réseau
 
-**Version:** 1.5.22  
+**Version:** 1.5.23  
 **Version minimale:** 1.0.0  
 **Langage:** Français  
 
@@ -190,6 +190,7 @@ server.on("/api/temperature", ...);
 ```
 
 Voir [documentation Arduino WebServer](https://github.com/espressif/arduino-esp32/tree/master/libraries/WebServer).
+
 
 
 
