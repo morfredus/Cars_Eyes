@@ -1,6 +1,6 @@
 # Project Structure
 
-**Version:** 1.5.18  
+**Version:** 1.5.19  
 **Minimum version:** 0.1.0  
 **Language:** English  
 
@@ -191,3 +191,4 @@ pio run
 ```
 
 See [GETTING_STARTED_FR.md](GETTING_STARTED_FR.md) for first-time setup.
+

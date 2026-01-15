@@ -1,6 +1,6 @@
-# Neopixel Eyes
+# Cars Eyes
 
-> **Version:** 1.5.18  
+> **Version:** 1.5.19  
 > **Minimum Version:** 1.0.0
 
 **Animated eye system using two 8x8 NeoPixel matrices for ESP32-S3, styled like Cars movie characters.**
@@ -278,3 +278,4 @@ For questions and support, please open an issue on GitHub.
 ---
 
 **Built with ❤️ for the maker community**
+
