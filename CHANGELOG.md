@@ -1,7 +1,37 @@
 # Changelog
 
+## 1.6.0 — 2026-01-16
+
+1) Palettes 8 couleurs resserrées
+- Cars Orange v2: réduction des blancs, ambres proches et bruns cohérents.
+- Human Eye: blancs atténués, bleu acier plus sombre pour reflets.
+
+2) Atténuation perceptuelle à faible luminosité
+- Lorsque la luminosité UI < 64, les couleurs très claires sont davantage atténuées pour respecter le niveau choisi.
+
+3) Mise à jour des documents visuels et schémas
+- Guides visuels mis à jour à 17 animations et 8 couleurs: docs/NEOPIXEL_PATTERNS_VISUAL.md, docs/NEOPIXEL_PATTERNS_VISUAL_FR.md.
+- Documentation des palettes actualisée: docs/COLOR_SCHEMES.md, docs/COLOR_SCHEMES_FR.md.
+- README/README_FR: note sur l’atténuation perceptuelle.
+
+4) UI Web
+- Boutons de sélection de schéma ajoutés pour Cars Orange v2 et Human Eye.
+
+# Changelog
+
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
+
+
+## [1.6.0] - 2026-01-16
+
+### Added
+- **8-Color Palette Engine**: Rendering now uses palette slots `1..8` with dimmed variants (`10..83`) for multi-level shading on every pixel.
+- **New Palettes**: Added enriched `CARS_ORANGE_V2` and realistic `HUMAN_EYE` 8-color palettes; legacy 3-color schemes are auto-expanded to 8 slots (highlights/shadows) for consistency.
+
+### Changed
+- **Animation Recolorization**: All built-in eye animations (IDLE, BLINK, LOOK_*, SLEEP, HAPPY, SAD, ANGRY, SURPRISED) now use the 8-color palette with deeper highlights and shadows; turn signals keep enforced amber for safety.
+- **Documentation & Examples**: README and custom pattern example updated for the 8-color coding and the full set of 17 animations.
 
 ---
 

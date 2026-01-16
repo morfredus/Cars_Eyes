@@ -35,6 +35,7 @@ static EyeState g_eyeState = {
 static ColorScheme g_currentScheme = ColorScheme::CARS_ORANGE;
 static unsigned long g_lastFrameTime = 0;
 static unsigned long g_nextIdleBlinkTime = 0;
+static uint32_t g_palette[8] = {0};
 
 // Signal State
 static uint16_t g_signalDurationMs = 3000;   // Default 3s short press
@@ -58,11 +59,35 @@ const uint32_t SCHEME_CARS_ORANGE[3] = {
   0x00400500   // Tertiary: Dark Red-Brown
 };
 
+// Scheme #1b: CARS_ORANGE_V2 (8-color enriched palette)
+const uint32_t SCHEME_CARS_ORANGE_V2[8] = {
+  0x00E64A00,  // C1: Orange chaud (iris)
+  0x00CC3C00,  // C2: Ambre soutenu (proche de C1)
+  0x00802700,  // C3: Brun-ambre sombre (ombre)
+  0x00B85A1A,  // C4: Ambre chaud atténué (reflet, pas blanc)
+  0x00994D19,  // C5: Ambre froid/mat (reflet doux)
+  0x00401510,  // C6: Brun profond (contraste proche de la palette)
+  0x00A63A00,  // C7: Ambre contour plus sombre
+  0x00000000   // C8: Noir (pupille)
+};
+
 // Scheme #2: SOFT_REALISTIC
 const uint32_t SCHEME_SOFT_REALISTIC[3] = {
   0x008B4513,  // Primary: Saddle Brown
   0x00CD853F,  // Secondary: Peru (Terra Cotta)
   0x00251005   // Tertiary: Very dark brown
+};
+
+// Scheme #2b: HUMAN_EYE (8-color realistic palette)
+const uint32_t SCHEME_HUMAN_EYE[8] = {
+  0x00A06C3A,  // C1: Brun clair (iris)
+  0x007C5328,  // C2: Brun moyen (proche de C1)
+  0x00412A15,  // C3: Brun foncé (ombre iris)
+  0x006A7F4F,  // C4: Vert olive doux (nuance proche)
+  0x00D9D0C4,  // C5: Blanc chaud atténué (sclère non éclatante)
+  0x00BBD0D8,  // C6: Blanc froid atténué (reflet doux)
+  0x003A5168,  // C7: Bleu acier plus sombre (reflet moins agressif)
+  0x00000000   // C8: Noir profond (pupille)
 };
 
 // Scheme #3: ELEGANT_BLUE
@@ -79,76 +104,76 @@ const uint32_t SCHEME_ELEGANT_BLUE[3] = {
 // --- PATTERN #01: IDLE -----------------------------------------------------
 // Frame 0: Wide open
 static const uint8_t PATTERN_IDLE_FRAME0[64] = {
-  0, 33, 23, 22, 22, 23, 33, 0,
-  33, 22, 21, 21, 21, 21, 22, 33,
-  23, 21, 12, 11, 11, 12, 21, 23,
-  22, 12, 10, 31, 31, 10, 12, 22,
-  22, 12, 30, 31, 31, 30, 12, 22,
-  23, 21, 12, 11, 11, 12, 21, 23,
-  33, 22, 21, 21, 21, 21, 22, 33,
-  0, 33, 23, 22, 22, 23, 33, 0
+  0, 71, 51, 50, 50, 51, 71, 0,
+  71, 51, 50, 50, 50, 50, 51, 71,
+  51, 50, 11, 10, 10, 11, 50, 51,
+  50, 11, 80, 81, 81, 80, 11, 50,
+  50, 11, 81, 82, 82, 81, 11, 50,
+  51, 50, 11, 10, 10, 11, 50, 51,
+  71, 51, 50, 50, 50, 50, 51, 71,
+  0, 71, 51, 50, 50, 51, 71, 0
 };
 // Frame 1: Slightly relaxed with shaded lid
 static const uint8_t PATTERN_IDLE_FRAME1[64] = {
-  0, 0, 33, 33, 33, 33, 0, 0,
-  33, 22, 21, 21, 21, 21, 22, 33,
-  23, 21, 12, 11, 11, 12, 21, 23,
-  22, 12, 10, 31, 31, 10, 12, 22,
-  22, 12, 30, 31, 31, 30, 12, 22,
-  23, 21, 12, 11, 11, 12, 21, 23,
-  33, 22, 21, 21, 21, 21, 22, 33,
-  0, 33, 23, 22, 22, 23, 33, 0
+  0, 0, 71, 71, 71, 71, 0, 0,
+  71, 51, 50, 50, 50, 50, 51, 71,
+  51, 50, 11, 10, 10, 11, 50, 51,
+  50, 11, 80, 81, 81, 80, 11, 50,
+  50, 11, 81, 82, 82, 81, 11, 50,
+  51, 50, 11, 10, 10, 11, 50, 51,
+  71, 51, 50, 50, 50, 50, 51, 71,
+  0, 71, 51, 50, 50, 51, 71, 0
 };
 
 // --- PATTERN #02: SLEEP (Closed eye with soft breathing motion) -------------
 static const uint8_t PATTERN_SLEEP_FRAME0[64] = {
-  0, 0, 0, 0, 0, 0, 0, 0,
-  0, 0, 33, 23, 23, 33, 0, 0,
-  0, 23, 22, 21, 21, 22, 23, 0,
-  33, 23, 21, 11, 11, 21, 23, 33,
-  23, 21, 11, 10, 10, 11, 21, 23,
-  0, 0, 32, 21, 21, 32, 0, 0,
-  0, 0, 0, 30, 30, 0, 0, 0,
-  0, 0, 0, 0, 0, 0, 0, 0
+  0, 71, 71, 71, 71, 71, 71, 0,
+  71, 51, 50, 50, 50, 50, 51, 71,
+  71, 41, 11, 50, 51, 71, 71, 0,
+  50, 10, 80, 81, 50, 71, 71, 0,
+  50, 80, 81, 80, 50, 71, 71, 0,
+  71, 41, 11, 50, 51, 71, 71, 0,
+  71, 51, 50, 50, 50, 50, 51, 71,
+  0, 71, 51, 50, 50, 51, 71, 0
 };
 static const uint8_t PATTERN_SLEEP_FRAME1[64] = {
-  0, 0, 0, 0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0, 0, 0, 0,
-  0, 0, 33, 23, 23, 33, 0, 0,
-  0, 23, 22, 21, 21, 22, 23, 0,
-  33, 23, 21, 11, 11, 21, 23, 33,
-  23, 21, 11, 10, 10, 11, 21, 23,
-  0, 0, 32, 21, 21, 32, 0, 0,
-  0, 0, 0, 30, 30, 0, 0, 0
+  0, 71, 71, 71, 71, 71, 71, 0,
+  71, 51, 50, 50, 50, 50, 51, 71,
+  71, 41, 10, 50, 51, 71, 71, 0,
+  50, 81, 80, 81, 50, 71, 71, 0,
+  50, 80, 81, 80, 50, 71, 71, 0,
+  71, 41, 10, 50, 51, 71, 71, 0,
+  71, 51, 50, 50, 50, 50, 51, 71,
+  0, 71, 51, 50, 50, 51, 71, 0
 };
 
 // --- PATTERN #03: BLINK -----------------------------------------------------
 static const uint8_t PATTERN_BLINK_FRAME0[64] = {
-  0, 33, 23, 22, 22, 23, 33, 0,
-  33, 22, 21, 21, 21, 21, 22, 33,
-  23, 21, 12, 11, 11, 12, 21, 23,
-  22, 12, 10, 31, 31, 10, 12, 22,
-  22, 12, 30, 31, 31, 30, 12, 22,
-  23, 21, 12, 11, 11, 12, 21, 23,
-  33, 22, 21, 21, 21, 21, 22, 33,
-  0, 33, 23, 22, 22, 23, 33, 0
+  0, 71, 51, 50, 50, 51, 71, 0,
+  71, 51, 50, 50, 50, 50, 51, 71,
+  51, 50, 11, 10, 10, 11, 50, 51,
+  50, 11, 80, 81, 81, 80, 11, 50,
+  50, 11, 81, 82, 82, 81, 11, 50,
+  51, 50, 11, 10, 10, 11, 50, 51,
+  71, 51, 50, 50, 50, 50, 51, 71,
+  0, 71, 51, 50, 50, 51, 71, 0
 };
 static const uint8_t PATTERN_BLINK_FRAME1[64] = {
   0, 0, 0, 0, 0, 0, 0, 0,
-  0, 0, 33, 33, 33, 33, 0, 0,
-  0, 23, 22, 21, 21, 22, 23, 0,
-  23, 21, 12, 11, 11, 12, 21, 23,
-  23, 21, 30, 31, 31, 30, 21, 23,
-  0, 23, 22, 21, 21, 22, 23, 0,
-  0, 0, 33, 33, 33, 33, 0, 0,
+  0, 0, 71, 71, 71, 71, 0, 0,
+  0, 51, 50, 50, 50, 50, 51, 0,
+  51, 50, 11, 10, 10, 11, 50, 51,
+  51, 50, 81, 82, 82, 81, 50, 51,
+  0, 51, 50, 50, 50, 50, 51, 0,
+  0, 0, 71, 71, 71, 71, 0, 0,
   0, 0, 0, 0, 0, 0, 0, 0
 };
 static const uint8_t PATTERN_BLINK_FRAME2[64] = {
   0, 0, 0, 0, 0, 0, 0, 0,
   0, 0, 0, 0, 0, 0, 0, 0,
   0, 0, 0, 0, 0, 0, 0, 0,
-  33, 33, 23, 22, 22, 23, 33, 33,
-  33, 33, 22, 21, 21, 22, 33, 33,
+  71, 71, 51, 50, 50, 51, 71, 71,
+  71, 71, 50, 50, 50, 50, 71, 71,
   0, 0, 0, 0, 0, 0, 0, 0,
   0, 0, 0, 0, 0, 0, 0, 0,
   0, 0, 0, 0, 0, 0, 0, 0
@@ -156,181 +181,180 @@ static const uint8_t PATTERN_BLINK_FRAME2[64] = {
 
 // --- PATTERN #04: LOOK_LEFT ------------------------------------------------
 static const uint8_t PATTERN_LOOK_LEFT_FRAME0[64] = {
-  0, 33, 23, 22, 22, 23, 33, 0,
-  33, 22, 21, 21, 21, 21, 22, 33,
-  23, 12, 11, 12, 22, 23, 33, 0,
-  22, 10, 31, 31, 21, 23, 33, 0,
-  22, 30, 31, 30, 21, 23, 33, 0,
-  23, 12, 11, 12, 22, 23, 33, 0,
-  33, 22, 21, 21, 21, 21, 22, 33,
-  0, 33, 23, 22, 22, 23, 33, 0
+  0, 71, 51, 50, 50, 51, 71, 0,
+  71, 51, 50, 50, 50, 50, 51, 71,
+  51, 41, 11, 50, 51, 71, 71, 0,
+  50, 10, 80, 81, 50, 71, 71, 0,
+  50, 80, 81, 80, 50, 71, 71, 0,
+  51, 41, 11, 50, 51, 71, 71, 0,
+  71, 51, 50, 50, 50, 50, 51, 71,
+  0, 71, 51, 50, 50, 51, 71, 0
 };
 static const uint8_t PATTERN_LOOK_LEFT_FRAME1[64] = {
-  0, 33, 23, 22, 22, 23, 33, 0,
-  33, 22, 21, 21, 21, 21, 22, 33,
-  23, 11, 10, 11, 22, 23, 33, 0,
-  22, 31, 30, 31, 21, 23, 33, 0,
-  22, 30, 31, 30, 21, 23, 33, 0,
-  23, 11, 10, 11, 22, 23, 33, 0,
-  33, 22, 21, 21, 21, 21, 22, 33,
-  0, 33, 23, 22, 22, 23, 33, 0
+  0, 71, 51, 50, 50, 51, 71, 0,
+  71, 51, 50, 50, 50, 50, 51, 71,
+  51, 41, 10, 50, 51, 71, 71, 0,
+  50, 81, 80, 81, 50, 71, 71, 0,
+  50, 80, 81, 80, 50, 71, 71, 0,
+  51, 41, 10, 50, 51, 71, 71, 0,
+  71, 51, 50, 50, 50, 50, 51, 71,
+  0, 71, 51, 50, 50, 51, 71, 0
 };
 
-// --- PATTERN #05: LOOK_RIGHT -----------------------------------------------
+// --- PATTERN #05: LOOK_RIGHT ----------------------------------------------
 static const uint8_t PATTERN_LOOK_RIGHT_FRAME0[64] = {
-  0, 33, 23, 22, 22, 23, 33, 0,
-  33, 22, 21, 21, 21, 21, 22, 33,
-  0, 33, 23, 22, 12, 11, 12, 23,
-  0, 33, 23, 21, 10, 31, 10, 22,
-  0, 33, 23, 21, 30, 31, 30, 22,
-  0, 33, 23, 22, 12, 11, 12, 23,
-  33, 22, 21, 21, 21, 21, 22, 33,
-  0, 33, 23, 22, 22, 23, 33, 0
+  0, 71, 51, 50, 50, 51, 71, 0,
+  71, 51, 50, 50, 50, 50, 51, 71,
+  0, 71, 71, 51, 41, 11, 50, 51,
+  0, 71, 71, 50, 81, 80, 10, 50,
+  0, 71, 71, 50, 80, 81, 80, 50,
+  0, 71, 71, 51, 41, 11, 50, 51,
+  71, 51, 50, 50, 50, 50, 51, 71,
+  0, 71, 51, 50, 50, 51, 71, 0
 };
 static const uint8_t PATTERN_LOOK_RIGHT_FRAME1[64] = {
-  0, 33, 23, 22, 22, 23, 33, 0,
-  33, 22, 21, 21, 21, 21, 22, 33,
-  0, 33, 23, 22, 11, 10, 11, 23,
-  0, 33, 23, 21, 31, 30, 31, 22,
-  0, 33, 23, 21, 30, 31, 30, 22,
-  0, 33, 23, 22, 11, 10, 11, 23,
-  33, 22, 21, 21, 21, 21, 22, 33,
-  0, 33, 23, 22, 22, 23, 33, 0
+  0, 71, 51, 50, 50, 51, 71, 0,
+  71, 51, 50, 50, 50, 50, 51, 71,
+  0, 71, 71, 51, 41, 10, 50, 51,
+  0, 71, 71, 50, 80, 81, 80, 50,
+  0, 71, 71, 50, 81, 80, 81, 50,
+  0, 71, 71, 51, 41, 10, 50, 51,
+  71, 51, 50, 50, 50, 50, 51, 71,
+  0, 71, 51, 50, 50, 51, 71, 0
 };
 
 // --- PATTERN #06: LOOK_UP --------------------------------------------------
-// Mirrored from LOOK_DOWN
 static const uint8_t PATTERN_LOOK_UP_FRAME0[64] = {
-  0, 33, 23, 22, 22, 23, 33, 0,
-  33, 22, 21, 21, 21, 21, 22, 33,
-  23, 21, 12, 11, 11, 12, 21, 23, // Iris top
-  22, 12, 10, 31, 31, 10, 12, 22, // Pupil row
-  22, 12, 30, 31, 31, 30, 12, 22, // Lower pupil row
-  23, 22, 21, 21, 21, 21, 22, 23,
-  0, 33, 23, 22, 22, 23, 33, 0,
-  0, 0, 0, 0, 0, 0, 0, 0
+  0, 71, 71, 71, 71, 71, 71, 0,
+  71, 51, 50, 50, 50, 50, 51, 71,
+  71, 41, 11, 50, 51, 71, 71, 0,
+  50, 10, 80, 81, 50, 71, 71, 0,
+  50, 80, 81, 80, 50, 71, 71, 0,
+  71, 41, 11, 50, 51, 71, 71, 0,
+  71, 51, 50, 50, 50, 50, 51, 71,
+  0, 71, 51, 50, 50, 51, 71, 0
 };
 static const uint8_t PATTERN_LOOK_UP_FRAME1[64] = {
-  0, 33, 23, 22, 22, 23, 33, 0,
-  33, 21, 12, 11, 11, 12, 21, 33,
-  22, 10, 31, 31, 31, 31, 10, 22,
-  21, 12, 10, 31, 31, 10, 12, 21,
-  22, 21, 21, 21, 21, 21, 21, 22,
-  23, 22, 21, 21, 21, 21, 22, 23,
-  0, 33, 23, 22, 22, 23, 33, 0,
-  0, 0, 0, 0, 0, 0, 0, 0
+  0, 71, 71, 71, 71, 71, 71, 0,
+  71, 51, 50, 50, 50, 50, 51, 71,
+  71, 41, 11, 50, 51, 71, 71, 0,
+  50, 10, 80, 81, 50, 71, 71, 0,
+  50, 80, 81, 80, 50, 71, 71, 0,
+  71, 41, 11, 50, 51, 71, 71, 0,
+  71, 51, 50, 50, 50, 50, 51, 71,
+  0, 71, 51, 50, 50, 51, 71, 0
 };
 
 // --- PATTERN #07: LOOK_DOWN ------------------------------------------------
 static const uint8_t PATTERN_LOOK_DOWN_FRAME0[64] = {
-  0, 0, 0, 0, 0, 0, 0, 0,
-  0, 33, 23, 22, 22, 23, 33, 0,
-  23, 22, 21, 21, 21, 21, 22, 23,
-  22, 12, 10, 31, 31, 10, 12, 22,
-  22, 12, 30, 31, 31, 30, 12, 22,
-  23, 21, 12, 11, 11, 12, 21, 23,
-  33, 22, 21, 21, 21, 21, 22, 33,
-  0, 33, 23, 22, 22, 23, 33, 0
+  0, 71, 51, 50, 50, 51, 71, 0,
+  71, 51, 50, 50, 50, 50, 51, 71,
+  51, 41, 11, 50, 51, 71, 71, 0,
+  50, 10, 80, 81, 50, 71, 71, 0,
+  50, 80, 81, 80, 50, 71, 71, 0,
+  51, 41, 11, 50, 51, 71, 71, 0,
+  71, 51, 50, 50, 50, 50, 51, 71,
+  0, 71, 71, 71, 71, 71, 71, 0
 };
 static const uint8_t PATTERN_LOOK_DOWN_FRAME1[64] = {
-  0, 0, 0, 0, 0, 0, 0, 0,
-  0, 33, 23, 22, 22, 23, 33, 0,
-  23, 22, 21, 21, 21, 21, 22, 23,
-  22, 21, 21, 21, 21, 21, 21, 22,
-  22, 12, 10, 31, 31, 10, 12, 22,
-  23, 12, 30, 31, 31, 30, 12, 23,
-  33, 22, 21, 21, 21, 21, 22, 33,
-  0, 33, 23, 22, 22, 23, 33, 0
+  0, 71, 51, 50, 50, 51, 71, 0,
+  71, 51, 50, 50, 50, 50, 51, 71,
+  51, 41, 10, 50, 51, 71, 71, 0,
+  50, 81, 80, 81, 50, 71, 71, 0,
+  50, 80, 81, 80, 50, 71, 71, 0,
+  51, 41, 10, 50, 51, 71, 71, 0,
+  71, 51, 50, 50, 50, 50, 51, 71,
+  0, 71, 71, 71, 71, 71, 71, 0
 };
 
 // --- PATTERN #08: HAPPY (Intense Joy) ------------------------------------
 static const uint8_t PATTERN_HAPPY_FRAME0[64] = {
-  0, 33, 23, 22, 22, 23, 33, 0,
-  0, 22, 21, 20, 20, 21, 22, 0,     // Paupières hautes = yeux très ouverts
-  22, 20, 12, 11, 11, 12, 20, 22,   // Iris haut (regard émerveillé)
-  21, 12, 31, 30, 30, 31, 12, 21,   // Pupille haute
-  21, 11, 30, 33, 33, 30, 11, 21,   // Pupille brillante (joie)
-  22, 12, 31, 30, 30, 31, 12, 22,   // Reflet fort
-  33, 21, 20, 12, 12, 20, 21, 33,   // Bas arrondi (sourire)
-  0, 33, 23, 22, 22, 23, 33, 0      // Paupière basse relevée
+  0, 71, 51, 50, 50, 51, 71, 0,
+  0, 51, 50, 41, 41, 50, 51, 0,     // Paupières hautes, sclère brillante
+  51, 41, 11, 10, 10, 11, 41, 51,   // Iris haut (regard émerveillé)
+  41, 11, 80, 81, 81, 80, 11, 41,   // Pupille haute
+  41, 10, 80, 81, 81, 80, 10, 41,   // Reflet fort
+  51, 41, 11, 10, 10, 11, 41, 51,   // Reflet renforcé
+  71, 50, 41, 11, 11, 41, 50, 71,   // Bas arrondi (sourire)
+  0, 71, 51, 50, 50, 51, 71, 0
 };
 static const uint8_t PATTERN_HAPPY_FRAME1[64] = {
-  0, 33, 22, 21, 21, 22, 33, 0,
-  0, 21, 20, 12, 12, 20, 21, 0,     // Encore plus ouvert
-  21, 12, 11, 10, 10, 11, 12, 21,   // Iris très visible
-  20, 11, 31, 30, 30, 31, 11, 20,   // Grande pupille joyeuse
-  20, 10, 30, 33, 33, 30, 10, 20,   // Brillance maximale
-  21, 11, 31, 30, 30, 31, 11, 21,   // Fort contraste
-  22, 20, 12, 11, 11, 12, 20, 22,   // Sourire prononcé
-  0, 22, 21, 20, 20, 21, 22, 0      // Yeux complètement ouverts
+  0, 71, 51, 50, 50, 51, 71, 0,
+  0, 50, 41, 11, 11, 41, 50, 0,     // Encore plus ouvert
+  50, 11, 10, 80, 80, 10, 11, 50,   // Iris très visible
+  41, 10, 81, 82, 82, 81, 10, 41,   // Grande pupille joyeuse
+  41, 10, 81, 82, 82, 81, 10, 41,   // Brillance maximale
+  50, 11, 10, 80, 80, 10, 11, 50,   // Fort contraste
+  71, 50, 41, 11, 11, 41, 50, 71,   // Sourire prononcé
+  0, 71, 51, 50, 50, 51, 71, 0
 };
 
 // --- PATTERN #09: SAD (Droopy eyes) ----------------------------------------
 static const uint8_t PATTERN_SAD_FRAME0[64] = {
-  0, 33, 0, 0, 0, 0, 33, 0, // Sourcils baissés vers le bas (côté interne)
-  33, 32, 31, 0, 0, 31, 32, 33, // Sourcils épais avec ombre
-  0, 23, 21, 22, 22, 21, 23, 0, // Paupière supérieure tombante
-  23, 21, 20, 11, 11, 20, 21, 23,
-  22, 20, 11, 30, 30, 11, 20, 22, // Iris plissée, fermée
-  21, 20, 31, 30, 30, 31, 20, 21,
-  33, 22, 22, 21, 21, 22, 22, 33, // Paupière basse très active
-  0, 0, 33, 23, 23, 33, 0, 0
+  0, 71, 0, 0, 0, 0, 71, 0, // Sourcils baissés
+  71, 71, 70, 0, 0, 70, 71, 71, // Sourcils avec ombre
+  0, 71, 51, 50, 50, 51, 71, 0, // Paupière supérieure tombante
+  71, 51, 41, 10, 10, 41, 51, 71,
+  50, 41, 10, 80, 80, 10, 41, 50, // Iris plissée
+  41, 10, 80, 81, 81, 80, 10, 41,
+  71, 51, 51, 41, 41, 51, 51, 71, // Paupière basse active
+  0, 0, 71, 51, 51, 71, 0, 0
 };
 static const uint8_t PATTERN_SAD_FRAME1[64] = {
-  33, 0, 33, 0, 0, 33, 0, 33, // Sourcils agités (pleurs)
-  32, 32, 32, 32, 32, 32, 32, 32, // Sourcil continu épais
-  0, 23, 21, 22, 22, 21, 23, 0, // Paupière supérieure très tombante
-  23, 21, 20, 11, 11, 20, 21, 23,
-  22, 20, 10, 31, 31, 10, 20, 22, // Iris encore plus rétrécie
-  21, 20, 30, 31, 31, 30, 20, 21,
-  32, 32, 32, 32, 32, 32, 32, 32, // Paupière basse tremblante (pleurs)
-  0, 33, 23, 33, 33, 23, 33, 0   // Larmes suggérées (coins inférieur)
+  71, 0, 71, 0, 0, 71, 0, 71, // Sourcils agités (pleurs)
+  70, 70, 70, 70, 70, 70, 70, 70, // Sourcil continu
+  0, 71, 51, 50, 50, 51, 71, 0, // Paupière supérieure très tombante
+  71, 51, 41, 10, 10, 41, 51, 71,
+  50, 41, 10, 81, 81, 10, 41, 50, // Iris encore plus rétrécie
+  41, 10, 80, 81, 81, 80, 10, 41,
+  70, 70, 70, 70, 70, 70, 70, 70, // Paupière basse tremblante
+  0, 71, 51, 71, 71, 51, 71, 0   // Larmes suggérées
 };
 
 // --- PATTERN #10: ANGRY ----------------------------------------------------
 static const uint8_t PATTERN_ANGRY_FRAME0[64] = {
   0, 0, 0, 0, 0, 0, 0, 0,
-  0, 0, 33, 23, 23, 33, 0, 0,
-  0, 0, 21, 12, 12, 21, 33, 0,
-  22, 21, 31, 30, 30, 31, 21, 22,
-  21, 20, 31, 30, 30, 31, 20, 21,
-  22, 20, 11, 31, 31, 11, 20, 22,
-  33, 22, 21, 21, 21, 21, 22, 33,
-  0, 33, 23, 22, 22, 23, 33, 0
+  0, 0, 71, 51, 51, 71, 0, 0,
+  0, 0, 50, 41, 41, 50, 71, 0,
+  51, 50, 80, 81, 81, 80, 50, 51,
+  50, 41, 80, 82, 82, 80, 41, 50,
+  51, 41, 10, 80, 80, 10, 41, 51,
+  71, 51, 50, 50, 50, 50, 51, 71,
+  0, 71, 51, 50, 50, 51, 71, 0
 };
 static const uint8_t PATTERN_ANGRY_FRAME1[64] = {
   0, 0, 0, 0, 0, 0, 0, 0,
-  0, 0, 33, 23, 23, 33, 0, 0,
-  0, 0, 21, 12, 12, 21, 33, 0,
-  22, 21, 31, 30, 30, 31, 21, 22,
-  21, 20, 31, 30, 30, 31, 20, 21,
-  0, 22, 21, 20, 20, 21, 22, 0,
-  0, 0, 22, 21, 21, 22, 0, 0,
+  0, 0, 71, 51, 51, 71, 0, 0,
+  0, 0, 50, 41, 41, 50, 71, 0,
+  51, 50, 80, 81, 81, 80, 50, 51,
+  50, 41, 80, 82, 82, 80, 41, 50,
+  0, 51, 50, 41, 41, 50, 51, 0,
+  0, 0, 51, 50, 50, 51, 0, 0,
   0, 0, 0, 0, 0, 0, 0, 0
 };
 
 // --- PATTERN #11: SURPRISED ------------------------------------------------
 // Very wide open, small iris
 static const uint8_t PATTERN_SURPRISED_FRAME0[64] = {
-  0, 33, 23, 22, 22, 23, 33, 0,
-  33, 22, 21, 21, 21, 21, 22, 33,
-  23, 21, 12, 11, 11, 12, 21, 23,
-  22, 20, 10, 11, 11, 10, 20, 22, // Small iris
-  22, 20, 10, 11, 11, 10, 20, 22,
-  23, 21, 12, 11, 11, 12, 21, 23,
-  33, 22, 21, 21, 21, 21, 22, 33,
-  0, 33, 23, 22, 22, 23, 33, 0
+  0, 71, 51, 50, 50, 51, 71, 0,
+  71, 51, 50, 50, 50, 50, 51, 71,
+  51, 50, 11, 10, 10, 11, 50, 51,
+  50, 41, 10, 11, 11, 10, 41, 50, // Small iris
+  50, 41, 10, 11, 11, 10, 41, 50,
+  51, 50, 11, 10, 10, 11, 50, 51,
+  71, 51, 50, 50, 50, 50, 51, 71,
+  0, 71, 51, 50, 50, 51, 71, 0
 };
 // Pulse pupil size
 static const uint8_t PATTERN_SURPRISED_FRAME1[64] = {
-  0, 33, 23, 22, 22, 23, 33, 0,
-  33, 22, 21, 21, 21, 21, 22, 33,
-  23, 21, 12, 11, 11, 12, 21, 23,
-  22, 20, 10, 30, 30, 10, 20, 22, // Very small pupil
-  22, 20, 10, 30, 30, 10, 20, 22,
-  23, 21, 12, 11, 11, 12, 21, 23,
-  33, 22, 21, 21, 21, 21, 22, 33,
-  0, 33, 23, 22, 22, 23, 33, 0
+  0, 71, 51, 50, 50, 51, 71, 0,
+  71, 51, 50, 50, 50, 50, 51, 71,
+  51, 50, 11, 10, 10, 11, 50, 51,
+  50, 41, 10, 30, 30, 10, 41, 50, // Very small pupil
+  50, 41, 10, 30, 30, 10, 41, 50,
+  51, 50, 11, 10, 10, 11, 50, 51,
+  71, 51, 50, 50, 50, 50, 51, 71,
+  0, 71, 51, 50, 50, 51, 71, 0
 };
 
 
@@ -385,40 +409,100 @@ static uint32_t dimColor(uint32_t color, uint8_t percent) {
   return ((uint32_t)r << 16) | ((uint32_t)g << 8) | b;
 }
 
-static void drawPattern(Adafruit_NeoPixel& eye, const uint8_t* pattern, uint32_t primary, uint32_t secondary, uint32_t tertiary) {
+// Additional perceived brightness adjustment for very low brightness settings.
+// This reduces overly bright "white-ish" colors more than dark hues when brightness < 64.
+static uint32_t adjustPerceivedBrightness(uint32_t color, uint8_t brightness) {
+  if (brightness >= 64) return color;
+  uint8_t r = (uint8_t)(color >> 16);
+  uint8_t g = (uint8_t)(color >> 8);
+  uint8_t b = (uint8_t)color;
+
+  // Approximate luminance (weights sum ~100): Y ≈ 0.21R + 0.72G + 0.07B
+  uint16_t lum = (uint16_t)((uint16_t)r * 21 + (uint16_t)g * 72 + (uint16_t)b * 7) / 100; // 0..255
+  uint16_t low = (uint16_t)(64 - brightness); // 0..64
+
+  // Extra dimming in per-thousand based on how low brightness is and luminance.
+  // Max extra dim ≈ 0.6 (600/1000) when brightness→0 and color≈white (lum≈255).
+  uint32_t extra = (uint32_t)low * (uint32_t)lum * 600u; // numerator
+  uint32_t denom = 64u * 255u;                           // 16320
+  uint16_t extraTh = (uint16_t)(extra / denom);          // 0..~600
+  uint16_t scaleTh = (uint16_t)(1000u - extraTh);        // 1000..400
+  if (scaleTh < 300) scaleTh = 300;                      // clamp min to 0.3
+
+  r = (uint8_t)(((uint32_t)r * scaleTh) / 1000u);
+  g = (uint8_t)(((uint32_t)g * scaleTh) / 1000u);
+  b = (uint8_t)(((uint32_t)b * scaleTh) / 1000u);
+
+  return ((uint32_t)r << 16) | ((uint32_t)g << 8) | b;
+}
+
+static void fillPaletteFromLegacy(uint32_t primary, uint32_t secondary, uint32_t tertiary) {
+  g_palette[0] = primary;                     // C1 vibrant
+  g_palette[1] = secondary;                   // C2 accent
+  g_palette[2] = tertiary;                    // C3 shadow
+  g_palette[3] = dimColor(secondary, 70);     // C4 warm highlight
+  g_palette[4] = dimColor(secondary, 40);     // C5 cool highlight
+  g_palette[5] = dimColor(tertiary, 70);      // C6 deep shadow
+  g_palette[6] = dimColor(tertiary, 40);      // C7 outline
+  g_palette[7] = 0x00000000;                  // C8 black
+}
+
+static void setPaletteFromScheme(ColorScheme scheme) {
+  switch (scheme) {
+    case ColorScheme::CARS_ORANGE:
+      fillPaletteFromLegacy(SCHEME_CARS_ORANGE[0], SCHEME_CARS_ORANGE[1], SCHEME_CARS_ORANGE[2]);
+      break;
+    case ColorScheme::SOFT_REALISTIC:
+      fillPaletteFromLegacy(SCHEME_SOFT_REALISTIC[0], SCHEME_SOFT_REALISTIC[1], SCHEME_SOFT_REALISTIC[2]);
+      break;
+    case ColorScheme::ELEGANT_BLUE:
+      fillPaletteFromLegacy(SCHEME_ELEGANT_BLUE[0], SCHEME_ELEGANT_BLUE[1], SCHEME_ELEGANT_BLUE[2]);
+      break;
+    case ColorScheme::CARS_ORANGE_V2:
+      memcpy(g_palette, SCHEME_CARS_ORANGE_V2, sizeof(g_palette));
+      g_eyeState.primaryColor = g_palette[0];
+      g_eyeState.secondaryColor = g_palette[1];
+      g_eyeState.tertiaryColor = g_palette[2];
+      break;
+    case ColorScheme::HUMAN_EYE:
+      memcpy(g_palette, SCHEME_HUMAN_EYE, sizeof(g_palette));
+      g_eyeState.primaryColor = g_palette[0];
+      g_eyeState.secondaryColor = g_palette[1];
+      g_eyeState.tertiaryColor = g_palette[2];
+      break;
+  }
+}
+
+static void drawPattern(Adafruit_NeoPixel& eye, const uint8_t* pattern, const uint32_t* palette) {
   for (uint8_t y = 0; y < NEOPIXEL_MATRIX_HEIGHT; y++) {
     for (uint8_t x = 0; x < NEOPIXEL_MATRIX_WIDTH; x++) {
       uint8_t idx = xyToIndex(x, y);
       uint8_t code = pattern[y * NEOPIXEL_MATRIX_WIDTH + x];
       uint32_t finalColor = 0;
-      
+
       if (code == 0) {
         finalColor = 0;
+      } else if (code == 100) {
+        finalColor = palette[0];
+      } else if (code >= 1 && code <= 8) {
+        finalColor = palette[code - 1];
+      } else if (code >= 10 && code < 90) {
+        uint8_t tens = code / 10;
+        uint8_t idxPalette = (tens >= 1) ? (uint8_t)(tens - 1) : 0;
+        if (idxPalette > 7) idxPalette = 7;
+        uint8_t mod = code % 10;
+        uint8_t percent = 100;
+        if (mod == 1) percent = 70;
+        else if (mod == 2) percent = 40;
+        else if (mod == 3) percent = 20;
+        else if (mod == 4) percent = 10;
+        finalColor = dimColor(palette[idxPalette], percent);
+      } else {
+        finalColor = 0;
       }
-      else if (code >= 10 && code < 20) {
-        if (code == 10) finalColor = primary;
-        else if (code == 11) finalColor = dimColor(primary, 70);
-        else if (code == 12) finalColor = dimColor(primary, 40);
-        else finalColor = dimColor(primary, 20);
-      }
-      else if (code >= 20 && code < 30) {
-        if (code == 20) finalColor = secondary;
-        else if (code == 21) finalColor = dimColor(secondary, 70);
-        else if (code == 22) finalColor = dimColor(secondary, 40);
-        else if (code == 23) finalColor = dimColor(secondary, 20);
-        else finalColor = dimColor(secondary, 10);
-      }
-      else if (code >= 30 && code < 40) {
-        if (code == 30) finalColor = tertiary;
-        else if (code == 31) finalColor = dimColor(tertiary, 70);
-        else if (code == 32) finalColor = dimColor(tertiary, 40);
-        else finalColor = dimColor(tertiary, 20);
-      }
-      else if (code == 1) finalColor = primary;
-      else if (code == 2) finalColor = secondary;
-      else if (code == 3) finalColor = tertiary;
-      else if (code == 100) finalColor = primary; // Support for turn signal intensity
-      
+
+      // Apply perceived brightness adjustment for low global brightness
+      finalColor = adjustPerceivedBrightness(finalColor, g_eyeState.brightness);
       eye.setPixelColor(idx, finalColor);
     }
   }
@@ -506,6 +590,12 @@ void loadSettings() {
   g_eyeState.tertiaryColor = prefs.getUInt("col_ter", 0x00000000);
   g_currentScheme = (ColorScheme)prefs.getInt("scheme", (int)ColorScheme::CARS_ORANGE);
   g_signalDurationMs = prefs.getUShort("sig_dur", 3000);
+  // Initialize palette from stored colors first (legacy compatibility)
+  fillPaletteFromLegacy(g_eyeState.primaryColor, g_eyeState.secondaryColor, g_eyeState.tertiaryColor);
+  // If scheme supports 8 colors, override with scheme palette
+  if (g_currentScheme == ColorScheme::CARS_ORANGE_V2 || g_currentScheme == ColorScheme::HUMAN_EYE) {
+    setPaletteFromScheme(g_currentScheme);
+  }
   
   // Load saved mode if not idle
   int savedAnim = prefs.getInt("anim", (int)AnimationType::IDLE);
@@ -644,29 +734,28 @@ void clear() { eyeLeft.clear(); eyeRight.clear(); show(); }
 uint32_t makeColor(uint8_t r, uint8_t g, uint8_t b) { return eyeLeft.Color(r,g,b); }
 AnimationType getAnimation() { return g_eyeState.currentAnimation; }
 
-void setPrimaryColor(uint32_t color) { g_eyeState.primaryColor = color; saveSettings(); update(); }
-void setSecondaryColor(uint32_t color) { g_eyeState.secondaryColor = color; saveSettings(); update(); }
-void setTertiaryColor(uint32_t color) { g_eyeState.tertiaryColor = color; saveSettings(); update(); }
+void setPrimaryColor(uint32_t color) {
+  g_eyeState.primaryColor = color;
+  g_palette[0] = color;
+  saveSettings();
+  update();
+}
+void setSecondaryColor(uint32_t color) {
+  g_eyeState.secondaryColor = color;
+  g_palette[1] = color;
+  saveSettings();
+  update();
+}
+void setTertiaryColor(uint32_t color) {
+  g_eyeState.tertiaryColor = color;
+  g_palette[2] = color;
+  saveSettings();
+  update();
+}
 
 void applyColorScheme(ColorScheme scheme) {
   g_currentScheme = scheme;
-  switch (scheme) {
-    case ColorScheme::CARS_ORANGE:
-      g_eyeState.primaryColor = SCHEME_CARS_ORANGE[0];
-      g_eyeState.secondaryColor = SCHEME_CARS_ORANGE[1];
-      g_eyeState.tertiaryColor = SCHEME_CARS_ORANGE[2];
-      break;
-    case ColorScheme::SOFT_REALISTIC:
-      g_eyeState.primaryColor = SCHEME_SOFT_REALISTIC[0];
-      g_eyeState.secondaryColor = SCHEME_SOFT_REALISTIC[1];
-      g_eyeState.tertiaryColor = SCHEME_SOFT_REALISTIC[2];
-      break;
-    case ColorScheme::ELEGANT_BLUE:
-      g_eyeState.primaryColor = SCHEME_ELEGANT_BLUE[0];
-      g_eyeState.secondaryColor = SCHEME_ELEGANT_BLUE[1];
-      g_eyeState.tertiaryColor = SCHEME_ELEGANT_BLUE[2];
-      break;
-  }
+  setPaletteFromScheme(scheme);
   saveSettings();
   update();
 }
@@ -788,25 +877,24 @@ void update() {
     
     // Draw Left
     if (patternLeft) {
-       // Turn signals use classic AMBER color (0xFFBF00) usually, but we use primary color if custom? 
-       // Requirement says "arrow", assuming standard color scheme or specific orange.
-       // Let's use standard amber for implementation to look like a car.
-       uint32_t cPri = g_eyeState.primaryColor;
+       uint32_t paletteLeft[8];
+       memcpy(paletteLeft, g_palette, sizeof(paletteLeft));
        if (anim == AnimationType::TURN_LEFT || anim == AnimationType::TURN_RIGHT || anim == AnimationType::HAZARD) {
-           cPri = 0x00FFBF00; // Amber
+          paletteLeft[0] = 0x00FFBF00; // Amber for turn signals
        }
-       drawPattern(eyeLeft, patternLeft, cPri, g_eyeState.secondaryColor, g_eyeState.tertiaryColor);
+       drawPattern(eyeLeft, patternLeft, paletteLeft);
     } else {
        eyeLeft.clear();
     }
     
     // Draw Right
     if (patternRight) {
-       uint32_t cPri = g_eyeState.primaryColor;
+       uint32_t paletteRight[8];
+       memcpy(paletteRight, g_palette, sizeof(paletteRight));
        if (anim == AnimationType::TURN_LEFT || anim == AnimationType::TURN_RIGHT || anim == AnimationType::HAZARD) {
-           cPri = 0x00FFBF00; // Amber
+          paletteRight[0] = 0x00FFBF00; // Amber for turn signals
        }
-       drawPattern(eyeRight, patternRight, cPri, g_eyeState.secondaryColor, g_eyeState.tertiaryColor);
+       drawPattern(eyeRight, patternRight, paletteRight);
     } else {
        eyeRight.clear();
     }
