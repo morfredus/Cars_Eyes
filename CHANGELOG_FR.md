@@ -1,4 +1,11 @@
 # Journal des modifications
+## 1.6.2 — 17/01/2026
+
+6) Correction persistance bouton OFF
+- Le bouton OFF désactive maintenant AutoPlay pour garder les LEDs éteintes.
+- Repositionnement du bouton OFF : déplacé après le bouton Pixel Editor (dernière position).
+- L'endpoint /api/eyes/off appelle maintenant setAutoPlay(false) avant d'éteindre les LEDs.
+
 ## 1.6.1 — 16/01/2026
 
 5) Bouton OFF

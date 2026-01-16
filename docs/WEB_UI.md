@@ -1,14 +1,14 @@
 # Web UI & Networking
 
-**Version:** 1.6.1  
-**Minimum version:** 1.6.1  
+**Version:** 1.6.2  
+**Minimum version:** 1.6.2  
 **Language:** English  
 
 ## Web UI Overview
 The system includes a built-in web server serving on port **80**. Main endpoints:
 - `GET /` — HTML dashboard with system stats and animation controls
 - `GET /status` — JSON API for programmatic access
-- `GET /api/eyes/off` — Turn off all LEDs instantly
+- `GET /api/eyes/off` — Turn off all LEDs instantly and disable AutoPlay
 - `GET /api/eyes/animation?id=X` — Set animation (0-16)
 - `GET /api/eyes/brightness?value=X` — Set brightness (0-255)
 - `GET /api/eyes/scheme?id=X` — Set color scheme (0-4)

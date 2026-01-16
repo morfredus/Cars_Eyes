@@ -1,14 +1,14 @@
 # Interface Web et Réseau
 
-**Version:** 1.6.1  
-**Version minimale:** 1.6.1  
+**Version:** 1.6.2  
+**Version minimale:** 1.6.2  
 **Langage:** Français  
 
 ## Vue d'ensemble
 Le système inclut un serveur web embarqué sur le port **80**. Endpoints principaux :
 - `GET /` — Tableau de bord HTML avec stats système et contrôles d'animations
 - `GET /status` — API JSON pour accès programmatique
-- `GET /api/eyes/off` — Éteindre toutes les LEDs instantanément
+- `GET /api/eyes/off` — Éteindre toutes les LEDs instantanément et désactiver AutoPlay
 - `GET /api/eyes/animation?id=X` — Définir l'animation (0-16)
 - `GET /api/eyes/brightness?value=X` — Définir la luminosité (0-255)
 - `GET /api/eyes/scheme?id=X` — Définir le schéma de couleur (0-4)

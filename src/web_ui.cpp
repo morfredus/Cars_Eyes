@@ -81,8 +81,8 @@ button:hover { background: #5568d3; }
   html += "<button class=\"eye-btn\" onclick=\"setAnim(14)\">➡️ TURN RIGHT</button>";
   html += "<button class=\"eye-btn\" onclick=\"setAnim(15)\">⚠️ HAZARD</button>";
   html += "<button class=\"eye-btn\" onclick=\"setAnim(16)\" style=\"background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);\">✏️ CUSTOM</button>";
-  html += "<button class=\"eye-btn\" onclick=\"setOff()\" style=\"background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);\">⚫ OFF</button>";
   html += "<a href=\"/custom\" style=\"text-decoration:none;\"><button class=\"eye-btn\" style=\"background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);\">🎨 Pixel Editor</button></a>";
+  html += "<button class=\"eye-btn\" onclick=\"setOff()\" style=\"background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);\">⚫ OFF</button>";
   html += "</div>";
   html += "</div>";
   
