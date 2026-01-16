@@ -1,6 +1,13 @@
 # Changelog
 ## 1.6.2 — 2026-01-17
 
+9) OFF button complete fix - turnOff() function
+- Added AnimationType::OFF special state to prevent any animation from restarting.
+- New turnOff() function: stops autoplay, clears signal state, forces OFF animation state, and clears LEDs.
+- Modified update() to skip all logic when animation is OFF.
+- Endpoint /api/eyes/off now uses turnOff() instead of setAutoPlay(false) + clear().
+- OFF state persists until user selects another animation button.
+
 7) LOOK_LEFT and LOOK_RIGHT patterns correction
 - Fixed iris codes in LOOK_LEFT_FRAME0/1: changed from 80/81 to 10/11 for proper pupil core rendering.
 - Fixed iris codes in LOOK_RIGHT_FRAME0/1: changed from 80/81 to 10/11 for consistent pupil structure.

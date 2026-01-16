@@ -1,6 +1,13 @@
 # Journal des modifications
 ## 1.6.2 — 17/01/2026
 
+9) Correction complète du bouton OFF - fonction turnOff()
+- Ajout de l'état spécial AnimationType::OFF pour empêcher toute animation de redémarrer.
+- Nouvelle fonction turnOff() : arrête l'autoplay, efface l'état des clignotants, force l'état OFF et éteint les LEDs.
+- Modification de update() pour ignorer toute logique quand l'animation est OFF.
+- L'endpoint /api/eyes/off utilise maintenant turnOff() au lieu de setAutoPlay(false) + clear().
+- L'état OFF persiste jusqu'à ce que l'utilisateur sélectionne un autre bouton d'animation.
+
 7) Correction des patterns LOOK_LEFT et LOOK_RIGHT
 - Correction des codes d'iris dans LOOK_LEFT_FRAME0/1 : passage de 80/81 à 10/11 pour un rendu correct du noyau de la pupille.
 - Correction des codes d'iris dans LOOK_RIGHT_FRAME0/1 : passage de 80/81 à 10/11 pour une structure de pupille cohérente.

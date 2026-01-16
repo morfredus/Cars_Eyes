@@ -185,8 +185,8 @@ static const uint8_t PATTERN_LOOK_LEFT_FRAME0[64] = {
   0, 71, 51, 50, 50, 51, 71, 0,
   71, 51, 50, 50, 50, 50, 51, 71,
   51, 41, 11, 50, 51, 71, 71, 0,
-  50, 10, 80, 81, 50, 71, 71, 0,    // 4-point pupils: 80, 81
-  50, 80, 81, 80, 50, 71, 71, 0,    // alternating
+  50, 11, 10, 81, 50, 71, 71, 0,    // 4-point pupils: 80, 81
+  50, 10, 11, 80, 50, 71, 71, 0,    // alternating
   51, 41, 11, 50, 51, 71, 71, 0,
   71, 51, 50, 50, 50, 50, 51, 71,
   0, 71, 51, 50, 50, 51, 71, 0
@@ -208,8 +208,8 @@ static const uint8_t PATTERN_LOOK_RIGHT_FRAME0[64] = {
   0, 71, 51, 50, 50, 51, 71, 0,
   71, 51, 50, 50, 50, 50, 51, 71,
   0, 71, 71, 51, 41, 11, 50, 51,
-  0, 71, 71, 50, 81, 80, 10, 50,    // 4-point pupils: 81, 80
-  0, 71, 71, 50, 80, 81, 80, 50,    // alternating
+  0, 71, 71, 50, 81, 11, 10, 50,    // 4-point pupils: 81, 80
+  0, 71, 71, 50, 80, 10, 11, 50,    // alternating
   0, 71, 71, 51, 41, 11, 50, 51,
   71, 51, 50, 50, 50, 50, 51, 71,
   0, 71, 51, 50, 50, 51, 71, 0
@@ -226,48 +226,48 @@ static const uint8_t PATTERN_LOOK_RIGHT_FRAME1[64] = {
 };
 
 // --- PATTERN #06: LOOK_UP --------------------------------------------------
-// Eyes looking UP with open eyelids and blinking pupils (4-point blink)
+// Eyes looking UP (LOOK_LEFT rotated 90° clockwise)
 static const uint8_t PATTERN_LOOK_UP_FRAME0[64] = {
   0, 71, 51, 50, 50, 51, 71, 0,
-  71, 51, 50, 50, 50, 50, 51, 71,
-  51, 41, 11, 50, 51, 71, 71, 0,    // Iris UP (rows 2-4)
-  50, 10, 80, 81, 50, 71, 71, 0,    // 4-point pupils: 80, 81
-  50, 80, 81, 80, 50, 71, 71, 0,    // alternating
-  51, 41, 11, 50, 51, 71, 71, 0,
-  71, 51, 50, 50, 50, 50, 51, 71,
-  0, 71, 51, 50, 50, 51, 71, 0
+  71, 51, 41, 10, 10, 41, 51, 71,
+  51, 50, 11, 11, 10, 11, 50, 51,
+  50, 50, 50, 80, 81, 50, 50, 50,
+  50, 50, 51, 50, 50, 51, 50, 50,
+  51, 50, 71, 71, 71, 71, 50, 51,
+  71, 51, 71, 71, 71, 71, 51, 71,
+  0, 71, 0, 0, 0, 0, 71, 0
 };
 static const uint8_t PATTERN_LOOK_UP_FRAME1[64] = {
   0, 71, 51, 50, 50, 51, 71, 0,
-  71, 51, 50, 50, 50, 50, 51, 71,
-  51, 41, 10, 50, 51, 71, 71, 0,    // Iris UP - variation
-  50, 81, 80, 81, 50, 71, 71, 0,    // 4-point blink: 81, 80, 81
-  50, 80, 81, 80, 50, 71, 71, 0,
-  51, 41, 10, 50, 51, 71, 71, 0,
-  71, 51, 50, 50, 50, 50, 51, 71,
-  0, 71, 51, 50, 50, 51, 71, 0
+  71, 51, 41, 80, 80, 41, 51, 71,
+  51, 50, 10, 80, 81, 10, 50, 51,
+  50, 50, 50, 81, 80, 50, 50, 50,
+  50, 50, 51, 50, 50, 51, 50, 50,
+  51, 50, 71, 71, 71, 71, 50, 51,
+  71, 51, 71, 71, 71, 71, 51, 71,
+  0, 71, 0, 0, 0, 0, 71, 0
 };
 
 // --- PATTERN #07: LOOK_DOWN ------------------------------------------------
-// Eyes looking DOWN with open eyelids and blinking pupils (4-point blink)
+// Eyes looking DOWN (LOOK_LEFT rotated 90° counter-clockwise)
 static const uint8_t PATTERN_LOOK_DOWN_FRAME0[64] = {
-  0, 71, 51, 50, 50, 51, 71, 0,
-  71, 51, 50, 50, 50, 50, 51, 71,
-  51, 41, 11, 50, 51, 71, 71, 0,
-  50, 10, 80, 81, 50, 71, 71, 0,    // Iris DOWN (rows 3-5)
-  50, 80, 81, 80, 50, 71, 71, 0,    // 4-point pupils: 80, 81
-  51, 41, 11, 50, 51, 71, 71, 0,    // alternating
-  71, 51, 50, 50, 50, 50, 51, 71,
+  0, 71, 0, 0, 0, 0, 71, 0,
+  71, 51, 71, 71, 71, 71, 51, 71,
+  51, 50, 71, 71, 71, 71, 50, 51,
+  50, 50, 51, 50, 50, 51, 50, 50,
+  50, 50, 50, 81, 80, 50, 50, 50,
+  51, 50, 11, 10, 11, 11, 50, 51,
+  71, 51, 41, 11, 10, 41, 51, 71,
   0, 71, 51, 50, 50, 51, 71, 0
 };
 static const uint8_t PATTERN_LOOK_DOWN_FRAME1[64] = {
-  0, 71, 51, 50, 50, 51, 71, 0,
-  71, 51, 50, 50, 50, 50, 51, 71,
-  51, 41, 10, 50, 51, 71, 71, 0,    // Iris DOWN - variation
-  50, 81, 80, 81, 50, 71, 71, 0,    // 4-point blink: 81, 80, 81
-  50, 80, 81, 80, 50, 71, 71, 0,
-  51, 41, 10, 50, 51, 71, 71, 0,
-  71, 51, 50, 50, 50, 50, 51, 71,
+  0, 71, 0, 0, 0, 0, 71, 0,
+  71, 51, 71, 71, 71, 71, 51, 71,
+  51, 50, 71, 71, 71, 71, 50, 51,
+  50, 50, 51, 50, 50, 51, 50, 50,
+  50, 50, 50, 80, 81, 50, 50, 50,
+  51, 50, 10, 81, 80, 10, 50, 51,
+  71, 51, 41, 80, 80, 41, 51, 71,
   0, 71, 51, 50, 50, 51, 71, 0
 };
 
@@ -771,8 +771,23 @@ void setAutoPlay(bool enabled) {
 }
 bool isAutoPlayEnabled() { return g_eyeState.autoPlay; }
 
+void turnOff() {
+  g_eyeState.autoPlay = false;
+  g_signalActive = false;
+  g_eyeState.currentAnimation = AnimationType::OFF;
+  eyeLeft.clear();
+  eyeRight.clear();
+  eyeLeft.show();
+  eyeRight.show();
+}
+
 void update() {
   const unsigned long now = millis();
+  
+  // If LEDs are OFF, do nothing until another animation is selected
+  if (g_eyeState.currentAnimation == AnimationType::OFF) {
+    return;
+  }
   
   // Signal Logic (Timer)
   if (g_signalActive && !g_signalLongPress) {
@@ -950,6 +965,7 @@ void init() {}
 void setBrightness(uint8_t) {}
 uint8_t getBrightness() { return 0; }
 void clear() {}
+void turnOff() {}
 uint32_t makeColor(uint8_t,uint8_t,uint8_t) { return 0; }
 void setAnimation(AnimationType) {}
 AnimationType getAnimation() { return AnimationType::IDLE; }

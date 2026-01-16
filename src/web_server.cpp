@@ -195,10 +195,8 @@ void init() {
 
   server.on("/api/eyes/off", []() {
     #if defined(ENV_ESP32S3_N16R8)
-    NeoPixel::setAutoPlay(false);  // Disable autoplay to keep LEDs off
-    NeoPixel::clear();
-    NeoPixel::show();
-    server.send(200, "application/json", "{\"status\":\"ok\",\"message\":\"LEDs OFF, AutoPlay disabled\"}");
+    NeoPixel::turnOff();  // Use dedicated turnOff() function
+    server.send(200, "application/json", "{\"status\":\"ok\",\"message\":\"LEDs OFF, all animations stopped\"}");
     #else
     server.send(501, "application/json", "{\"status\":\"error\",\"message\":\"NeoPixel not available\"}");
     #endif
