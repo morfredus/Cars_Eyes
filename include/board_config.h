@@ -65,7 +65,7 @@
 // ────────────────────────────────────────────────────────────────────────────
 
 #define DISPLAY_SCK_PIN     12  // Horloge SPI (HSPI_CLK, SPI2_CLK)
-#define DISPLAY_MOSI_PIN    11  // Données vers écran (HSPI_MOSI, SPI2_MOSI)
+#define DISPLAY_MOSI_PIN    11  // Données vers écran (HSPI_MOSI, SPI2_MOSI, SDA)
 #define DISPLAY_MISO_PIN    13  // Données depuis écran (HSPI_MISO, optionnel)
 #define DISPLAY_CS_PIN      10  // Chip Select (actif LOW)
 #define DISPLAY_DC_PIN      9   // Data/Command (LOW=cmd, HIGH=data)
@@ -85,21 +85,23 @@
 // CÂBLAGE :
 //   5V           →  VCC NeoPixel + condensateur 100µF
 //   GND          →  GND NeoPixel
-//   GPIO41       →  DIN Œil Gauche (via résistance 330Ω protection)
-//   GPIO42       →  DIN Œil Droit (via résistance 330Ω protection)
-//   GPIO48       →  DIN LED Status (via résistance 330Ω protection)
+//   GPIO3        →  DIN Œil Gauche (via résistance 330Ω protection)
+//   GPIO6        →  DIN Œil Droit (via résistance 330Ω protection)
+//   GPIO47       →  DIN LED Status (via résistance 330Ω protection)
 //
-// ⚠️ GPIO LIBRES RECOMMANDÉES sur ESP32-S3 :
-// - GPIO 3-6, 14-21, 33-37, 41-46 (éviter 1-2=UART, 7-13=SPI, 15-17=LCD, 48=LED)
+// ⚠️ GPIO CHOISIES pour RMT (timing critique WS2812) :
+// - GPIO 3-6 : supportent RMT0-RMT3 (meilleur pour NeoPixel)
+// - GPIO 47 : support RMT pour LED status
+// - Éviter : 1-2=UART, 7-13=SPI, 15-20=LCD/I2C/JTAG, 41-46=GPIO limitation
 //
 // Composants : Résistance 330Ω, condensateur 100µF électrolytique
 // Tensions : 5V alimentation LED, 3.3V signal DIN
 // Consommation : ~60mA par LED à pleine luminosité blanche
 // ────────────────────────────────────────────────────────────────────────────
 
-#define NEOPIXEL_EYE_LEFT_PIN   41  // Broche données matrice œil gauche (GPIO libre)
-#define NEOPIXEL_EYE_RIGHT_PIN  42  // Broche données matrice œil droit (GPIO libre)
-#define NEOPIXEL_STATUS_PIN     48  // LED RGB intégrée (RTC_GPIO18)
+#define NEOPIXEL_EYE_LEFT_PIN   3   // Broche données matrice œil gauche (RMT0)
+#define NEOPIXEL_EYE_RIGHT_PIN  6   // Broche données matrice œil droit (RMT3)
+#define NEOPIXEL_STATUS_PIN     47  // LED RGB status (RMT)
 
 #define NEOPIXEL_MATRIX_WIDTH   8   // Largeur matrice en LEDs
 #define NEOPIXEL_MATRIX_HEIGHT  8   // Hauteur matrice en LEDs
