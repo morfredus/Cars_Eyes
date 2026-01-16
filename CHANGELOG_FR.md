@@ -1,6 +1,16 @@
 # Journal des modifications
 ## 1.6.2 — 17/01/2026
 
+7) Correction des patterns LOOK_LEFT et LOOK_RIGHT
+- Correction des codes d'iris dans LOOK_LEFT_FRAME0/1 : passage de 80/81 à 10/11 pour un rendu correct du noyau de la pupille.
+- Correction des codes d'iris dans LOOK_RIGHT_FRAME0/1 : passage de 80/81 à 10/11 pour une structure de pupille cohérente.
+- Amélioration de la cohérence visuelle entre tous les patterns de regard directionnel.
+
+8) Patterns LOOK_UP et LOOK_DOWN - méthode de rotation de matrice
+- LOOK_UP_FRAME0/1 : Généré par rotation de LOOK_LEFT à 90° sens horaire - iris maintenant correctement positionné en haut.
+- LOOK_DOWN_FRAME0/1 : Généré par rotation de LOOK_LEFT à 90° sens antihoraire - iris maintenant correctement positionné en bas.
+- Les quatre patterns directionnels partagent maintenant une structure cohérente avec positionnement vertical/horizontal de l'iris approprié.
+
 6) Correction persistance bouton OFF
 - Le bouton OFF désactive maintenant AutoPlay pour garder les LEDs éteintes.
 - Repositionnement du bouton OFF : déplacé après le bouton Pixel Editor (dernière position).

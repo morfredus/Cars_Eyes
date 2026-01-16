@@ -1,10 +1,10 @@
 # Documentation des Patterns NeoPixel - Yeux Animés
 
-**Version:** 1.6.0  
+**Version:** 1.6.2  
 **Version minimale:** 1.6.0  
 **Langage:** Français  
-**Date de révision:** 16 janvier 2026  
-**Améliorations:** Palettes 8 couleurs, animations recolorisées
+**Date de révision:** 17 janvier 2026  
+**Améliorations:** Palettes 8 couleurs, animations recolorisées, patterns de regard directionnel avec rotations de matrice
 
 ---
 
@@ -94,90 +94,150 @@
 ---
 
 ### **#04 - PATTERN_LOOK_LEFT: Regard vers la gauche**
-**État:** Pupille décalée à gauche  
-**Angle:** ~90° gauche
+**État:** Iris décalé à gauche avec pupilles clignotantes  
+**Angle:** ~90° gauche  
+**Technique:** Pattern de base pour les rotations verticales
 
+**FRAME0:**
 ```
-0,0,0,0,0,0,0,0
-0,0,2,2,1,0,0,0    ← Paupière avec iris à l'extrémité
-2,2,3,3,1,2,0,0    ← Pupille gauche (3 = ombre)
-2,2,3,3,1,2,0,0    ← Centre pupille (intense)
-2,2,1,1,1,2,0,0    ← Iris inférieur
-0,0,2,2,1,0,0,0    ← Paupière bas
-0,0,0,1,0,0,0,0    ← Détail de cil
-0,0,0,0,0,0,0,0
+0, 71, 51, 50, 50, 51, 71, 0
+71, 51, 50, 50, 50, 50, 51, 71
+51, 41, 11, 50, 51, 71, 71, 0
+50, 11, 10, 81, 50, 71, 71, 0    ← Iris à gauche, pupilles: 10, 81
+50, 10, 11, 80, 50, 71, 71, 0    ← Pupilles clignotantes: 10, 11, 80
+51, 41, 11, 50, 51, 71, 71, 0
+71, 51, 50, 50, 50, 50, 51, 71
+0, 71, 51, 50, 50, 51, 71, 0
+```
+
+**FRAME1 (variation clignotement):**
+```
+0, 71, 51, 50, 50, 51, 71, 0
+71, 51, 50, 50, 50, 50, 51, 71
+51, 41, 10, 50, 51, 71, 71, 0
+50, 81, 80, 81, 50, 71, 71, 0    ← Clignotement: 81, 80, 81
+50, 80, 81, 80, 50, 71, 71, 0    ← Pupilles alternées
+51, 41, 10, 50, 51, 71, 71, 0
+71, 51, 50, 50, 50, 50, 51, 71
+0, 71, 51, 50, 50, 51, 71, 0
 ```
 
 **Caractéristiques:**
-- ✓ Décalage gauche: Pupille aux bords
-- ✓ Ombrage latéral: Profondeur avec (3)
-- ✓ Réalisme: Paupière externe disparaît
+- ✓ Décalage gauche : Iris positionné au bord gauche (colonnes 1-3)
+- ✓ Pupilles clignotantes : Codes 10/11 (noyau) et 80/81 (clignotement) alternent entre frames
+- ✓ Contour préservé : Code 71 maintient la forme de l'œil
+- ✓ Sclérotique : Code 50/51 remplit la zone visible à droite
 
 ---
 
 ### **#05 - PATTERN_LOOK_RIGHT: Regard vers la droite**
-**État:** Pupille décalée à droite  
-**Angle:** ~90° droite
+**État:** Iris décalé à droite avec pupilles clignotantes  
+**Angle:** ~90° droite  
+**Technique:** Miroir de LOOK_LEFT
 
+**FRAME0:**
 ```
-0,0,0,0,0,0,0,0
-0,0,0,1,2,2,2,0    ← Paupière avec iris à l'extrémité
-0,0,1,1,3,3,2,2    ← Pupille droite (3 = ombre)
-0,0,1,1,3,3,2,2    ← Centre pupille
-0,0,1,1,1,2,2,2    ← Iris inférieur
-0,0,0,1,2,2,2,0    ← Paupière bas
-0,0,0,0,1,0,0,0    ← Détail de cil
-0,0,0,0,0,0,0,0
+0, 71, 51, 50, 50, 51, 71, 0
+71, 51, 50, 50, 50, 50, 51, 71
+0, 71, 71, 51, 41, 11, 50, 51
+0, 71, 71, 50, 81, 11, 10, 50    ← Iris à droite, pupilles: 81, 11, 10
+0, 71, 71, 50, 80, 10, 11, 50    ← Pupilles clignotantes: 80, 10, 11
+0, 71, 71, 51, 41, 11, 50, 51
+71, 51, 50, 50, 50, 50, 51, 71
+0, 71, 51, 50, 50, 51, 71, 0
+```
+
+**FRAME1 (variation clignotement):**
+```
+0, 71, 51, 50, 50, 51, 71, 0
+71, 51, 50, 50, 50, 50, 51, 71
+0, 71, 71, 51, 41, 10, 50, 51
+0, 71, 71, 50, 80, 81, 80, 50    ← Clignotement: 80, 81, 80
+0, 71, 71, 50, 81, 80, 81, 50    ← Pupilles alternées
+0, 71, 71, 51, 41, 10, 50, 51
+71, 51, 50, 50, 50, 50, 51, 71
+0, 71, 51, 50, 50, 51, 71, 0
 ```
 
 **Caractéristiques:**
-- ✓ Miroir de LOOK_LEFT
-- ✓ Pupille au bord droit
-- ✓ Ombrage opposé
+- ✓ Décalage droite : Iris positionné au bord droit (colonnes 4-6)
+- ✓ Pupilles clignotantes : Codes 10/11 (noyau) et 80/81 (clignotement) alternent entre frames
+- ✓ Structure miroir : Miroir horizontal de LOOK_LEFT
+- ✓ Sclérotique : Code 50/51 remplit la zone visible à gauche
 
 ---
 
 ### **#06 - PATTERN_LOOK_UP: Regard vers le haut**
-**État:** Pupille décalée vers le haut  
-**Angle:** ~90° haut
+**État:** Iris décalé vers le haut avec pupilles clignotantes  
+**Angle:** ~90° haut  
+**Technique:** LOOK_LEFT tourné de 90° sens horaire
 
+**FRAME0:**
 ```
-0,0,2,2,2,2,0,0    ← Paupière supérieure relevée
-0,2,3,3,3,3,2,0    ← Pupille supérieure (dilatée)
-0,2,3,3,3,3,2,0    ← Centre pupille (intense)
-0,2,1,1,1,1,2,0    ← Iris portion inférieure
-0,0,2,2,2,2,0,0    ← Paupière inférieure
-0,0,0,0,0,0,0,0
-0,0,0,0,0,0,0,0
-0,0,0,0,0,0,0,0
+0, 71, 51, 50, 50, 51, 71, 0
+71, 51, 41, 10, 10, 41, 51, 71    ← Iris en haut, pupilles: 10
+51, 50, 11, 11, 10, 11, 50, 51    ← Rangées d'iris avec codes 11, 10
+50, 50, 50, 80, 81, 50, 50, 50    ← Pupilles clignotantes: 80, 81
+50, 50, 51, 50, 50, 51, 50, 50    ← Sclérotique remplissant le bas
+51, 50, 71, 71, 71, 71, 50, 51
+71, 51, 71, 71, 71, 71, 51, 71
+0, 71, 0, 0, 0, 0, 71, 0
+```
+
+**FRAME1 (variation clignotement):**
+```
+0, 71, 51, 50, 50, 51, 71, 0
+71, 51, 41, 80, 80, 41, 51, 71    ← Clignotement: 80
+51, 50, 10, 80, 81, 10, 50, 51    ← Pupilles: 10, 80, 81
+50, 50, 50, 81, 80, 50, 50, 50    ← Alternance: 81, 80
+50, 50, 51, 50, 50, 51, 50, 50
+51, 50, 71, 71, 71, 71, 50, 51
+71, 51, 71, 71, 71, 71, 51, 71
+0, 71, 0, 0, 0, 0, 71, 0
 ```
 
 **Caractéristiques:**
-- ✓ Paupière haute levée
-- ✓ Pupille vers le haut
-- ✓ Espaces vides bas
+- ✓ Décalage haut : Iris positionné en haut (rangées 1-3)
+- ✓ Rotation de matrice : Généré par rotation de LOOK_LEFT à 90° sens horaire
+- ✓ Pupilles clignotantes : Codes 10/11 et 80/81 alternent verticalement
+- ✓ Sclérotique visible : Moitié inférieure montre la sclérotique (codes 50/51)
 
 ---
 
 ### **#07 - PATTERN_LOOK_DOWN: Regard vers le bas**
-**État:** Pupille décalée vers le bas  
-**Angle:** ~90° bas
+**État:** Iris décalé vers le bas avec pupilles clignotantes  
+**Angle:** ~90° bas  
+**Technique:** LOOK_LEFT tourné de 90° sens antihoraire
 
+**FRAME0:**
 ```
-0,0,0,0,0,0,0,0
-0,0,0,0,0,0,0,0
-0,0,2,2,2,2,0,0    ← Paupière supérieure
-0,2,1,1,1,1,2,0    ← Iris portion supérieure
-0,2,3,3,3,3,2,0    ← Pupille centre (vers bas)
-0,2,3,3,3,3,2,0    ← Pupille inférieure (intense)
-0,0,2,2,2,2,0,0    ← Paupière inférieure abaissée
-0,0,0,0,0,0,0,0
+0, 71, 0, 0, 0, 0, 71, 0
+71, 51, 71, 71, 71, 71, 51, 71
+51, 50, 71, 71, 71, 71, 50, 51
+50, 50, 51, 50, 50, 51, 50, 50    ← Sclérotique remplissant le haut
+50, 50, 50, 81, 80, 50, 50, 50    ← Pupilles clignotantes: 81, 80
+51, 50, 11, 10, 11, 11, 50, 51    ← Rangées d'iris avec codes 11, 10
+71, 51, 41, 11, 10, 41, 51, 71    ← Iris en bas, pupilles: 11, 10
+0, 71, 51, 50, 50, 51, 71, 0
+```
+
+**FRAME1 (variation clignotement):**
+```
+0, 71, 0, 0, 0, 0, 71, 0
+71, 51, 71, 71, 71, 71, 51, 71
+51, 50, 71, 71, 71, 71, 50, 51
+50, 50, 51, 50, 50, 51, 50, 50
+50, 50, 50, 80, 81, 50, 50, 50    ← Alternance: 80, 81
+51, 50, 10, 81, 80, 10, 50, 51    ← Pupilles: 10, 81, 80
+71, 51, 41, 80, 80, 41, 51, 71    ← Clignotement: 80
+0, 71, 51, 50, 50, 51, 71, 0
 ```
 
 **Caractéristiques:**
-- ✓ Miroir de LOOK_UP
-- ✓ Paupière basse abaissée
-- ✓ Pupille vers le bas
+- ✓ Décalage bas : Iris positionné en bas (rangées 4-6)
+- ✓ Rotation de matrice : Généré par rotation de LOOK_LEFT à 90° sens antihoraire
+- ✓ Pupilles clignotantes : Codes 10/11 et 80/81 alternent verticalement
+- ✓ Sclérotique visible : Moitié supérieure montre la sclérotique (codes 50/51)
 
 ---
 
