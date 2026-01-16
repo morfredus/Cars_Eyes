@@ -38,7 +38,9 @@ enum class AnimationType {
 enum class ColorScheme {
   CARS_ORANGE = 0,     // Orange primary + Cyan blue highlights (Cars style)
   SOFT_REALISTIC,      // Soft white + Deep blue shadows (Natural eyes)
-  ELEGANT_BLUE         // Subtle blue + Pale blue highlights (Elegant)
+  ELEGANT_BLUE,        // Subtle blue + Pale blue highlights (Elegant)
+  CARS_ORANGE_V2,      // Enriched 8-color Cars palette
+  HUMAN_EYE            // Realistic human eye palette (8 colors)
 };
 
 /**

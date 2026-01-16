@@ -1,5 +1,10 @@
 # Journal des modifications
+## 1.6.1 — 16/01/2026
 
+5) Bouton OFF
+- Nouveau bouton OFF dans l'UI Web pour éteindre toutes les LEDs instantanément.
+- Nouveau endpoint API : GET /api/eyes/off
+- Docs obsolètes supprimés : BLINK_ANIMATION, INDEX_PATTERNS_NEOPIXEL, LCD_SYSTEM (info maintenant dans README/board_config.h).
 ## 1.6.0 — 16/01/2026
 
 1) Palettes 8 couleurs resserrées

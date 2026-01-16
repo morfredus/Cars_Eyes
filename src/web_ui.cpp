@@ -81,6 +81,7 @@ button:hover { background: #5568d3; }
   html += "<button class=\"eye-btn\" onclick=\"setAnim(14)\">➡️ TURN RIGHT</button>";
   html += "<button class=\"eye-btn\" onclick=\"setAnim(15)\">⚠️ HAZARD</button>";
   html += "<button class=\"eye-btn\" onclick=\"setAnim(16)\" style=\"background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);\">✏️ CUSTOM</button>";
+  html += "<button class=\"eye-btn\" onclick=\"setOff()\" style=\"background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);\">⚫ OFF</button>";
   html += "<a href=\"/custom\" style=\"text-decoration:none;\"><button class=\"eye-btn\" style=\"background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);\">🎨 Pixel Editor</button></a>";
   html += "</div>";
   html += "</div>";
@@ -91,6 +92,8 @@ button:hover { background: #5568d3; }
   html += "<button class=\"scheme-btn\" onclick=\"setScheme(0)\">🚗 Cars Orange</button>";
   html += "<button class=\"scheme-btn\" onclick=\"setScheme(1)\">👁️ Soft Realistic</button>";
   html += "<button class=\"scheme-btn\" onclick=\"setScheme(2)\">✨ Elegant Blue</button>";
+  html += "<button class=\"scheme-btn\" onclick=\"setScheme(3)\">🚗 Cars Orange v2 (8c)</button>";
+  html += "<button class=\"scheme-btn\" onclick=\"setScheme(4)\">🧿 Human Eye (8c)</button>";
   html += "</div>";
   
   // Color and brightness controls
@@ -252,6 +255,15 @@ function setSigDur(val) {
 }
 function setAutoPlay(enabled) {
   fetch('/api/eyes/autoplay?enabled=' + (enabled ? '1' : '0')).then(r => r.json()).then(d => console.log(d));
+}
+function setOff() {
+  fetch('/api/eyes/off').then(r => r.json()).then(d => {
+    showNotification('LEDs OFF', 'success');
+    console.log(d);
+  }).catch(e => {
+    showNotification('Error turning off LEDs', 'error');
+    console.error(e);
+  });
 }
 function updateStatus() {
   fetch('/api/status').then(r => r.json()).then(d => {

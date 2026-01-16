@@ -1,31 +1,26 @@
 # Documentation des Patterns NeoPixel - Yeux Animés
 
-**Version:** 1.5.23  
-**Version minimale:** 1.0.0  
+**Version:** 1.6.0  
+**Version minimale:** 1.6.0  
 **Langage:** Français  
-**Date de révision:** 14 janvier 2026  
-**Améliorations:** Patterns réalistes avec effets d'ombre 3D
+**Date de révision:** 16 janvier 2026  
+**Améliorations:** Palettes 8 couleurs, animations recolorisées
 
 ---
 
 ## Vue d'ensemble du système
 
-### Architecture des couleurs
-Le système d'affichage NeoPixel utilise **3 niveaux de couleur** pour créer des effets réalistes et de profondeur:
+### Architecture des couleurs (v1.6.0)
+- Les emplacements de palette **C1..C8** correspondent aux codes **1..8** du schéma courant.
+- Variantes atténuées : utilisez l'index de palette comme dizaine et ajoutez éventuellement `1/2/3` pour 70/40/20% de luminosité. Exemples : `10` = C1 à 100%, `51` = C5 à 70%, `82` = C8 à 40%.
+- Amber override : le code `100` force l'emplacement C1 (utilisé pour les clignotants/warning en ambre imposé).
 
-| Niveau | Code | Description |
-|--------|------|-------------|
-| **0** | `0` | Noir / Arrêt - Pixel désactivé |
-| **1** | `1` | Couleur primaire - Iris/sclérotique principale |
-| **2** | `2` | Couleur secondaire - Highlights/paupières/reflets |
-| **3** | `3` | Couleur tertiaire - Ombres/pupille/profondeur |
+### Palettes par défaut
+- **Cars Orange v2 (8 couleurs)** : C1 0x00FF5500, C2 0x00FFAA55, C3 0x00662200, C4 0x00FFF2E5, C5 0x00E0F4FF, C6 0x000A1A33, C7 0x00CC4400, C8 0x00000000.
+- **Human Eye (8 couleurs)** : C1 0x00C48A4A, C2 0x008B5A2B, C3 0x00402010, C4 0x006A7F4F, C5 0x00F7F2E8, C6 0x00E6F7FF, C7 0x00445E80, C8 0x00000000.
+- Les schémas 3 couleurs hérités sont auto-étendus : C1=Primaire, C2=Secondaire, C3=Tertiaire, C4=C2@70%, C5=C2@40%, C6=C3@70%, C7=C3@40%, C8=Noir.
 
-### Configuration des couleurs par défaut
-```cpp
-primaryColor   = 0x00FF4500   // Orange vif (iris - Cars style)
-secondaryColor = 0x00FFFFFF   // Blanc (highlights, paupières)
-tertiaryColor  = 0x001a0900   // Marron foncé/noir (ombres, pupille)
-```
+> Les grilles ci-dessous illustrent les formes ; le firmware utilise désormais les codes de palette (1..8) et variantes atténuées (10..83) selon le schéma actif.
 
 ---
 

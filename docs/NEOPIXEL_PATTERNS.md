@@ -1,31 +1,26 @@
 # NeoPixel Patterns Documentation - Animated Eyes
 
-**Version:** 1.5.23  
-**Minimum version:** 1.0.0  
+**Version:** 1.6.0  
+**Minimum version:** 1.6.0  
 **Language:** English  
-**Revision Date:** January 14, 2026  
-**Improvements:** Realistic patterns with 3D shadow effects
+**Revision Date:** January 16, 2026  
+**Improvements:** 8-color palettes, recolored animations
 
 ---
 
 ## System Overview
 
-### Color Architecture
-The NeoPixel display system uses **3 color levels** to create realistic and depth effects:
+### Color Architecture (v1.6.0)
+- Palette slots **C1..C8** map to codes **1..8** from the current color scheme.
+- Dimmed variants: use the palette index as the tens digit and optionally add `1/2/3` for 70/40/20% brightness. Examples: `10` = C1 100%, `51` = C5 at 70%, `82` = C8 at 40%.
+- Amber override: code `100` forces palette slot C1 (used for turn signals/hazard amber enforcement).
 
-| Level | Code | Description |
-|-------|------|-------------|
-| **0** | `0` | Black / Off - Pixel disabled |
-| **1** | `1` | Primary color - Main iris/sclera |
-| **2** | `2` | Secondary color - Highlights/eyelids/reflections |
-| **3** | `3` | Tertiary color - Shadows/pupil/depth |
+### Default Palette Snapshots
+- **Cars Orange v2 (8-color):** C1 0x00FF5500, C2 0x00FFAA55, C3 0x00662200, C4 0x00FFF2E5, C5 0x00E0F4FF, C6 0x000A1A33, C7 0x00CC4400, C8 0x00000000.
+- **Human Eye (8-color):** C1 0x00C48A4A, C2 0x008B5A2B, C3 0x00402010, C4 0x006A7F4F, C5 0x00F7F2E8, C6 0x00E6F7FF, C7 0x00445E80, C8 0x00000000.
+- Legacy 3-color schemes are auto-expanded: C1=Primary, C2=Secondary, C3=Tertiary, C4=C2@70%, C5=C2@40%, C6=C3@70%, C7=C3@40%, C8=Black.
 
-### Default Color Configuration
-```cpp
-primaryColor   = 0x00FF4500   // Bright orange (iris - Cars style)
-secondaryColor = 0x00FFFFFF   // White (highlights, eyelids)
-tertiaryColor  = 0x001a0900   // Dark brown/black (shadows, pupil)
-```
+> The pattern grids below illustrate shapes; firmware now uses palette codes (1..8) and dimmed variants (10..83) per the active scheme.
 
 ---
 

@@ -193,6 +193,16 @@ void init() {
     #endif
   });
 
+  server.on("/api/eyes/off", []() {
+    #if defined(ENV_ESP32S3_N16R8)
+    NeoPixel::clear();
+    NeoPixel::show();
+    server.send(200, "application/json", "{\"status\":\"ok\",\"message\":\"LEDs OFF\"}");
+    #else
+    server.send(501, "application/json", "{\"status\":\"error\",\"message\":\"NeoPixel not available\"}");
+    #endif
+  });
+
   server.on("/api/eyes/custom/pixel", []() {
     #if defined(ENV_ESP32S3_N16R8)
     if (server.hasArg("eye") && server.hasArg("x") && server.hasArg("y") && server.hasArg("color")) {
