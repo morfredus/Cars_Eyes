@@ -4,12 +4,12 @@
 // ╔══════════════════════════════════════════════════════════════════════════════╗
 // ║                        GUIDE DEBUTANT - BOARD_CONFIG.H                       ║
 // ╠══════════════════════════════════════════════════════════════════════════════╣
-// ║  Ce fichier définit le "câblage" entre l'ESP32 et les périphériques.        ║
+// ║  Ce fichier définit le "câblage" entre l'ESP32 et les périphériques.         ║
 // ║                                                                              ║
 // ║  VOCABULAIRE ESSENTIEL :                                                     ║
 // ║  GPIO  = General Purpose Input/Output (broche programmable)                  ║
 // ║  PIN   = Broche physique sur la carte                                        ║
-// ║  3.3V  = Tension logique ESP32 (JAMAIS dépasser 3.3V sur une GPIO !)        ║
+// ║  3.3V  = Tension logique ESP32 (JAMAIS dépasser 3.3V sur une GPIO !)         ║
 // ║  GND   = Masse électrique (0V, référence commune)                            ║
 // ║  VCC   = Alimentation positive (3.3V ou 5V selon composant)                  ║
 // ║                                                                              ║
@@ -77,7 +77,7 @@
 #define DISPLAY_SPI_FREQ    40000000UL  // Fréquence SPI : 40 MHz
 
 // ────────────────────────────────────────────────────────────────────────────
-// LED RGB NEOPIXEL (WS2812B)
+// LED RGB NEOPIXEL (WS2812B) - MATRICES 8x8
 // ────────────────────────────────────────────────────────────────────────────
 // LED RGB adressable avec puce WS2812B intégrée
 // Un seul fil de données contrôle des centaines de LEDs en chaîne
@@ -85,19 +85,27 @@
 // CÂBLAGE :
 //   5V           →  VCC NeoPixel + condensateur 100µF
 //   GND          →  GND NeoPixel
-//   GPIO48       →  DIN (via résistance 330Ω protection)
+//   GPIO41       →  DIN Œil Gauche (via résistance 330Ω protection)
+//   GPIO42       →  DIN Œil Droit (via résistance 330Ω protection)
+//   GPIO48       →  DIN LED Status (via résistance 330Ω protection)
+//
+// ⚠️ GPIO LIBRES RECOMMANDÉES sur ESP32-S3 :
+// - GPIO 3-6, 14-21, 33-37, 41-46 (éviter 1-2=UART, 7-13=SPI, 15-17=LCD, 48=LED)
 //
 // Composants : Résistance 330Ω, condensateur 100µF électrolytique
 // Tensions : 5V alimentation LED, 3.3V signal DIN
 // Consommation : ~60mA par LED à pleine luminosité blanche
 // ────────────────────────────────────────────────────────────────────────────
 
-#define NEOPIXEL_PIN        48  // Broche données NeoPixel (RTC_GPIO18)
-                                // ⚠️ OBLIGATOIRE sur S3 : LED RGB intégrée
+#define NEOPIXEL_EYE_LEFT_PIN   41  // Broche données matrice œil gauche (GPIO libre)
+#define NEOPIXEL_EYE_RIGHT_PIN  42  // Broche données matrice œil droit (GPIO libre)
+#define NEOPIXEL_STATUS_PIN     48  // LED RGB intégrée (RTC_GPIO18)
 
-#define NEOPIXEL_COUNT      1   // Nombre de LEDs dans la chaîne
-#define NEOPIXEL_BRIGHTNESS 32  // Luminosité par défaut (0-255)
-                                // Conseil : 32=économie, 128=moyen
+#define NEOPIXEL_MATRIX_WIDTH   8   // Largeur matrice en LEDs
+#define NEOPIXEL_MATRIX_HEIGHT  8   // Hauteur matrice en LEDs
+#define NEOPIXEL_MATRIX_COUNT   64  // Total LEDs par matrice (8x8)
+#define NEOPIXEL_BRIGHTNESS     32  // Luminosité par défaut (0-255)
+                                    // Conseil : 32=économie, 128=moyen
 
 // ============================================================================
 // CONFIGURATION ESP32 DEVKIT V1 (WROOM-32)
