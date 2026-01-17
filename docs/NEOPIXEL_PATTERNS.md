@@ -1,31 +1,26 @@
 # NeoPixel Patterns Documentation - Animated Eyes
 
-**Version:** 1.5.23  
-**Minimum version:** 1.0.0  
+**Version:** 1.6.2  
+**Minimum version:** 1.6.0  
 **Language:** English  
-**Revision Date:** January 14, 2026  
-**Improvements:** Realistic patterns with 3D shadow effects
+**Revision Date:** January 17, 2026  
+**Improvements:** 8-color palettes, recolored animations, directional gaze patterns with matrix rotations
 
 ---
 
 ## System Overview
 
-### Color Architecture
-The NeoPixel display system uses **3 color levels** to create realistic and depth effects:
+### Color Architecture (v1.6.0)
+- Palette slots **C1..C8** map to codes **1..8** from the current color scheme.
+- Dimmed variants: use the palette index as the tens digit and optionally add `1/2/3` for 70/40/20% brightness. Examples: `10` = C1 100%, `51` = C5 at 70%, `82` = C8 at 40%.
+- Amber override: code `100` forces palette slot C1 (used for turn signals/hazard amber enforcement).
 
-| Level | Code | Description |
-|-------|------|-------------|
-| **0** | `0` | Black / Off - Pixel disabled |
-| **1** | `1` | Primary color - Main iris/sclera |
-| **2** | `2` | Secondary color - Highlights/eyelids/reflections |
-| **3** | `3` | Tertiary color - Shadows/pupil/depth |
+### Default Palette Snapshots
+- **Cars Orange v2 (8-color):** C1 0x00FF5500, C2 0x00FFAA55, C3 0x00662200, C4 0x00FFF2E5, C5 0x00E0F4FF, C6 0x000A1A33, C7 0x00CC4400, C8 0x00000000.
+- **Human Eye (8-color):** C1 0x00C48A4A, C2 0x008B5A2B, C3 0x00402010, C4 0x006A7F4F, C5 0x00F7F2E8, C6 0x00E6F7FF, C7 0x00445E80, C8 0x00000000.
+- Legacy 3-color schemes are auto-expanded: C1=Primary, C2=Secondary, C3=Tertiary, C4=C2@70%, C5=C2@40%, C6=C3@70%, C7=C3@40%, C8=Black.
 
-### Default Color Configuration
-```cpp
-primaryColor   = 0x00FF4500   // Bright orange (iris - Cars style)
-secondaryColor = 0x00FFFFFF   // White (highlights, eyelids)
-tertiaryColor  = 0x001a0900   // Dark brown/black (shadows, pupil)
-```
+> The pattern grids below illustrate shapes; firmware now uses palette codes (1..8) and dimmed variants (10..83) per the active scheme.
 
 ---
 
@@ -99,90 +94,150 @@ tertiaryColor  = 0x001a0900   // Dark brown/black (shadows, pupil)
 ---
 
 ### **#04 - PATTERN_LOOK_LEFT: Looking Left**
-**State:** Pupil shifted left  
-**Angle:** ~90° left
+**State:** Iris shifted left with blinking pupils  
+**Angle:** ~90° left  
+**Technique:** Base pattern for vertical rotations
 
+**FRAME0:**
 ```
-0,0,0,0,0,0,0,0
-0,0,2,2,1,0,0,0    ← Eyelid with iris at edge
-2,2,3,3,1,2,0,0    ← Left-shifted pupil (3 = shadow)
-2,2,3,3,1,2,0,0    ← Pupil center (intense)
-2,2,1,1,1,2,0,0    ← Lower iris
-0,0,2,2,1,0,0,0    ← Lower eyelid
-0,0,0,1,0,0,0,0    ← Lash detail
-0,0,0,0,0,0,0,0
+0, 71, 51, 50, 50, 51, 71, 0
+71, 51, 50, 50, 50, 50, 51, 71
+51, 41, 11, 50, 51, 71, 71, 0
+50, 11, 10, 81, 50, 71, 71, 0    ← Iris at left edge, pupils: 10, 81
+50, 10, 11, 80, 50, 71, 71, 0    ← Pupils blinking: 10, 11, 80
+51, 41, 11, 50, 51, 71, 71, 0
+71, 51, 50, 50, 50, 50, 51, 71
+0, 71, 51, 50, 50, 51, 71, 0
+```
+
+**FRAME1 (blink variation):**
+```
+0, 71, 51, 50, 50, 51, 71, 0
+71, 51, 50, 50, 50, 50, 51, 71
+51, 41, 10, 50, 51, 71, 71, 0
+50, 81, 80, 81, 50, 71, 71, 0    ← Pupils blink: 81, 80, 81
+50, 80, 81, 80, 50, 71, 71, 0    ← Pupils alternating
+51, 41, 10, 50, 51, 71, 71, 0
+71, 51, 50, 50, 50, 50, 51, 71
+0, 71, 51, 50, 50, 51, 71, 0
 ```
 
 **Features:**
-- ✓ Left shift: Pupil at edge
-- ✓ Side shading: Depth with (3)
-- ✓ Realism: Outer eyelid disappears
+- ✓ Left shift: Iris positioned at left edge (columns 1-3)
+- ✓ Blinking pupils: Codes 10/11 (core) and 80/81 (blink) alternate between frames
+- ✓ Outline preserved: Code 71 maintains eye shape
+- ✓ Sclera: Code 50/51 fills visible area on right side
 
 ---
 
 ### **#05 - PATTERN_LOOK_RIGHT: Looking Right**
-**State:** Pupil shifted right  
-**Angle:** ~90° right
+**State:** Iris shifted right with blinking pupils  
+**Angle:** ~90° right  
+**Technique:** Mirror of LOOK_LEFT
 
+**FRAME0:**
 ```
-0,0,0,0,0,0,0,0
-0,0,0,1,2,2,2,0    ← Eyelid with iris at edge
-0,0,1,1,3,3,2,2    ← Right-shifted pupil (3 = shadow)
-0,0,1,1,3,3,2,2    ← Pupil center
-0,0,1,1,1,2,2,2    ← Lower iris
-0,0,0,1,2,2,2,0    ← Lower eyelid
-0,0,0,0,1,0,0,0    ← Lash detail
-0,0,0,0,0,0,0,0
+0, 71, 51, 50, 50, 51, 71, 0
+71, 51, 50, 50, 50, 50, 51, 71
+0, 71, 71, 51, 41, 11, 50, 51
+0, 71, 71, 50, 81, 11, 10, 50    ← Iris at right edge, pupils: 81, 11, 10
+0, 71, 71, 50, 80, 10, 11, 50    ← Pupils blinking: 80, 10, 11
+0, 71, 71, 51, 41, 11, 50, 51
+71, 51, 50, 50, 50, 50, 51, 71
+0, 71, 51, 50, 50, 51, 71, 0
+```
+
+**FRAME1 (blink variation):**
+```
+0, 71, 51, 50, 50, 51, 71, 0
+71, 51, 50, 50, 50, 50, 51, 71
+0, 71, 71, 51, 41, 10, 50, 51
+0, 71, 71, 50, 80, 81, 80, 50    ← Pupils blink: 80, 81, 80
+0, 71, 71, 50, 81, 80, 81, 50    ← Pupils alternating
+0, 71, 71, 51, 41, 10, 50, 51
+71, 51, 50, 50, 50, 50, 51, 71
+0, 71, 51, 50, 50, 51, 71, 0
 ```
 
 **Features:**
-- ✓ Mirror of LOOK_LEFT
-- ✓ Pupil at right edge
-- ✓ Opposite shading
+- ✓ Right shift: Iris positioned at right edge (columns 4-6)
+- ✓ Blinking pupils: Codes 10/11 (core) and 80/81 (blink) alternate between frames
+- ✓ Mirror structure: Horizontally mirrored from LOOK_LEFT
+- ✓ Sclera: Code 50/51 fills visible area on left side
 
 ---
 
 ### **#06 - PATTERN_LOOK_UP: Looking Up**
-**State:** Pupil shifted upward  
-**Angle:** ~90° up
+**State:** Iris shifted upward with blinking pupils  
+**Angle:** ~90° up  
+**Technique:** LOOK_LEFT rotated 90° clockwise
 
+**FRAME0:**
 ```
-0,0,2,2,2,2,0,0    ← Raised upper eyelid
-0,2,3,3,3,3,2,0    ← Upper pupil (dilated)
-0,2,3,3,3,3,2,0    ← Pupil center (intense)
-0,2,1,1,1,1,2,0    ← Lower iris portion
-0,0,2,2,2,2,0,0    ← Lower eyelid
-0,0,0,0,0,0,0,0
-0,0,0,0,0,0,0,0
-0,0,0,0,0,0,0,0
+0, 71, 51, 50, 50, 51, 71, 0
+71, 51, 41, 10, 10, 41, 51, 71    ← Iris at top, pupils: 10
+51, 50, 11, 11, 10, 11, 50, 51    ← Iris rows with 11, 10 codes
+50, 50, 50, 80, 81, 50, 50, 50    ← Blinking pupils: 80, 81
+50, 50, 51, 50, 50, 51, 50, 50    ← Sclera filling bottom
+51, 50, 71, 71, 71, 71, 50, 51
+71, 51, 71, 71, 71, 71, 51, 71
+0, 71, 0, 0, 0, 0, 71, 0
+```
+
+**FRAME1 (blink variation):**
+```
+0, 71, 51, 50, 50, 51, 71, 0
+71, 51, 41, 80, 80, 41, 51, 71    ← Pupils blink: 80
+51, 50, 10, 80, 81, 10, 50, 51    ← Pupils: 10, 80, 81
+50, 50, 50, 81, 80, 50, 50, 50    ← Alternating: 81, 80
+50, 50, 51, 50, 50, 51, 50, 50
+51, 50, 71, 71, 71, 71, 50, 51
+71, 51, 71, 71, 71, 71, 51, 71
+0, 71, 0, 0, 0, 0, 71, 0
 ```
 
 **Features:**
-- ✓ Upper eyelid lifted high
-- ✓ Pupil toward top
-- ✓ Empty spaces below
+- ✓ Upward shift: Iris positioned at top (rows 1-3)
+- ✓ Matrix rotation: Generated by rotating LOOK_LEFT 90° clockwise
+- ✓ Blinking pupils: Codes 10/11 and 80/81 alternate vertically
+- ✓ Sclera visible: Bottom half shows sclera (codes 50/51)
 
 ---
 
 ### **#07 - PATTERN_LOOK_DOWN: Looking Down**
-**State:** Pupil shifted downward  
-**Angle:** ~90° down
+**State:** Iris shifted downward with blinking pupils  
+**Angle:** ~90° down  
+**Technique:** LOOK_LEFT rotated 90° counter-clockwise
 
+**FRAME0:**
 ```
-0,0,0,0,0,0,0,0
-0,0,0,0,0,0,0,0
-0,0,2,2,2,2,0,0    ← Upper eyelid
-0,2,1,1,1,1,2,0    ← Upper iris portion
-0,2,3,3,3,3,2,0    ← Pupil center (toward down)
-0,2,3,3,3,3,2,0    ← Lower pupil (intense)
-0,0,2,2,2,2,0,0    ← Lower eyelid lowered
-0,0,0,0,0,0,0,0
+0, 71, 0, 0, 0, 0, 71, 0
+71, 51, 71, 71, 71, 71, 51, 71
+51, 50, 71, 71, 71, 71, 50, 51
+50, 50, 51, 50, 50, 51, 50, 50    ← Sclera filling top
+50, 50, 50, 81, 80, 50, 50, 50    ← Blinking pupils: 81, 80
+51, 50, 11, 10, 11, 11, 50, 51    ← Iris rows with 11, 10 codes
+71, 51, 41, 11, 10, 41, 51, 71    ← Iris at bottom, pupils: 11, 10
+0, 71, 51, 50, 50, 51, 71, 0
+```
+
+**FRAME1 (blink variation):**
+```
+0, 71, 0, 0, 0, 0, 71, 0
+71, 51, 71, 71, 71, 71, 51, 71
+51, 50, 71, 71, 71, 71, 50, 51
+50, 50, 51, 50, 50, 51, 50, 50
+50, 50, 50, 80, 81, 50, 50, 50    ← Alternating: 80, 81
+51, 50, 10, 81, 80, 10, 50, 51    ← Pupils: 10, 81, 80
+71, 51, 41, 80, 80, 41, 51, 71    ← Pupils blink: 80
+0, 71, 51, 50, 50, 51, 71, 0
 ```
 
 **Features:**
-- ✓ Mirror of LOOK_UP
-- ✓ Lower eyelid lowered
-- ✓ Pupil toward bottom
+- ✓ Downward shift: Iris positioned at bottom (rows 4-6)
+- ✓ Matrix rotation: Generated by rotating LOOK_LEFT 90° counter-clockwise
+- ✓ Blinking pupils: Codes 10/11 and 80/81 alternate vertically
+- ✓ Sclera visible: Top half shows sclera (codes 50/51)
 
 ---
 

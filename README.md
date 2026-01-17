@@ -1,6 +1,6 @@
 # Cars Eyes
 
-> **Version:** 1.5.23  
+> **Version:** 1.6.0  
 > **Minimum Version:** 1.0.0
 
 **Animated eye system using two 8x8 NeoPixel matrices for ESP32-S3, styled like Cars movie characters.**
@@ -12,13 +12,14 @@
 ## 🎯 Features
 
 - **Dual 8x8 NeoPixel Matrix Eyes** - Left and right eye control with independent or synchronized animations
-- **13 Built-in Animations** - IDLE, BLINK, WINK, LOOK (left/right/up/down), HAPPY, SAD, ANGRY, SURPRISED, SLEEP
+- **17 Built-in Animations** - IDLE, BLINK, WINK, LOOK (left/right/up/down), HAPPY, SAD, ANGRY, SURPRISED, SLEEP, TURN_LEFT, TURN_RIGHT, HAZARD, CUSTOM
 - **Turn Signals & Hazards** - Button-controlled Left/Right automotive signals and Hazard warning mode.
 - **Settings Persistence** - Automatically saves brightness, color, scheme, and signal duration to memory.
 - **Modern Web UI** - Real-time control interface without page reloads
 - **Auto-Play Mode** - Random animation sequences for lifelike behavior
-- **Color Customization** - Primary and secondary color control via web interface
+- **Color Customization** - Primary/secondary control + 8-color palettes (Cars Orange v2, Human Eye)
 - **Brightness Control** - Adjustable brightness (0-255) for both eyes
+  - At low brightness (<64), a perceived adjustment further reduces very light tones to avoid harsh whites
 - **Status LED** - Built-in RGB LED for WiFi status indication
 - **LCD Display** - Real-time system information on ST7789 screen
 - **OTA Updates** - Wireless firmware updates via web interface
@@ -132,7 +133,7 @@ http://neopixel-eyes.local/
 The web UI provides complete control over the eye animations:
 
 ### Animation Controls
-- 13 animation buttons with real-time preview
+- 17 animation buttons with real-time preview (includes TURN_L, TURN_R, HAZARD, CUSTOM)
 - Primary and secondary color pickers
 - Brightness slider (0-255)
 - Auto-play toggle for random animations
@@ -159,7 +160,7 @@ GET /api/eyes/status
 ```http
 GET /api/eyes/animation?id=0
 ```
-- `id`: 0=IDLE, 1=BLINK, 2=WINK_LEFT, 3=WINK_RIGHT, 4=LOOK_LEFT, 5=LOOK_RIGHT, 6=LOOK_UP, 7=LOOK_DOWN, 8=HAPPY, 9=SAD, 10=ANGRY, 11=SURPRISED, 12=SLEEP
+- `id`: 0=IDLE, 1=BLINK, 2=WINK_LEFT, 3=WINK_RIGHT, 4=LOOK_LEFT, 5=LOOK_RIGHT, 6=LOOK_UP, 7=LOOK_DOWN, 8=HAPPY, 9=SAD, 10=ANGRY, 11=SURPRISED, 12=SLEEP, 13=TURN_LEFT, 14=TURN_RIGHT, 15=HAZARD, 16=CUSTOM
 
 **Set Brightness:**
 ```http
@@ -218,19 +219,20 @@ Animation patterns are defined in `src/neopixel.cpp`. Each pattern is an 8x8 arr
 // 1 = Primary color (outline)
 // 2 = Secondary color (fill)
 
+// Palette-coded example (C1..C8 + dimmed variants)
 static const uint8_t PATTERN_CUSTOM[64] = {
-  0,0,0,0,0,0,0,0,
-  0,0,1,1,1,1,0,0,
-  0,1,2,2,2,2,1,0,
-  0,1,2,2,2,2,1,0,
-  0,1,2,2,2,2,1,0,
-  0,1,1,1,1,1,1,0,
-  0,0,1,1,1,1,0,0,
-  0,0,0,0,0,0,0,0
+  0,71,51,50,50,51,71,0,
+  71,51,50,50,50,50,51,71,
+  51,41,11,10,10,11,41,51,
+  50,10,80,81,81,80,10,50,
+  50,10,81,82,82,81,10,50,
+  51,41,11,10,10,11,41,51,
+  71,51,50,50,50,50,51,71,
+  0,71,51,50,50,51,71,0
 };
 ```
 
-Add your pattern to the `getPatternForAnimation()` function to use it.
+Codes: 0=off, 1..8 = palette slots (C1..C8). To dim a color, use the palette index as the tens digit and optionally add `1/2/3` for 70/40/20% (examples: 71 = C7 at 70%, 82 = C8 at 40%). Add your pattern to `getPatternForAnimation()` to activate it.
 
 ## 🔧 Troubleshooting
 

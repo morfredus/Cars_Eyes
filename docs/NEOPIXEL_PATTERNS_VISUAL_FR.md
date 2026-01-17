@@ -1,401 +1,198 @@
-# Visualisation des Patterns NeoPixel - Guide Graphique
+# Visualisation des patterns NeoPixel - Guide Graphique
 
-**Version:** 1.5.23  
-**Version minimale:** 1.0.0  
-**Langage:** Français  
-**Date:** 14 janvier 2026  
+**Version :** 1.6.0  
+**Version minimale :** 1.6.0  
+**Langue :** Français  
+**Date :** 16 janvier 2026  
 
-Ce document fournit une représentation visuelle complète des 16 patterns avec toutes leurs variantes.
+Référence visuelle des 17 animations actives avec le moteur à 8 couleurs.
 
-## Légende des symboles
-
+## Légende (codes palette)
 ```
-  0 = . (pixel éteint - noir)
-  1 = ◉ (couleur primaire - orange)
-  2 = ◇ (couleur secondaire - blanc/highlight)
-  3 = ● (couleur tertiaire - ombre/pupille)
+0   = .   (éteint)
+C1  = palette case 1 (iris cœur / forcé ambre pour signaux)
+C2  = case 2
+C3  = case 3
+C4  = case 4 (highlight)
+C5  = case 5 (highlight froid)
+C6  = case 6 (ombre/contraste)
+C7  = case 7 (contour/profondeur ambre)
+C8  = case 8 (noir/pupille)
+Suffixes : h=70%, m=40%, l=20% (ex: C7h = case 7 à 70%)
+100 (flèches) = C1 imposé (ambre forcé)
 ```
 
 ---
 
-## Pattern #01 - IDLE (Yeux au repos)
-
+## #01 - REPOS (Idle)
 ```
-. . . . . . . .
-. . ◇ ◇ ◇ ◇ . .
-. ◇ ◉ ● ● ◉ ◇ .
-. ◇ ◉ ● ● ◉ ◇ .
-. ◇ ◉ ◉ ◉ ◉ ◇ .
-. . ◇ ◇ ◇ ◇ . .
-. . . ◉ ◉ . . .
-. . . . . . . .
-```
-
-**Note:** Pupille sombre (●) au centre, iris (◉) autour, paupières (◇) haut/bas
-
----
-
-## Pattern #02 - SLEEP (Yeux fermés)
-
-```
-. . . . . . . .
-. . . . . . . .
-. ◇ ◇ ◇ ◇ ◇ ◇ .
-. ◉ ◉ ◉ ◉ ◉ ◉ .
-. ◉ ◉ ◉ ◉ ◉ ◉ .
-. ◇ ◇ ◇ ◇ ◇ ◇ .
-. . . . . . . .
-. . . . . . . .
+0 C7h C5h C5 C5 C5h C7h 0
+C7h C5h C5 C5 C5 C5 C5h C7h
+C5h C5 C1h C1 C1 C1h C5 C5h
+C5 C1h C8 C8h C8h C8 C1h C5
+C5 C1h C8h C8m C8m C8h C1h C5
+C5h C5 C1h C1 C1 C1h C5 C5h
+C7h C5h C5 C5 C5 C5 C5h C7h
+0 C7h C5h C5 C5 C5h C7h 0
 ```
 
-**Note:** Paupière épaisse avec highlights, effet fermé
-
----
-
-## Pattern #03 - BLINK (Clignement)
-
+## #02 - SOMMEIL (Fermé)
 ```
-. . . . . . . .
-. . ◇ ◇ ◇ ◇ . .
-. ◇ ◇ ◉ ◉ ◇ ◇ .
-. ◇ ◇ ◉ ◉ ◇ ◇ .
-. ◇ ◇ ◇ ◇ ◇ ◇ .
-. . ◇ ◇ ◇ ◇ . .
-. . . ◉ ◉ . . .
-. . . . . . . .
+0 C7h C7h C7h C7h C7h C7h 0
+C7h C5h C5 C5 C5 C5 C5h C7h
+C7h C4h C1h C5 C5h C7h C7h 0
+C5 C1 C8 C8h C5 C7h C7h 0
+C5 C8 C8h C8 C5 C7h C7h 0
+C7h C4h C1h C5 C5h C7h C7h 0
+C7h C5h C5 C5 C5 C5 C5h C7h
+0 C7h C5h C5 C5 C5h C7h 0
 ```
 
-**Note:** Iris comprimée, paupières fermantes
-
----
-
-## Pattern #04 - LOOK_LEFT (Regard gauche)
-
+## #03 - CLIGNEMENT
 ```
-. . . . . . . .
-. . ◇ ◇ ◉ . . .
-◇ ◇ ● ● ◉ ◇ . .
-◇ ◇ ● ● ◉ ◇ . .
-◇ ◇ ◉ ◉ ◉ ◇ . .
-. . ◇ ◇ ◉ . . .
-. . . ◉ . . . .
-. . . . . . . .
+0 C7h C5h C5 C5 C5h C7h 0
+C7h C5h C5 C5 C5 C5 C5h C7h
+C5h C5 C1h C1 C1 C1h C5 C5h
+C5 C1h C8 C8h C8h C8 C1h C5
+C5 C1h C8h C8m C8m C8h C1h C5
+C5h C5 C1h C1 C1 C1h C5 C5h
+C7h C5h C5 C5 C5 C5 C5h C7h
+0 C7h C5h C5 C5 C5h C7h 0
 ```
+(Frame 1/2 se comprime davantage en fente.)
 
-**Note:** Pupille décalée à gauche, ombrage latéral (●)
-
----
-
-## Pattern #05 - LOOK_RIGHT (Regard droit)
-
+## #04 - REGARD_GAUCHE
 ```
-. . . . . . . .
-. . . ◉ ◇ ◇ ◇ .
-. . ◉ ◉ ● ● ◇ ◇
-. . ◉ ◉ ● ● ◇ ◇
-. . ◉ ◉ ◉ ◇ ◇ ◇
-. . . ◉ ◇ ◇ ◇ .
-. . . . ◉ . . .
-. . . . . . . .
+0 C7h C5h C5 C5 C5h C7h 0
+C7h C5h C5 C5 C5 C5 C5h C7h
+C5h C4h C1h C5 C5h C7h C7h 0
+C5 C1 C8 C8h C5 C7h C7h 0
+C5 C8 C8h C8 C5 C7h C7h 0
+C5h C4h C1h C5 C5h C7h C7h 0
+C7h C5h C5 C5 C5 C5 C5h C7h
+0 C7h C5h C5 C5 C5h C7h 0
 ```
 
-**Note:** Pupille décalée à droite, miroir de LOOK_LEFT
-
----
-
-## Pattern #06 - LOOK_UP (Regard haut)
-
+## #05 - REGARD_DROITE
 ```
-. . ◇ ◇ ◇ ◇ . .
-. ◇ ● ● ● ● ◇ .
-. ◇ ● ● ● ● ◇ .
-. ◇ ◉ ◉ ◉ ◉ ◇ .
-. . ◇ ◇ ◇ ◇ . .
-. . . . . . . .
-. . . . . . . .
-. . . . . . . .
+0 C7h C5h C5 C5 C5h C7h 0
+C7h C5h C5 C5 C5 C5 C5h C7h
+0 C7h C7h C5h C4h C1h C5 C5h
+0 C7h C7h C5 C8h C8 C1 C5
+0 C7h C7h C5 C8 C8h C8 C5
+0 C7h C7h C5h C4h C1h C5 C5h
+C7h C5h C5 C5 C5 C5 C5h C7h
+0 C7h C5h C5 C5 C5h C7h 0
 ```
 
-**Note:** Pupille remontée, paupière haute relevée
-
----
-
-## Pattern #07 - LOOK_DOWN (Regard bas)
-
+## #06 - REGARD_HAUT
 ```
-. . . . . . . .
-. . . . . . . .
-. . ◇ ◇ ◇ ◇ . .
-. ◇ ◉ ◉ ◉ ◉ ◇ .
-. ◇ ● ● ● ● ◇ .
-. ◇ ● ● ● ● ◇ .
-. . ◇ ◇ ◇ ◇ . .
-. . . . . . . .
+0 C7h C7h C7h C7h C7h C7h 0
+C7h C5h C5 C5 C5 C5 C5h C7h
+C7h C4h C1h C5 C5h C7h C7h 0
+C5 C1 C8 C8h C5 C7h C7h 0
+C5 C8 C8h C8 C5 C7h C7h 0
+C7h C4h C1h C5 C5h C7h C7h 0
+C7h C5h C5 C5 C5 C5 C5h C7h
+0 C7h C5h C5 C5 C5h C7h 0
 ```
 
-**Note:** Pupille baissée, paupière basse abaissée
-
----
-
-## Pattern #08 - HAPPY (Joyeux)
-
+## #07 - REGARD_BAS
 ```
-. . ◇ ◇ ◇ ◇ . .
-. ◇ ◉ ◉ ◉ ◉ ◇ .
-◇ ◉ ● ● ◇ ● ◉ ◇
-◇ ◉ ● ● ◇ ● ◉ ◇
-◇ ◉ ● ● ◇ ● ◉ ◇
-. ◇ ◉ ◉ ◉ ◉ ◇ .
-. . ◇ ◇ ◇ ◇ . .
-. . . ◇ ◇ . . .
+0 C7h C5h C5 C5 C5h C7h 0
+C7h C5h C5 C5 C5 C5 C5h C7h
+C5h C4h C1h C5 C5h C7h C7h 0
+C5 C1 C8 C8h C5 C7h C7h 0
+C5 C8 C8h C8 C5 C7h C7h 0
+C5h C4h C1h C5 C5h C7h C7h 0
+C7h C5h C5 C5 C5 C5 C5h C7h
+0 C7h C7h C7h C7h C7h C7h 0
 ```
 
-**Note:** Yeux grands ouverts, reflet de joie (◇) au centre, rides
-
----
-
-## Pattern #09 - SAD (Triste)
-
+## #08 - JOIE
 ```
-. ◇ ◇ ◇ ◇ ◇ . .
-◇ ◉ ◉ ◉ ◉ ◉ ◇ .
-◉ ● ● ● ● ◉ ◉ .
-◉ ● ● ● ● ◉ ◉ .
-. ◇ ◉ ◉ ◉ ◇ . .
-. . ◇ ◇ ◇ . . .
-. . . ◉ . . . .
-. . . . . . . .
+0 C7h C5h C5 C5 C5h C7h 0
+0 C5h C5 C4h C4h C5 C5h 0
+C5h C4h C1h C1 C1 C1h C4h C5h
+C4h C1h C8 C8h C8h C8 C1h C4h
+C4h C1 C8 C8h C8h C8 C1 C4h
+C5h C4h C1h C1 C1 C1h C4h C5h
+C7h C5 C4h C1h C1h C4h C5 C7h
+0 C7h C5h C5 C5 C5h C7h 0
 ```
 
-**Note:** Iris comprimée, paupières tombantes, larme en bas
-
----
-
-## Pattern #10 - ANGRY (Furieux)
-
+## #09 - TRISTE
 ```
-◉ ◇ ◇ ◉ ◉ . . .
-◇ ◉ ● ● ◉ ◇ . .
-◇ ◉ ● ● ◉ ◇ . .
-◉ ◉ ◉ ◉ ◉ ◉ . .
-. ◇ ◇ ◉ ◉ . . .
-. . ◇ ◉ . . . .
-. . . . . . . .
-. . . . . . . .
+0 C7h 0 0 0 0 C7h 0
+C7h C7h C7 0 0 C7 C7h C7h
+0 C7h C5h C5 C5 C5h C7h 0
+C7h C5h C4h C1 C1 C4h C5h C7h
+C5 C4h C1 C8 C8 C1 C4h C5
+C4h C1 C8 C8h C8h C8 C1 C4h
+C7h C5h C5h C4h C4h C5h C5h C7h
+0 0 C7h C5h C5h C7h 0 0
 ```
 
-**Note:** Plissé intense, iris comprimée, regard agressif
-
----
-
-## Pattern #11 - SURPRISED (Surpris)
-
+## #10 - COLERE
 ```
-. ◇ ◇ ◇ ◇ ◇ . .
-◇ ◉ ● ● ● ◉ ◇ .
-◉ ● ● ◇ ◇ ● ● ◉
-◉ ● ● ◇ ◇ ● ● ◉
-◇ ◉ ● ● ● ◉ ◇ .
-. ◇ ◇ ◇ ◇ ◇ . .
-. . ◇ ◇ ◇ . . .
-. . . . . . . .
+0 0 0 0 0 0 0 0
+0 0 C7h C5h C5h C7h 0 0
+0 0 C5 C4h C4h C5 C7h 0
+C5h C5 C8 C8h C8h C8 C5 C5h
+C5 C4h C8 C8m C8m C8 C4h C5
+C5h C4h C1 C8 C8 C1 C4h C5h
+C7h C5h C5 C5 C5 C5 C5h C7h
+0 C7h C5h C5 C5 C5h C7h 0
 ```
 
-**Note:** Yeux extrêmement ouverts, pupilles massives, reflets de choc
-
----
-
-## Pattern #12 - WINK_LEFT (Clin d'œil Gauche)
-
-L'œil gauche affiche le pattern BLINK tandis que l'œil droit reste IDLE :
+## #11 - SURPRIS
 ```
-Œil Gauche:         Œil Droit:
-. . . . . . . .    . . . . . . . .
-. . ◇ ◇ ◇ ◇ . .    . . ◇ ◇ ◇ ◇ . .
-. ◇ ◇ ◉ ◉ ◇ ◇ .   . ◇ ◉ ● ● ◉ ◇ .
-. ◇ ◇ ◉ ◉ ◇ ◇ .   . ◇ ◉ ● ● ◉ ◇ .
-. ◇ ◇ ◇ ◇ ◇ ◇ .   . ◇ ◉ ◉ ◉ ◉ ◇ .
-. . ◇ ◇ ◇ ◇ . .    . . ◇ ◇ ◇ ◇ . .
-. . . ◉ ◉ . . .    . . . ◉ ◉ . . .
-. . . . . . . .    . . . . . . . .
+0 C7h C5h C5 C5 C5h C7h 0
+C7h C5h C5 C5 C5 C5 C5h C7h
+C5h C5 C1h C1 C1 C1h C5 C5h
+C5 C4h C1 C1h C1h C1 C4h C5
+C5 C4h C1 C1h C1h C1 C4h C5
+C5h C5 C1h C1 C1 C1h C5 C5h
+C7h C5h C5 C5 C5 C5 C5h C7h
+0 C7h C5h C5 C5 C5h C7h 0
 ```
 
-**Note:** Clin d'œil asymétrique - gauche se ferme tandis que le droit reste ouvert
+## #12 - CLIN_GAUCHE
+Oeil gauche : CLIGNEMENT ; Oeil droit : REPOS.
 
----
+## #13 - CLIN_DROIT
+Oeil gauche : REPOS ; Oeil droit : CLIGNEMENT.
 
-## Pattern #13 - WINK_RIGHT (Clin d'œil Droit)
-
-L'œil gauche reste IDLE tandis que l'œil droit affiche le pattern BLINK :
+## #14 - CLIGNOTANT_GAUCHE (Flèche ambre)
 ```
-Œil Gauche:         Œil Droit:
-. . . . . . . .    . . . . . . . .
-. . ◇ ◇ ◇ ◇ . .    . . ◇ ◇ ◇ ◇ . .
-. ◇ ◉ ● ● ◉ ◇ .   . ◇ ◇ ◉ ◉ ◇ ◇ .
-. ◇ ◉ ● ● ◉ ◇ .   . ◇ ◇ ◉ ◉ ◇ ◇ .
-. ◇ ◉ ◉ ◉ ◉ ◇ .   . ◇ ◇ ◇ ◇ ◇ ◇ .
-. . ◇ ◇ ◇ ◇ . .    . . ◇ ◇ ◇ ◇ . .
-. . . ◉ ◉ . . .    . . . ◉ ◉ . . .
-. . . . . . . .    . . . . . . . .
+0 0 A 0 0 0 0 0
+0 A A 0 0 0 0 0
+0 A A A A A A A
+A A A A A A A A
+A A A A A A A A
+0 A A A A A A A
+0 A A 0 0 0 0 0
+0 0 A 0 0 0 0 0
 ```
+(A = ambre forcé via code 100 → C1)
 
-**Note:** Clin d'œil asymétrique - droit se ferme tandis que le gauche reste ouvert
-
----
-
-## Pattern #14 - LOOK_UP (Regard vers le Haut)
-
+## #15 - CLIGNOTANT_DROIT (Flèche ambre)
 ```
-. . ◇ ◇ ◇ ◇ . .
-. ◇ ● ● ● ● ◇ .
-. ◇ ● ● ● ● ◇ .
-. ◇ ◉ ◉ ◉ ◉ ◇ .
-. . ◇ ◇ ◇ ◇ . .
-. . . . . . . .
-. . . . . . . .
-. . . . . . . .
+0 0 0 0 0 A 0 0
+0 0 0 0 0 A A 0
+A A A A A A A 0
+A A A A A A A A
+A A A A A A A A
+A A A A A A A 0
+0 0 0 0 0 A A 0
+0 0 0 0 0 A 0 0
 ```
 
-**Note:** Pupille déplacée vers le haut, paupière supérieure levée, paupière inférieure baissée
+## #16 - WARNING
+Oeil gauche : flèche CLIGNOTANT_GAUCHE ; oeil droit : CLIGNOTANT_DROIT (ambre fixe jusqu'à une nouvelle animation).
 
----
-
-## Pattern #15 - TURN_LEFT (Flèche Gauche - Clignotant)
-
-```
-. . ▓ . . . . .
-. ▓ ▓ . . . . .
-▓ ▓ ▓ ▓ ▓ ▓ ▓ .
-▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓
-▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓
-. ▓ ▓ ▓ ▓ ▓ ▓ ▓
-. ▓ ▓ . . . . .
-. . ▓ . . . . .
-```
-
-**Note:** Flèche pointant à gauche utilisant la couleur ambre/primaire pour les clignotants
-- Code pixel spécial (100) s'affiche en couleur primaire
-- Remplit toute la largeur de la matrice pour visibilité automobile
-
----
-
-## Pattern #16 - TURN_RIGHT (Flèche Droite - Clignotant)
-
-```
-. . . . . . ▓ . .
-. . . . . . ▓ ▓ .
-. ▓ ▓ ▓ ▓ ▓ ▓ ▓
-▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓
-▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓
-▓ ▓ ▓ ▓ ▓ ▓ ▓ .
-. . . . . . ▓ ▓ .
-. . . . . . ▓ . .
-```
-
-**Note:** Flèche pointant à droite utilisant la couleur ambre/primaire pour les clignotants
-- Code pixel spécial (100) s'affiche en couleur primaire
-- Remplit toute la largeur de la matrice pour visibilité automobile
-
----
-
-## Pattern #17 - HAZARD (Les Deux Flèches - Mode Hazard)
-
-Lorsqu'elle est activée, les deux yeux affichent simultanément :
-```
-Œil Gauche (TURN_LEFT):   Œil Droit (TURN_RIGHT):
-. . ▓ . . . . .          . . . . . . ▓ . .
-. ▓ ▓ . . . . .          . . . . . . ▓ ▓ .
-▓ ▓ ▓ ▓ ▓ ▓ ▓ .         . ▓ ▓ ▓ ▓ ▓ ▓ ▓
-▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓          ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓
-▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓          ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓
-. ▓ ▓ ▓ ▓ ▓ ▓ ▓          ▓ ▓ ▓ ▓ ▓ ▓ ▓ .
-. ▓ ▓ . . . . .          . . . . . . ▓ ▓ .
-. . ▓ . . . . .          . . . . . . ▓ . .
-```
-
-**Note:** Les deux flèches affichées simultanément pour le mode hazard/warning
-- Activé par appui simultané de boutons (Bouton 1 + Bouton 2)
-- Crée un effet d'avertissement bi-directionnel
-
----
-
-## Comparaison visuelle: AVANT → APRÈS
-
-### AVANT (2 couleurs, plat)
-```
-Pattern IDLE (ancien):
-. . . . . . . .
-. . 1 1 1 1 . .
-. 1 2 2 2 2 1 .
-. 1 2 2 2 2 1 .
-. 1 2 2 2 2 1 .
-. 1 1 1 1 1 1 .
-. . 1 1 1 1 . .
-. . . . . . . .
-
-= 2 niveaux : Paupière(1) + Centre(2)
-```
-
-### APRÈS (3 couleurs, 3D)
-```
-Pattern IDLE (nouveau):
-. . . . . . . .
-. . ◇ ◇ ◇ ◇ . .
-. ◇ ◉ ● ● ◉ ◇ .
-. ◇ ◉ ● ● ◉ ◇ .
-. ◇ ◉ ◉ ◉ ◉ ◇ .
-. . ◇ ◇ ◇ ◇ . .
-. . . ◉ ◉ . . .
-. . . . . . . .
-
-= 3 niveaux + détails:
-  - Paupière(◇) avec highlights
-  - Iris(◉) naturelle
-  - Pupille(●) sombre
-  - Cils en bas
-```
-
-**Gain:** +40% de détail visuel
-
----
-
-## Guide de couleurs
-
-### Configuration #1: Orange (Cars)
-- ◉ Primaire = RGB(255, 69, 0) - Orange Pixar
-- ◇ Secondaire = RGB(255, 255, 255) - Blanc pur
-- ● Tertiaire = RGB(26, 9, 0) - Marron très foncé
-
-### Configuration #2: Bleu (Nuit)
-- ◉ Primaire = RGB(0, 102, 255) - Bleu lumineux
-- ◇ Secondaire = RGB(153, 221, 255) - Bleu clair
-- ● Tertiaire = RGB(0, 17, 85) - Bleu très foncé
-
-### Configuration #3: Vert (Amical)
-- ◉ Primaire = RGB(51, 255, 51) - Vert lime
-- ◇ Secondaire = RGB(221, 255, 221) - Vert très clair
-- ● Tertiaire = RGB(17, 51, 17) - Vert très foncé
-
----
-
-## Recommandations d'utilisation
-
-| Pattern | Contexte | Durée typique |
-|---------|----------|---------------|
-| IDLE | Affichage par défaut | Continu |
-| SLEEP | Mode sommeil | Continu |
-| BLINK | Animation rapide | 100-200ms |
-| LOOK_* | Navigation/attention | 1-2 secondes |
-| HAPPY | Confirmation positive | 1-2 secondes |
-| SAD | Erreur/regret | 2-3 secondes |
-| ANGRY | Alerte/urgence | 2-3 secondes |
-| SURPRISED | Notification surprise | 1-2 secondes |
-
----
-
-**Généré:** 14 janvier 2026  
-**Format:** ASCII Art visualization  
-**Résolution:** 8×8 pixels per eye
+## #17 - PERSONNALISE
+Pattern 8×8 par œil défini par l'utilisateur. Codes selon la légende ci-dessus ; diminuer via suffixes `h/m/l` (70/40/20%).
 
 
 

@@ -1,12 +1,49 @@
 # NeoPixel Color Schemes
 
-**Version:** 1.5.23  
-**Minimum version:** 1.2.0  
+**Version:** 1.6.0  
+**Minimum version:** 1.6.0  
 **Language:** English  
-**Date:** January 14, 2026  
-**Change:** Added complementary color schemes
+**Date:** January 16, 2026  
+**Change:** Added 8-color palettes and realistic schemes
 
 ---
+
+## 🎨 8-Color Palettes (v1.6.0)
+
+### #1b - CARS_ORANGE_V2 (8 colors)
+```
+C1: 0x00E64A00  (Warm orange - iris)
+C2: 0x00CC3C00  (Amber strong - close to C1)
+C3: 0x00802700  (Amber-brown dark - shadow)
+C4: 0x00B85A1A  (Warm amber highlight, not white)
+C5: 0x00994D19  (Mat/cool amber soft highlight)
+C6: 0x00401510  (Deep brown contrast)
+C7: 0x00A63A00  (Darker amber outline)
+C8: 0x00000000  (Black pupil)
+```
+
+### #2b - HUMAN_EYE (8 colors)
+```
+C1: 0x00A06C3A  (Light brown - iris)
+C2: 0x007C5328  (Mid brown - close to C1)
+C3: 0x00412A15  (Dark brown shadow)
+C4: 0x006A7F4F  (Soft olive green nuance)
+C5: 0x00D9D0C4  (Warm off-white sclera, attenuated)
+C6: 0x00BBD0D8  (Cool off-white highlight, attenuated)
+C7: 0x003A5168  (Darker steel blue reflection)
+C8: 0x00000000  (Black pupil)
+```
+
+### Legacy 3-Color Schemes (auto-expanded to 8 slots)
+The legacy schemes below now fill the 8-color palette automatically:
+- C1 = Primary
+- C2 = Secondary
+- C3 = Tertiary
+- C4 = Secondary at 70%
+- C5 = Secondary at 40%
+- C6 = Tertiary at 70%
+- C7 = Tertiary at 40%
+- C8 = Black
 
 ## 🎨 New Feature: Harmonious Color Schemes
 
@@ -18,7 +55,7 @@ In version 1.1.0, the combination of Orange + Pure White created a **violent con
 
 ---
 
-## 📋 The 3 Color Schemes
+## 📋 Legacy 3 Color Schemes (auto-expanded)
 
 ### #1 - CARS_ORANGE (Default)
 **Naturally complementary colors**
@@ -92,12 +129,16 @@ Tertiary (Shadows):     0x00110022  (Blue-black very dark)
 3. Colors change automatically
 4. Color pickers update
 
+**Note:** Native 8-color palettes (IDs 3 and 4) are available via API; UI buttons will arrive in a later refresh.
+
 ### REST API
 ```bash
 # Change scheme
-GET /api/eyes/scheme?id=0  # Cars Orange
-GET /api/eyes/scheme?id=1  # Soft Realistic
-GET /api/eyes/scheme?id=2  # Elegant Blue
+GET /api/eyes/scheme?id=0  # Cars Orange (legacy 3-color -> auto-expanded)
+GET /api/eyes/scheme?id=1  # Soft Realistic (legacy 3-color -> auto-expanded)
+GET /api/eyes/scheme?id=2  # Elegant Blue (legacy 3-color -> auto-expanded)
+GET /api/eyes/scheme?id=3  # Cars Orange v2 (native 8-color)
+GET /api/eyes/scheme?id=4  # Human Eye (native 8-color)
 ```
 
 **Response:**
@@ -110,6 +151,13 @@ GET /api/eyes/scheme?id=2  # Elegant Blue
 ```
 
 ---
+
+## 🔆 Brightness and Perceived Adjustment (v1.6.0)
+
+- Global brightness from Web UI (`/api/eyes/brightness?value=0..255`) continues to apply.
+- When brightness < 64, a perceived-brightness adjustment reduces very light tones more than dark ones, to prevent harsh whites and better match the selected level.
+
+This improves coherence across palettes and avoids “too white” highlights at low brightness.
 
 ## 💻 Usage from Code
 

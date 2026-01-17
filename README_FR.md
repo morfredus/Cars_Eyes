@@ -1,6 +1,6 @@
 # Cars Eyes (Yeux Animés)
 
-> **Version :** 1.5.23  
+> **Version :** 1.6.0  
 > **Version minimum :** 1.0.0
 
 **Système d'yeux animés utilisant deux matrices NeoPixel 8x8 pour ESP32-S3, inspiré des personnages du film Cars.**
@@ -12,13 +12,14 @@
 ## 🎯 Fonctionnalités
 
 - **Matrices NeoPixel 8x8 Doubles** - Contrôle des yeux gauche et droit avec animations indépendantes ou synchronisées
-- **13 Animations Intégrées** - IDLE, BLINK, WINK, LOOK (gauche/droite/haut/bas), HAPPY, SAD, ANGRY, SURPRISED, SLEEP
+- **17 Animations Intégrées** - IDLE, BLINK, WINK, LOOK (gauche/droite/haut/bas), HAPPY, SAD, ANGRY, SURPRISED, SLEEP, TURN_LEFT, TURN_RIGHT, HAZARD, CUSTOM
 - **Clignotants & Warnings** - Contrôle physique (boutons) pour clignotants gauche/droite et mode Warning.
 - **Persistance des Réglages** - Sauvegarde automatique (Flash) de la luminosité, des couleurs et de la durée.
 - **Interface Web Moderne** - Contrôle en temps réel sans rechargement de page
 - **Mode Auto-Play** - Séquences d'animations aléatoires pour un comportement réaliste
-- **Personnalisation des Couleurs** - Contrôle des couleurs primaire et secondaire via l'interface web
+- **Personnalisation des Couleurs** - Couleurs primaire/secondaire + palettes 8 couleurs (Cars Orange v2, Human Eye)
 - **Contrôle de la Luminosité** - Luminosité ajustable (0-255) pour les deux yeux
+  - À faible luminosité (<64), une atténuation perceptuelle réduit davantage les tons très clairs (évite les blancs agressifs)
 - **LED de Statut** - LED RGB intégrée pour l'indication du statut WiFi
 - **Écran LCD** - Informations système en temps réel sur écran ST7789
 - **Mises à Jour OTA** - Mises à jour du firmware sans fil via l'interface web
@@ -132,7 +133,7 @@ http://neopixel-eyes.local/
 L'interface web fournit un contrôle complet des animations des yeux :
 
 ### Contrôles d'Animation
-- 13 boutons d'animation avec aperçu en temps réel
+- 17 boutons d'animation avec aperçu en temps réel (inclut TURN_L, TURN_R, HAZARD, CUSTOM)
 - Sélecteurs de couleurs primaire et secondaire
 - Curseur de luminosité (0-255)
 - Activation/désactivation du mode auto-play
@@ -159,7 +160,7 @@ GET /api/eyes/status
 ```http
 GET /api/eyes/animation?id=0
 ```
-- `id` : 0=IDLE, 1=BLINK, 2=WINK_LEFT, 3=WINK_RIGHT, 4=LOOK_LEFT, 5=LOOK_RIGHT, 6=LOOK_UP, 7=LOOK_DOWN, 8=HAPPY, 9=SAD, 10=ANGRY, 11=SURPRISED, 12=SLEEP
+- `id` : 0=IDLE, 1=BLINK, 2=WINK_LEFT, 3=WINK_RIGHT, 4=LOOK_LEFT, 5=LOOK_RIGHT, 6=LOOK_UP, 7=LOOK_DOWN, 8=HAPPY, 9=SAD, 10=ANGRY, 11=SURPRISED, 12=SLEEP, 13=TURN_LEFT, 14=TURN_RIGHT, 15=HAZARD, 16=CUSTOM
 
 **Définir la Luminosité :**
 ```http
@@ -218,19 +219,20 @@ Les motifs d'animation sont définis dans `src/neopixel.cpp`. Chaque motif est u
 // 1 = Couleur primaire (contour)
 // 2 = Couleur secondaire (remplissage)
 
+// Exemple codé avec la palette (C1..C8 + variantes atténuées)
 static const uint8_t PATTERN_CUSTOM[64] = {
-  0,0,0,0,0,0,0,0,
-  0,0,1,1,1,1,0,0,
-  0,1,2,2,2,2,1,0,
-  0,1,2,2,2,2,1,0,
-  0,1,2,2,2,2,1,0,
-  0,1,1,1,1,1,1,0,
-  0,0,1,1,1,1,0,0,
-  0,0,0,0,0,0,0,0
+  0,71,51,50,50,51,71,0,
+  71,51,50,50,50,50,51,71,
+  51,41,11,10,10,11,41,51,
+  50,10,80,81,81,80,10,50,
+  50,10,81,82,82,81,10,50,
+  51,41,11,10,10,11,41,51,
+  71,51,50,50,50,50,51,71,
+  0,71,51,50,50,51,71,0
 };
 ```
 
-Ajoutez votre motif à la fonction `getPatternForAnimation()` pour l'utiliser.
+Codes : 0=off, 1..8 = emplacements de palette (C1..C8). Pour atténuer une couleur, utilisez l'index de palette comme dizaine et ajoutez éventuellement `1/2/3` pour 70/40/20% (ex : 71 = C7 à 70%, 82 = C8 à 40%). Ajoutez votre motif dans `getPatternForAnimation()` pour l'activer.
 
 ## 🔧 Dépannage
 

@@ -1,13 +1,49 @@
 # Schémas de Couleurs NeoPixel
 
-**Version:** 1.5.23  
-**Version minimale:** 1.2.0  
+**Version:** 1.6.0  
+**Version minimale:** 1.6.0  
 **Langage:** Français  
-**Date:** 14 janvier 2026  
-**Date:** 14 janvier 2026  
-**Changement:** Ajout des schémas de couleurs complémentaires
+**Date:** 16 janvier 2026  
+**Changement:** Ajout de palettes 8 couleurs et schémas réalistes
 
 ---
+
+## 🎨 Palettes 8 couleurs (v1.6.0)
+
+### #1b - CARS_ORANGE_V2 (8 couleurs)
+```
+C1: 0x00E64A00  (Orange chaud - iris)
+C2: 0x00CC3C00  (Ambre soutenu - proche de C1)
+C3: 0x00802700  (Brun-ambre sombre - ombre)
+C4: 0x00B85A1A  (Reflet ambre chaud, pas blanc)
+C5: 0x00994D19  (Ambre froid/mat - reflet doux)
+C6: 0x00401510  (Brun profond - contraste)
+C7: 0x00A63A00  (Ambre contour plus sombre)
+C8: 0x00000000  (Noir pupille)
+```
+
+### #2b - HUMAN_EYE (8 couleurs)
+```
+C1: 0x00A06C3A  (Brun clair - iris)
+C2: 0x007C5328  (Brun moyen - proche de C1)
+C3: 0x00412A15  (Brun foncé - ombre)
+C4: 0x006A7F4F  (Vert olive doux - nuance proche)
+C5: 0x00D9D0C4  (Blanc chaud atténué - sclérotique)
+C6: 0x00BBD0D8  (Blanc froid atténué - reflet)
+C7: 0x003A5168  (Bleu acier plus sombre - reflet)
+C8: 0x00000000  (Noir pupille)
+```
+
+### Schémas 3 couleurs hérités (auto-étendus à 8 emplacements)
+Les anciens schémas remplissent maintenant automatiquement la palette 8 couleurs :
+- C1 = Primaire
+- C2 = Secondaire
+- C3 = Tertiaire
+- C4 = Secondaire à 70%
+- C5 = Secondaire à 40%
+- C6 = Tertiaire à 70%
+- C7 = Tertiaire à 40%
+- C8 = Noir
 
 ## 🎨 Nouveauté: Schémas de couleurs harmonieux
 
@@ -19,7 +55,14 @@ Dans la version 1.1.0, l'association Orange + Blanc pur créait un **contraste t
 
 ---
 
-## 📋 Les 3 Schémas de couleurs
+## 🔆 Luminosité et atténuation perceptuelle (v1.6.0)
+
+- La luminosité globale depuis l’UI Web (`/api/eyes/brightness?value=0..255`) reste appliquée.
+- Quand la luminosité < 64, une atténuation perceptuelle réduit davantage les tons très clairs que les tons sombres, pour éviter les blancs agressifs et mieux respecter le niveau choisi.
+
+Cela rend les palettes plus cohérentes et évite les reflets trop blancs à faible luminosité.
+
+## 📋 Schémas 3 couleurs hérités (auto-étendus)
 
 ### #1 - CARS_ORANGE (Défaut)
 **Couleurs complémentaires naturelles**
@@ -93,12 +136,16 @@ Les 3 boutons de sélection sont maintenant disponibles:
 3. Les couleurs se changent automatiquement
 4. Les pickers de couleurs se mettent à jour
 
+**Note :** Les palettes natives 8 couleurs (ID 3 et 4) sont accessibles via l'API ; les boutons UI arriveront dans une prochaine mise à jour.
+
 ### API REST
 ```bash
 # Changer de schéma
-GET /api/eyes/scheme?id=0  # Cars Orange
-GET /api/eyes/scheme?id=1  # Soft Realistic
-GET /api/eyes/scheme?id=2  # Elegant Blue
+GET /api/eyes/scheme?id=0  # Cars Orange (hérité 3 couleurs -> auto-étendu)
+GET /api/eyes/scheme?id=1  # Soft Realistic (hérité 3 couleurs -> auto-étendu)
+GET /api/eyes/scheme?id=2  # Elegant Blue (hérité 3 couleurs -> auto-étendu)
+GET /api/eyes/scheme?id=3  # Cars Orange v2 (native 8 couleurs)
+GET /api/eyes/scheme?id=4  # Human Eye (native 8 couleurs)
 ```
 
 **Réponse:**

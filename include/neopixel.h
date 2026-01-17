@@ -28,7 +28,8 @@ enum class AnimationType {
   TURN_LEFT,       // Arrow Left (Turn Signal)
   TURN_RIGHT,      // Arrow Right (Turn Signal)
   HAZARD,          // Hazard lights
-  CUSTOM           // Custom pattern from web UI
+  CUSTOM,          // Custom pattern from web UI
+  OFF              // LEDs completely off (special state)
 };
 
 /**
@@ -38,7 +39,9 @@ enum class AnimationType {
 enum class ColorScheme {
   CARS_ORANGE = 0,     // Orange primary + Cyan blue highlights (Cars style)
   SOFT_REALISTIC,      // Soft white + Deep blue shadows (Natural eyes)
-  ELEGANT_BLUE         // Subtle blue + Pale blue highlights (Elegant)
+  ELEGANT_BLUE,        // Subtle blue + Pale blue highlights (Elegant)
+  CARS_ORANGE_V2,      // Enriched 8-color Cars palette
+  HUMAN_EYE            // Realistic human eye palette (8 colors)
 };
 
 /**
@@ -80,6 +83,12 @@ void setBrightness(uint8_t brightness);
  * @return Current brightness (0-255)
  */
 uint8_t getBrightness();
+
+/**
+ * Turn off both eyes completely and stop all animations.
+ * This sets a special OFF state that persists until another animation is selected.
+ */
+void turnOff();
 
 /**
  * Turn off both eyes.

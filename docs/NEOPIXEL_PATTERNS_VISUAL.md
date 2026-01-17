@@ -1,262 +1,198 @@
 # NeoPixel Patterns Visualization - Graphical Guide
 
-**Version:** 1.5.23  
-**Minimum version:** 1.0.0  
+**Version:** 1.6.0  
+**Minimum version:** 1.6.0  
 **Language:** English  
-**Date:** January 14, 2026  
+**Date:** January 16, 2026  
 
-This document provides a complete visual representation of all 16 patterns with their variations.
+Visual reference for the 17 active animations using the 8-color palette engine.
 
-## Symbol Legend
-
+## Symbol Legend (Palette Codes)
 ```
-  0 = . (pixel off - black)
-  1 = ◉ (primary color - orange)
-  2 = ◇ (secondary color - white/highlight)
-  3 = ● (tertiary color - shadow/pupil)
+0   = .   (off)
+C1  = palette slot 1 (iris core / enforced amber for signals)
+C2  = slot 2
+C3  = slot 3
+C4  = slot 4 (highlight)
+C5  = slot 5 (cool highlight)
+C6  = slot 6 (deep shadow/contrast)
+C7  = slot 7 (outline/amber depth)
+C8  = slot 8 (black/pupil)
+Suffixes: h=70%, m=40%, l=20% (e.g., C7h = slot 7 at 70%)
+100 (arrows) = forced C1 (amber override)
 ```
 
 ---
 
-## Pattern #01 - IDLE (Eyes at Rest)
-
+## #01 - IDLE (Eyes at Rest)
 ```
-. . . . . . . .
-. . ◇ ◇ ◇ ◇ . .
-. ◇ ◉ ● ● ◉ ◇ .
-. ◇ ◉ ● ● ◉ ◇ .
-. ◇ ◉ ◉ ◉ ◉ ◇ .
-. . ◇ ◇ ◇ ◇ . .
-. . . ◉ ◉ . . .
-. . . . . . . .
-```
-
-**Note:** Dark pupil (●) in center, iris (◉) around it, eyelids (◇) top/bottom
-
----
-
-## Pattern #02 - SLEEP (Eyes Closed)
-
-```
-. . . . . . . .
-. . . . . . . .
-. ◇ ◇ ◇ ◇ ◇ ◇ .
-. ◉ ◉ ◉ ◉ ◉ ◉ .
-. ◉ ◉ ◉ ◉ ◉ ◉ .
-. ◇ ◇ ◇ ◇ ◇ ◇ .
-. . . . . . . .
-. . . . . . . .
+0 C7h C5h C5 C5 C5h C7h 0
+C7h C5h C5 C5 C5 C5 C5h C7h
+C5h C5 C1h C1 C1 C1h C5 C5h
+C5 C1h C8 C8h C8h C8 C1h C5
+C5 C1h C8h C8m C8m C8h C1h C5
+C5h C5 C1h C1 C1 C1h C5 C5h
+C7h C5h C5 C5 C5 C5 C5h C7h
+0 C7h C5h C5 C5 C5h C7h 0
 ```
 
-**Note:** Thick eyelid with highlights, closed effect
-
----
-
-## Pattern #03 - BLINK (Blinking)
-
+## #02 - SLEEP (Closed)
 ```
-. . . . . . . .
-. . ◇ ◇ ◇ ◇ . .
-. ◇ ◇ ◉ ◉ ◇ ◇ .
-. ◇ ◇ ◉ ◉ ◇ ◇ .
-. ◇ ◇ ◇ ◇ ◇ ◇ .
-. . ◇ ◇ ◇ ◇ . .
-. . . ◉ ◉ . . .
-. . . . . . . .
+0 C7h C7h C7h C7h C7h C7h 0
+C7h C5h C5 C5 C5 C5 C5h C7h
+C7h C4h C1h C5 C5h C7h C7h 0
+C5 C1 C8 C8h C5 C7h C7h 0
+C5 C8 C8h C8 C5 C7h C7h 0
+C7h C4h C1h C5 C5h C7h C7h 0
+C7h C5h C5 C5 C5 C5 C5h C7h
+0 C7h C5h C5 C5 C5h C7h 0
 ```
 
-**Note:** Compressed iris, closing eyelids
-
----
-
-## Pattern #04 - LOOK_LEFT (Looking Left)
-
+## #03 - BLINK (Closing)
 ```
-. . . . . . . .
-. . ◇ ◇ ◉ . . .
-◇ ◇ ● ● ◉ ◇ . .
-◇ ◇ ● ● ◉ ◇ . .
-◇ ◇ ◉ ◉ ◉ ◇ . .
-. . ◇ ◇ ◉ . . .
-. . . ◉ . . . .
-. . . . . . . .
+0 C7h C5h C5 C5 C5h C7h 0
+C7h C5h C5 C5 C5 C5 C5h C7h
+C5h C5 C1h C1 C1 C1h C5 C5h
+C5 C1h C8 C8h C8h C8 C1h C5
+C5 C1h C8h C8m C8m C8h C1h C5
+C5h C5 C1h C1 C1 C1h C5 C5h
+C7h C5h C5 C5 C5 C5 C5h C7h
+0 C7h C5h C5 C5 C5h C7h 0
 ```
+(Frame 1/2 compress further to a slit.)
 
-**Note:** Pupil shifted left, lateral shading (●)
-
----
-
-## Pattern #05 - LOOK_RIGHT (Looking Right)
-
+## #04 - LOOK_LEFT (Gaze Left)
 ```
-. . . . . . . .
-. . . ◉ ◇ ◇ ◇ .
-. . ◉ ◉ ● ● ◇ ◇
-. . ◉ ◉ ● ● ◇ ◇
-. . ◉ ◉ ◉ ◇ ◇ ◇
-. . . ◉ ◇ ◇ ◇ .
-. . . . ◉ . . .
-. . . . . . . .
+0 C7h C5h C5 C5 C5h C7h 0
+C7h C5h C5 C5 C5 C5 C5h C7h
+C5h C4h C1h C5 C5h C7h C7h 0
+C5 C1 C8 C8h C5 C7h C7h 0
+C5 C8 C8h C8 C5 C7h C7h 0
+C5h C4h C1h C5 C5h C7h C7h 0
+C7h C5h C5 C5 C5 C5 C5h C7h
+0 C7h C5h C5 C5 C5h C7h 0
 ```
 
-**Note:** Pupil shifted right, mirror of LOOK_LEFT
-
----
-
-## Pattern #06 - LOOK_UP (Looking Up)
-
+## #05 - LOOK_RIGHT (Gaze Right)
 ```
-. . ◇ ◇ ◇ ◇ . .
-. ◇ ● ● ● ● ◇ .
-. ◇ ● ● ● ● ◇ .
-. ◇ ◉ ◉ ◉ ◉ ◇ .
-. . ◇ ◇ ◇ ◇ . .
-. . . . . . . .
-. . . . . . . .
-. . . . . . . .
+0 C7h C5h C5 C5 C5h C7h 0
+C7h C5h C5 C5 C5 C5 C5h C7h
+0 C7h C7h C5h C4h C1h C5 C5h
+0 C7h C7h C5 C8h C8 C1 C5
+0 C7h C7h C5 C8 C8h C8 C5
+0 C7h C7h C5h C4h C1h C5 C5h
+C7h C5h C5 C5 C5 C5 C5h C7h
+0 C7h C5h C5 C5 C5h C7h 0
 ```
 
-**Note:** Pupil moved upward, top eyelid raised
-
----
-
-## Pattern #07 - LOOK_DOWN (Looking Down)
-
+## #06 - LOOK_UP (Gaze Up)
 ```
-. . . . . . . .
-. . . . . . . .
-. . ◇ ◇ ◇ ◇ . .
-. ◇ ◉ ◉ ◉ ◉ ◇ .
-. ◇ ● ● ● ● ◇ .
-. ◇ ● ● ● ● ◇ .
-. . ◇ ◇ ◇ ◇ . .
-. . . . . . . .
+0 C7h C7h C7h C7h C7h C7h 0
+C7h C5h C5 C5 C5 C5 C5h C7h
+C7h C4h C1h C5 C5h C7h C7h 0
+C5 C1 C8 C8h C5 C7h C7h 0
+C5 C8 C8h C8 C5 C7h C7h 0
+C7h C4h C1h C5 C5h C7h C7h 0
+C7h C5h C5 C5 C5 C5 C5h C7h
+0 C7h C5h C5 C5 C5h C7h 0
 ```
 
-**Note:** Pupil moved downward, bottom eyelid lowered
-
----
-
-## Pattern #08 - HAPPY (Happy)
-
+## #07 - LOOK_DOWN (Gaze Down)
 ```
-. . ◇ ◇ ◇ ◇ . .
-. ◇ ◉ ◉ ◉ ◉ ◇ .
-◇ ◉ ● ● ◇ ● ◉ ◇
-◇ ◉ ● ● ◇ ● ◉ ◇
-◇ ◉ ● ● ◇ ● ◉ ◇
-. ◇ ◉ ◉ ◉ ◉ ◇ .
-. . ◇ ◇ ◇ ◇ . .
-. . . ◇ ◇ . . .
+0 C7h C5h C5 C5 C5h C7h 0
+C7h C5h C5 C5 C5 C5 C5h C7h
+C5h C4h C1h C5 C5h C7h C7h 0
+C5 C1 C8 C8h C5 C7h C7h 0
+C5 C8 C8h C8 C5 C7h C7h 0
+C5h C4h C1h C5 C5h C7h C7h 0
+C7h C5h C5 C5 C5 C5 C5h C7h
+0 C7h C7h C7h C7h C7h C7h 0
 ```
 
-**Note:** Eyes wide open, joy reflection (◇) in center, smile lines
-
----
-
-## Pattern #09 - SAD (Sad)
-
+## #08 - HAPPY
 ```
-. ◇ ◇ ◇ ◇ ◇ . .
-◇ ◉ ◉ ◉ ◉ ◉ ◇ .
-◉ ● ● ● ● ◉ ◉ .
-◉ ● ● ● ● ◉ ◉ .
-. ◇ ◉ ◉ ◉ ◇ . .
-. . ◇ ◇ ◇ . . .
-. . . ◉ . . . .
-. . . . . . . .
+0 C7h C5h C5 C5 C5h C7h 0
+0 C5h C5 C4h C4h C5 C5h 0
+C5h C4h C1h C1 C1 C1h C4h C5h
+C4h C1h C8 C8h C8h C8 C1h C4h
+C4h C1 C8 C8h C8h C8 C1 C4h
+C5h C4h C1h C1 C1 C1h C4h C5h
+C7h C5 C4h C1h C1h C4h C5 C7h
+0 C7h C5h C5 C5 C5h C7h 0
 ```
 
-**Note:** Compressed iris, drooping eyelids, tear at bottom
-
----
-
-## Pattern #10 - ANGRY (Angry)
-
+## #09 - SAD
 ```
-◉ ◇ ◇ ◉ ◉ . . .
-◇ ◉ ● ● ◉ ◇ . .
-◇ ◉ ● ● ◉ ◇ . .
-◉ ◉ ◉ ◉ ◉ ◉ . .
-. ◇ ◇ ◉ ◉ . . .
-. . ◇ ◉ . . . .
-. . . . . . . .
-. . . . . . . .
+0 C7h 0 0 0 0 C7h 0
+C7h C7h C7 0 0 C7 C7h C7h
+0 C7h C5h C5 C5 C5h C7h 0
+C7h C5h C4h C1 C1 C4h C5h C7h
+C5 C4h C1 C8 C8 C1 C4h C5
+C4h C1 C8 C8h C8h C8 C1 C4h
+C7h C5h C5h C4h C4h C5h C5h C7h
+0 0 C7h C5h C5h C7h 0 0
 ```
 
-**Note:** Intense squint, compressed iris, aggressive gaze
-
----
-
-## Pattern #11 - SURPRISED (Surprised)
-
+## #10 - ANGRY
 ```
-. ◇ ◇ ◇ ◇ ◇ . .
-◇ ◉ ● ● ● ◉ ◇ .
-◉ ● ● ◇ ◇ ● ● ◉
-◉ ● ● ◇ ◇ ● ● ◉
-◇ ◉ ● ● ● ◉ ◇ .
-. ◇ ◇ ◇ ◇ ◇ . .
-. . ◇ ◇ ◇ . . .
-. . . . . . . .
+0 0 0 0 0 0 0 0
+0 0 C7h C5h C5h C7h 0 0
+0 0 C5 C4h C4h C5 C7h 0
+C5h C5 C8 C8h C8h C8 C5 C5h
+C5 C4h C8 C8m C8m C8 C4h C5
+C5h C4h C1 C8 C8 C1 C4h C5h
+C7h C5h C5 C5 C5 C5 C5h C7h
+0 C7h C5h C5 C5 C5h C7h 0
 ```
 
-**Note:** Extremely wide open eyes, massive pupils, shock reflections
-
----
-
-## Pattern #12 - WINK_LEFT (Left Eye Wink)
-
-Left eye shows BLINK pattern while right eye stays IDLE:
+## #11 - SURPRISED
 ```
-Left Eye:           Right Eye:
-. . . . . . . .    . . . . . . . .
-. . ◇ ◇ ◇ ◇ . .    . . ◇ ◇ ◇ ◇ . .
-. ◇ ◇ ◉ ◉ ◇ ◇ .   . ◇ ◉ ● ● ◉ ◇ .
-. ◇ ◇ ◉ ◉ ◇ ◇ .   . ◇ ◉ ● ● ◉ ◇ .
-. ◇ ◇ ◇ ◇ ◇ ◇ .   . ◇ ◉ ◉ ◉ ◉ ◇ .
-. . ◇ ◇ ◇ ◇ . .    . . ◇ ◇ ◇ ◇ . .
-. . . ◉ ◉ . . .    . . . ◉ ◉ . . .
-. . . . . . . .    . . . . . . . .
+0 C7h C5h C5 C5 C5h C7h 0
+C7h C5h C5 C5 C5 C5 C5h C7h
+C5h C5 C1h C1 C1 C1h C5 C5h
+C5 C4h C1 C1h C1h C1 C4h C5
+C5 C4h C1 C1h C1h C1 C4h C5
+C5h C5 C1h C1 C1 C1h C5 C5h
+C7h C5h C5 C5 C5 C5 C5h C7h
+0 C7h C5h C5 C5 C5h C7h 0
 ```
 
-**Note:** Asymmetric wink - left closes while right remains open
+## #12 - WINK_LEFT
+Left eye: BLINK sequence; Right eye: IDLE.
 
----
+## #13 - WINK_RIGHT
+Left eye: IDLE; Right eye: BLINK sequence.
 
-## Pattern #13 - WINK_RIGHT (Right Eye Wink)
-
-Left eye stays IDLE while right eye shows BLINK pattern:
+## #14 - TURN_LEFT (Arrow Amber)
 ```
-Left Eye:           Right Eye:
-. . . . . . . .    . . . . . . . .
-. . ◇ ◇ ◇ ◇ . .    . . ◇ ◇ ◇ ◇ . .
-. ◇ ◉ ● ● ◉ ◇ .   . ◇ ◇ ◉ ◉ ◇ ◇ .
-. ◇ ◉ ● ● ◉ ◇ .   . ◇ ◇ ◉ ◉ ◇ ◇ .
-. ◇ ◉ ◉ ◉ ◉ ◇ .   . ◇ ◇ ◇ ◇ ◇ ◇ .
-. . ◇ ◇ ◇ ◇ . .    . . ◇ ◇ ◇ ◇ . .
-. . . ◉ ◉ . . .    . . . ◉ ◉ . . .
-. . . . . . . .    . . . . . . . .
+0 0 A 0 0 0 0 0
+0 A A 0 0 0 0 0
+0 A A A A A A A
+A A A A A A A A
+A A A A A A A A
+0 A A A A A A A
+0 A A 0 0 0 0 0
+0 0 A 0 0 0 0 0
 ```
+(A = forced amber via code 100 → C1)
 
-**Note:** Asymmetric wink - right closes while left remains open
-
----
-
-## Pattern #14 - LOOK_UP (Looking Upward)
-
+## #15 - TURN_RIGHT (Arrow Amber)
 ```
-. . ◇ ◇ ◇ ◇ . .
-. ◇ ● ● ● ● ◇ .
-. ◇ ● ● ● ● ◇ .
-. ◇ ◉ ◉ ◉ ◉ ◇ .
-. . ◇ ◇ ◇ ◇ . .
-. . . . . . . .
-. . . . . . . .
-. . . . . . . .
+0 0 0 0 0 A 0 0
+0 0 0 0 0 A A 0
+A A A A A A A 0
+A A A A A A A A
+A A A A A A A A
+A A A A A A A 0
+0 0 0 0 0 A A 0
+0 0 0 0 0 A 0 0
 ```
 
-**Note:** Pupil moved upward, top eyelid raised, bottom lid down
+## #16 - HAZARD
+Left eye: TURN_LEFT arrow; Right eye: TURN_RIGHT arrow (both amber, steady until another animation is selected).
+
+## #17 - CUSTOM
+User-defined palette-coded 8×8 per eye. Codes follow the legend above; dim by adding `h/m/l` (70/40/20%).
 
 ---
 
