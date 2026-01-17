@@ -1,6 +1,11 @@
 # Changelog
 ## 1.6.2 — 2026-01-17
 
+10) LCD display fix for OFF state
+- Added "OFF" to animation names array in tft_display.cpp.
+- Fixed array bounds check from 17 to 18 to include OFF state.
+- LCD now correctly displays "OFF" instead of "UNKNOWN" when LEDs are turned off.
+
 9) OFF button complete fix - turnOff() function
 - Added AnimationType::OFF special state to prevent any animation from restarting.
 - New turnOff() function: stops autoplay, clears signal state, forces OFF animation state, and clears LEDs.

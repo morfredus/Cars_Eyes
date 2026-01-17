@@ -276,9 +276,9 @@ void updateMainScreen(bool force) {
   // eyeState is already declared at the top of the function
   const char* animNames[] = {"IDLE", "BLINK", "WINK_L", "WINK_R", "LOOK_L", "LOOK_R", 
                               "LOOK_U", "LOOK_D", "HAPPY", "SAD", "ANGRY", "SURPRISED", "SLEEP",
-                              "TURN_L", "TURN_R", "HAZARD", "CUSTOM"};
+                              "TURN_L", "TURN_R", "HAZARD", "CUSTOM", "OFF"};
   const int animIndex = static_cast<int>(eyeState.currentAnimation);
-  const char* animName = (animIndex >= 0 && animIndex < 17) ? animNames[animIndex] : "UNKNOWN";
+  const char* animName = (animIndex >= 0 && animIndex < 18) ? animNames[animIndex] : "UNKNOWN";
   
   tft.setTextSize(2);
   tft.setTextColor(CARS_WHITE);

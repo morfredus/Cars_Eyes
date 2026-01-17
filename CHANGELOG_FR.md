@@ -1,6 +1,11 @@
 # Journal des modifications
 ## 1.6.2 — 17/01/2026
 
+10) Correction affichage LCD pour l'état OFF
+- Ajout de "OFF" au tableau des noms d'animations dans tft_display.cpp.
+- Correction de la vérification des limites du tableau de 17 à 18 pour inclure l'état OFF.
+- L'écran LCD affiche maintenant correctement "OFF" au lieu de "UNKNOWN" quand les LEDs sont éteintes.
+
 9) Correction complète du bouton OFF - fonction turnOff()
 - Ajout de l'état spécial AnimationType::OFF pour empêcher toute animation de redémarrer.
 - Nouvelle fonction turnOff() : arrête l'autoplay, efface l'état des clignotants, force l'état OFF et éteint les LEDs.
