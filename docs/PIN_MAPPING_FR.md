@@ -1,7 +1,7 @@
 # Guide de Mapping des Broches
 
-**Version:** 1.5.23  
-**Version minimale:** 0.2.0  
+**Version:** 2.0.0  
+**Version minimale:** 2.0.0  
 **Langage:** Français  
 
 > **Version minimum :** 0.2.0
@@ -169,16 +169,18 @@
 | Fonction | GPIO | Alias Fonctionnel | Type | Notes |
 |----------|------|-------------------|------|-------|
 | **Bouton BOOT** | 0 | RTC_GPIO0 | INPUT_PULLUP | Appui long 3s = reboot |
-| **Bouton User 1** | 16 | U0RTS | INPUT_PULLUP | A utiliser librement |
-| **Bouton User 2** | 17 | U0CTS | INPUT_PULLUP | A utiliser librement |
-| **NeoPixel** | 48 | RTC_GPIO18 | OUTPUT | LED RGB (obligatoire) |
+| **Bouton User 1** | 38 | — | INPUT_PULLUP | A utiliser librement |
+| **Bouton User 2** | 39 | — | INPUT_PULLUP | A utiliser librement |
+| **NeoPixel Oeil Gauche** | 19 | — | OUTPUT | Matrice gauche 8x8 |
+| **NeoPixel Oeil Droit** | 22 | — | OUTPUT | Matrice droite 8x8 |
+| **NeoPixel Statut** | 48 | RTC_GPIO18 | OUTPUT | LED RGB (obligatoire) |
 | **Ecran SCK** | 12 | HSPI_CLK, SPI2_CLK, SCK | OUTPUT (SPI) | Horloge LCD |
 | **Ecran MOSI** | 11 | HSPI_MOSI, SPI2_MOSI, MOSI | OUTPUT (SPI) | Donnees LCD |
 | **Ecran MISO** | 13 | HSPI_MISO, SPI2_MISO, MISO | INPUT (SPI) | Donnees LCD (optionnel) |
 | **Ecran CS** | 10 | HSPI_CS0, SPI2_CS0, CS | OUTPUT | Selection puce |
 | **Ecran DC** | 9 | MTCK, DAC2 | OUTPUT | Donnees/Commande |
 | **Ecran RST** | 8 | MTDI, DAC1 | OUTPUT | Reinitialisation |
-| **Ecran BL** | 7 | — | OUTPUT (PWM) | Retroeclairage |
+| **Ecran BL** | 14 | — | OUTPUT (PWM) | Retroeclairage |
 
 **Schema de Cablage :**
 ```

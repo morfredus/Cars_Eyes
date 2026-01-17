@@ -493,3 +493,19 @@ Code séparé en modules indépendants avec namespaces :
 - **Animation initiale:** IDLE
 - **Auto-play:** Désactivé par défaut
 - **Hostname mDNS:** eyes-controller.local
+
+## [2.0.0] - 17/01/2026
+
+### Modifié
+- **MAJEUR : Refonte complète du mapping GPIO**
+  - Toutes les affectations GPIO pour ESP32-S3 DevKitC-1 N16R8 et ESP32 DevKit V1 sont désormais strictement définies dans `board_config.h`.
+  - NeoPixel Œil Gauche : GPIO19, Œil Droit : GPIO20, Statut : GPIO48, LCD BL : GPIO14, Boutons : 0/38/39 (S3).
+  - Tout le code et la documentation référencent uniquement ces macros ; plus aucun numéro de pin en dur.
+  - Toute la documentation utilisateur (README, GUIDE UTILISATEUR, PIN_MAPPING) est synchronisée sur ce mapping et la version 2.0.0.
+  - La version minimale de tous les documents est désormais 2.0.0.
+- **Documentation bilingue stricte**
+  - Toutes les modifications sont répercutées dans la documentation française et anglaise, strictement équivalentes.
+
+### RUPTURE
+- Tout câblage ou code utilisant les anciens numéros de pins doit être mis à jour selon le nouveau mapping de `board_config.h`.
+- Cette version n'est pas rétrocompatible avec les anciens mappings.

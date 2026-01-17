@@ -1,7 +1,7 @@
 # Cars Eyes
 
-> **Version:** 1.6.0  
-> **Minimum Version:** 1.0.0
+> **Version:** 2.0.0  
+> **Minimum Version:** 2.0.0
 
 **Animated eye system using two 8x8 NeoPixel matrices for ESP32-S3, styled like Cars movie characters.**
 
@@ -42,18 +42,18 @@
 
 | Component | GPIO | Description |
 |-----------|------|-------------|
-| Left Eye Matrix | GPIO4 | NeoPixel data line (DIN) |
-| Right Eye Matrix | GPIO5 | NeoPixel data line (DIN) |
+| NeoPixel Eye Left | GPIO19 | NeoPixel data line (DIN) |
+| NeoPixel Eye Right | GPIO20 | NeoPixel data line (DIN) |
 | Status LED | GPIO48 | Built-in RGB LED |
 | LCD SCK | GPIO12 | SPI clock |
 | LCD MOSI | GPIO11 | SPI data |
 | LCD CS | GPIO10 | Chip select |
 | LCD DC | GPIO9 | Data/Command |
 | LCD RST | GPIO8 | Reset |
-| LCD BL | GPIO7 | Backlight (Digital) |
+| LCD BL | GPIO14 | Backlight (Digital) |
 | Button BOOT | GPIO0 | Built-in boot button |
-| Button User 1 | GPIO16 | Custom button 1 |
-| Button User 2 | GPIO17 | Custom button 2 |
+| Button User 1 | GPIO38 | Custom button 1 |
+| Button User 2 | GPIO39 | Custom button 2 |
 
 **⚠️ IMPORTANT:** Do NOT power the NeoPixel matrices from the ESP32's 5V pin. Use an external 5V power supply with sufficient current capacity (minimum 2A, up to 8A for full white at maximum brightness).
 

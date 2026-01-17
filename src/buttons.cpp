@@ -18,8 +18,8 @@ static bool signalLong2 = false;
 
 void init() {
   pinMode(BUTTON_BOOT_PIN, INPUT_PULLUP);
-  pinMode(BUTTON_USER1_PIN, INPUT_PULLUP);
-  pinMode(BUTTON_USER2_PIN, INPUT_PULLUP);
+  pinMode(BUTTON_1_PIN, INPUT_PULLUP);
+  pinMode(BUTTON_2_PIN, INPUT_PULLUP);
 }
 
 void handle() {
@@ -27,8 +27,8 @@ void handle() {
   const uint32_t now = millis();
   
   // Read Raw
-  bool b1 = digitalRead(BUTTON_USER1_PIN);
-  bool b2 = digitalRead(BUTTON_USER2_PIN);
+  bool b1 = digitalRead(BUTTON_1_PIN);
+  bool b2 = digitalRead(BUTTON_2_PIN);
   bool bBoot = digitalRead(BUTTON_BOOT_PIN) == LOW;
 
   // --- Turn Signal Logic ---
