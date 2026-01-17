@@ -62,8 +62,8 @@
 // ────────────────────────────────────────────────────────────────────────────
 //
 
-#define NEOPIXEL_EYE_LEFT_PIN   19   // Matrice gauche (GPIO safe)
-#define NEOPIXEL_EYE_RIGHT_PIN  20   // Matrice droite (GPIO safe)
+#define NEOPIXEL_EYE_LEFT_PIN    6   // Matrice gauche (GPIO safe)
+#define NEOPIXEL_EYE_RIGHT_PIN   3   // Matrice droite (GPIO safe)
 
 #define NEOPIXEL_MATRIX_WIDTH   8
 #define NEOPIXEL_MATRIX_HEIGHT  8
