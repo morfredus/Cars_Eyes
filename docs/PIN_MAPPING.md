@@ -1,10 +1,10 @@
 # Pin Mapping Guide
 
-**Version:** 1.5.23  
-**Minimum version:** 0.2.0  
+**Version:** 2.0.1  
+**Minimum version:** 2.0.1  
 **Language:** English  
 
-> **Minimum version:** 0.2.0
+> **Minimum version:** 2.0.1 (NeoPixel Eye Left/Right pin mapping updated to match board_config.h)
 
 ## Beginner's Guide: Essential Electrical Concepts
 
@@ -169,16 +169,18 @@
 | Function | GPIO | Function Aliases | Type | Notes |
 |----------|------|------------------|------|-------|
 | **Button BOOT** | 0 | RTC_GPIO0 | INPUT_PULLUP | Hold for 3s to reboot |
-| **Button User 1** | 16 | U0RTS | INPUT_PULLUP | Free to use |
-| **Button User 2** | 17 | U0CTS | INPUT_PULLUP | Free to use |
-| **NeoPixel** | 48 | RTC_GPIO18 | OUTPUT | RGB LED (mandatory) |
+| **Button User 1** | 38 | — | INPUT_PULLUP | Free to use |
+| **Button User 2** | 39 | — | INPUT_PULLUP | Free to use |
+| **NeoPixel Eye Left** | 6 | — | OUTPUT | Left 8x8 Matrix |
+| **NeoPixel Eye Right** | 3 | — | OUTPUT | Right 8x8 Matrix |
+| **NeoPixel Status** | 48 | RTC_GPIO18 | OUTPUT | RGB LED (mandatory) |
 | **Display SCK** | 12 | HSPI_CLK, SPI2_CLK, SCK | OUTPUT (SPI) | LCD clock |
 | **Display MOSI** | 11 | HSPI_MOSI, SPI2_MOSI, MOSI | OUTPUT (SPI) | LCD data |
 | **Display MISO** | 13 | HSPI_MISO, SPI2_MISO, MISO | INPUT (SPI) | LCD data (optional) |
 | **Display CS** | 10 | HSPI_CS0, SPI2_CS0, CS | OUTPUT | Chip select |
 | **Display DC** | 9 | MTCK, DAC2 | OUTPUT | Data/Command |
 | **Display RST** | 8 | MTDI, DAC1 | OUTPUT | Reset |
-| **Display BL** | 7 | — | OUTPUT (PWM) | Backlight |
+| **Display BL** | 14 | — | OUTPUT (PWM) | Backlight |
 
 **Wiring Diagram:**
 ```

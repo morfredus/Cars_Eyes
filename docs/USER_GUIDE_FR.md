@@ -1,8 +1,8 @@
 # Guide Utilisateur
 
-**Version:** 1.5.23  
+**Version:** 2.0.0  
 **Langage:** Français  
-**Version minimale:** 1.0.0  
+**Version minimale:** 2.0.0  
 
 ## Configurer
 - Secrets : copier `include/secrets_example.h` vers `include/secrets.h` et ajouter vos SSID/mots de passe.
@@ -11,7 +11,7 @@
 
 ## Environnements
 - `esp32devkit` : ESP32 DevKit classique, pas de NeoPixel, LCD sur VSPI (SCK 18, MOSI 23, CS 15, DC 16, RST 14, BL 27), boutons 0/32/33.
-- `esp32s3_n16r8` : ESP32-S3 DevKitC-1 N16R8, NeoPixel GPIO48, LCD SPI 12/11/13 avec CS 10, DC 9, RST 8, BL 7, boutons 0/16/17.
+- `esp32s3_n16r8` : ESP32-S3 DevKitC-1 N16R8, NeoPixel Yeux : Gauche=GPIO19, Droit=GPIO22, Statut=GPIO48, LCD SPI 12/11/13 avec CS 10, DC 9, RST 8, BL 14, boutons 0/38/39.
 
 ## Ajouter des modules
 - Mettre le code commun dans `src/` ou `lib/`. Les headers partages vont dans `include/`.
