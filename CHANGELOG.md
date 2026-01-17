@@ -1,4 +1,9 @@
 # Changelog
+
+## 2.0.1 — 2026-01-17
+
+- Documentation: Fixed NeoPixel Eye Left/Right GPIO mapping for ESP32-S3 in PIN_MAPPING.md and PIN_MAPPING_FR.md to match board_config.h (Left=6, Right=3).
+- Version bumped to 2.0.1 (SEMVER).
 ## 1.6.2 — 2026-01-17
 
 10) LCD display fix for OFF state

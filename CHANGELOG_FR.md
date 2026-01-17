@@ -1,4 +1,9 @@
 # Journal des modifications
+
+## 2.0.1 — 17/01/2026
+
+- Documentation : Correction du mapping GPIO NeoPixel Oeil Gauche/Droit pour ESP32-S3 dans PIN_MAPPING_FR.md et PIN_MAPPING.md (Gauche=6, Droit=3) pour correspondre à board_config.h.
+- Passage en version 2.0.1 (SEMVER).
 ## 1.6.2 — 17/01/2026
 
 10) Correction affichage LCD pour l'état OFF
