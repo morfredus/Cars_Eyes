@@ -1,5 +1,11 @@
 #pragma once
 
+/**
+ * @file web_server.h
+ * @brief Initialisation et gestion du serveur web HTTP.
+ * @note Utiliser des buffers statiques pour les réponses HTTP et limiter l'utilisation de String.
+ */
+
 #include <WebServer.h>
 
 namespace HttpServer {

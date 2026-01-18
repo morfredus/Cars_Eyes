@@ -1,0 +1,28 @@
+var searchData=
+[
+  ['made_2001_2014_202026_0',['Improvements Made (01/14/2026)',['../md_docs_2_n_e_o_p_i_x_e_l___p_a_t_t_e_r_n_s.html#autotoc_md138',1,'']]],
+  ['main_20cpp_1',['main cpp',['../md_docs_2_p_r_o_j_e_c_t___s_t_r_u_c_t_u_r_e.html#autotoc_md335',1,'src/main.cpp'],['../md_docs_2_p_r_o_j_e_c_t___s_t_r_u_c_t_u_r_e___f_r.html#autotoc_md359',1,'src/main.cpp']]],
+  ['manual_20connection_2',['Manual connection',['../md_docs_2_w_e_b___u_i.html#autotoc_md425',1,'']]],
+  ['manuelle_3',['Connexion manuelle',['../md_docs_2_w_e_b___u_i___f_r.html#autotoc_md454',1,'']]],
+  ['mapping_4',['mapping',['../md_docs_2_u_s_e_r___g_u_i_d_e___f_r.html#autotoc_md396',1,'Modifier le pin mapping'],['../md_docs_2_u_s_e_r___g_u_i_d_e.html#autotoc_md380',1,'Modify pin mapping']]],
+  ['mapping_20des_20broches_5',['Guide de Mapping des Broches',['../md_docs_2_p_i_n___m_a_p_p_i_n_g___f_r.html',1,'']]],
+  ['mapping_20guide_6',['Pin Mapping Guide',['../md_docs_2_p_i_n___m_a_p_p_i_n_g.html',1,'']]],
+  ['mdns_7',['mDNS',['../md_docs_2_w_e_b___u_i___f_r.html#autotoc_md455',1,'Dépannage mDNS'],['../md_docs_2_w_e_b___u_i___f_r.html#autotoc_md439',1,'Par nom mDNS']]],
+  ['mdns_20hostname_8',['By mDNS hostname',['../md_docs_2_w_e_b___u_i.html#autotoc_md410',1,'']]],
+  ['mdns_20troubleshooting_9',['mDNS Troubleshooting',['../md_docs_2_w_e_b___u_i.html#autotoc_md426',1,'']]],
+  ['migration_20depuis_20v1_201_200_10',['🔧 Migration depuis v1.1.0',['../md_docs_2_c_o_l_o_r___s_c_h_e_m_e_s___f_r.html#autotoc_md77',1,'']]],
+  ['migration_20from_20v1_201_200_11',['🔧 Migration from v1.1.0',['../md_docs_2_c_o_l_o_r___s_c_h_e_m_e_s.html#autotoc_md35',1,'']]],
+  ['mise_20à_20jour_20ota_20update_12',['Page de mise à jour OTA (&lt;span class=&quot;tt&quot;&gt;/update&lt;/span&gt;)',['../md_docs_2_w_e_b___u_i___f_r.html#autotoc_md441',1,'']]],
+  ['mode_20amical_20vert_13',['Configuration #3: Mode amical (Vert)',['../md_docs_2_n_e_o_p_i_x_e_l___p_a_t_t_e_r_n_s___f_r.html#autotoc_md183',1,'']]],
+  ['mode_20blue_14',['Configuration #2: Night Mode (Blue)',['../md_docs_2_n_e_o_p_i_x_e_l___p_a_t_t_e_r_n_s.html#autotoc_md125',1,'']]],
+  ['mode_20green_15',['Configuration #3: Friendly Mode (Green)',['../md_docs_2_n_e_o_p_i_x_e_l___p_a_t_t_e_r_n_s.html#autotoc_md126',1,'']]],
+  ['mode_20nuit_20bleu_16',['Configuration #2: Mode nuit (Bleu)',['../md_docs_2_n_e_o_p_i_x_e_l___p_a_t_t_e_r_n_s___f_r.html#autotoc_md182',1,'']]],
+  ['modifiés_17',['Fichiers modifiés',['../md_docs_2_c_o_l_o_r___s_c_h_e_m_e_s___f_r.html#autotoc_md68',1,'']]],
+  ['modified_20files_18',['Modified files',['../md_docs_2_c_o_l_o_r___s_c_h_e_m_e_s.html#autotoc_md26',1,'']]],
+  ['modifier_20le_20pin_20mapping_19',['Modifier le pin mapping',['../md_docs_2_u_s_e_r___g_u_i_d_e___f_r.html#autotoc_md396',1,'']]],
+  ['modify_20pin_20mapping_20',['Modify pin mapping',['../md_docs_2_u_s_e_r___g_u_i_d_e.html#autotoc_md380',1,'']]],
+  ['modules_21',['modules',['../md_docs_2_u_s_e_r___g_u_i_d_e.html#autotoc_md379',1,'Add modules'],['../md_docs_2_u_s_e_r___g_u_i_d_e___f_r.html#autotoc_md395',1,'Ajouter des modules']]],
+  ['monitoring_20data_20collection_22',['Monitoring &amp;amp; Data Collection',['../md_docs_2_w_e_b___u_i.html#autotoc_md418',1,'']]],
+  ['monitoring_20et_20collecte_20de_20données_23',['Monitoring et collecte de données',['../md_docs_2_w_e_b___u_i___f_r.html#autotoc_md447',1,'']]],
+  ['motif_20défini_20par_20l_20utilisateur_24',['**#16 - PATTERN_CUSTOM: Motif défini par l&apos;utilisateur**',['../md_docs_2_n_e_o_p_i_x_e_l___p_a_t_t_e_r_n_s___f_r.html#autotoc_md178',1,'']]]
+];

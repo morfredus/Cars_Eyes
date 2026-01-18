@@ -1,0 +1,12 @@
+# Doxyfile minimal pour Cars Eyes
+PROJECT_NAME           = "Cars Eyes"
+OUTPUT_DIRECTORY       = docs/doxygen
+INPUT                  = include src docs
+FILE_PATTERNS          = *.h *.cpp *.md
+RECURSIVE              = YES
+GENERATE_HTML          = YES
+GENERATE_LATEX         = NO
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = YES
+EXTRACT_STATIC         = YES
+QUIET                  = YES

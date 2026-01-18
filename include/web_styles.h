@@ -2,6 +2,12 @@
 
 #include <Arduino.h>
 
+/**
+ * @file web_styles.h
+ * @brief Gestion des styles CSS et scripts pour l'interface web.
+ * @note Utiliser des chaînes constantes (const char*) pour les styles et scripts afin d'optimiser la mémoire.
+ */
+
 namespace WebStyles {
 
 /**

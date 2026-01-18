@@ -3,6 +3,12 @@
 
 #include <stddef.h>
 
+/**
+ * @file secrets_wrapper.h
+ * @brief Interface d'accès sécurisée aux identifiants sensibles.
+ * @note Utiliser des pointeurs constants et éviter la copie de chaînes pour optimiser la mémoire.
+ */
+
 // ============================================================================
 // SECRETS WRAPPER - Interface d'accès sécurisée aux credentials
 // ============================================================================

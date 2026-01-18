@@ -63,6 +63,16 @@ Le système gère 3 boutons pour un contrôle direct :
 - Tester les deux environnements apres chaque changement; respecter les notes GPIO.
 - Chaque increment de version doit etre documente dans README/CHANGELOG.
 
+---
+
+## 📚 Documentation technique
+
+Depuis la version 2.0.2, tout le code source est entièrement documenté avec Doxygen et optimisé pour la gestion mémoire sur microcontrôleur.
+- Voir le README pour la procédure de génération.
+- Les guides utilisateurs et techniques sont alignés avec le code source.
+
+---
+
 
 
 

@@ -3,6 +3,12 @@
 #include <Arduino.h>
 #include <IPAddress.h>
 
+/**
+ * @file ui_state.h
+ * @brief Gestion de l'état global de l'interface utilisateur.
+ * @note Utiliser des structures statiques et éviter les objets String dynamiques pour optimiser la mémoire.
+ */
+
 namespace UiState {
 
 /**
@@ -28,5 +34,7 @@ State& getState();
  * Reset UI state to initial values.
  */
 void reset();
+
+extern State g_uiState;
 
 }  // namespace UiState

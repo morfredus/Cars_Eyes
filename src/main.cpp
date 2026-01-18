@@ -16,8 +16,16 @@
 // Global UI state (declared in ui_state.cpp)
 extern UiState::State g_uiState;
 
+/**
+ * @file main.cpp
+ * @brief Point d'entrée principal du projet Cars Eyes.
+ * @note Initialiser les modules dans l'ordre pour optimiser la mémoire et éviter les allocations inutiles.
+ */
 
-
+/**
+ * @brief Fonction d'initialisation Arduino.
+ * Initialise tous les modules et affiche l'état système.
+ */
 void setup() {
   Serial.begin(115200);
   delay(500);
@@ -67,6 +75,10 @@ void setup() {
   Serial.println("[MAIN] Setup complete!");
 }
 
+/**
+ * @brief Boucle principale Arduino.
+ * Gère les tâches périodiques et le serveur web.
+ */
 void loop() {
   // Handle network and web requests
   HttpServer::handleClient();

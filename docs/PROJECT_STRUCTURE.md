@@ -192,6 +192,17 @@ pio run
 
 See [GETTING_STARTED_FR.md](GETTING_STARTED_FR.md) for first-time setup.
 
+---
+
+## 📚 Technical Documentation
+
+All source and header files are fully documented with Doxygen (since v2.0.2):
+- Each function, structure, and module includes detailed descriptions and memory optimization notes.
+- Recommendations for static buffers, limited dynamic allocation, and RAM management are present in every file.
+- See README for Doxygen usage and documentation generation.
+
+---
+
 
 
 

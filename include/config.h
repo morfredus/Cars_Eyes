@@ -1,20 +1,29 @@
+/**
+ * @file config.h
+ * @brief Paramètres utilisateur centralisés pour l'application.
+ * @note Utiliser des constantes et des structures statiques pour limiter l'utilisation mémoire.
+ */
+
 #pragma once
 #include <Arduino.h>
 
 // Centralized user-facing settings for the application.
 struct SystemConfig {
-    const char* mdnsHost;
-    uint8_t lcdRotation;
-    uint8_t backlightLevel;   // 0-255 (PWM duty)
-    uint32_t wifiConnectTimeoutMs;
-    uint32_t wifiRetryDelayMs;
-    uint8_t maxWifiAttempts;
-    uint8_t rebootHoldSeconds;
-    bool enableBootBar;
-    bool enableWebUi;
-    bool enableNeoPixel;
+    const char* mdnsHost; ///< Nom d'hôte mDNS
+    uint8_t lcdRotation; ///< Rotation de l'écran LCD
+    uint8_t backlightLevel; ///< Niveau de rétroéclairage (0-255)
+    uint32_t wifiConnectTimeoutMs; ///< Timeout connexion WiFi
+    uint32_t wifiRetryDelayMs; ///< Délai entre tentatives WiFi
+    uint8_t maxWifiAttempts; ///< Nombre max de tentatives WiFi
+    uint8_t rebootHoldSeconds; ///< Durée appui reboot
+    bool enableBootBar; ///< Affichage barre de boot
+    bool enableWebUi; ///< Activation Web UI
+    bool enableNeoPixel; ///< Activation NeoPixel
 };
 
+/**
+ * @brief Configuration système par défaut (constante).
+ */
 constexpr SystemConfig kSystemConfig{
     .mdnsHost = "cars-eyes",
     .lcdRotation = 2,               // Landscape by default
@@ -28,5 +37,12 @@ constexpr SystemConfig kSystemConfig{
     .enableNeoPixel = true
 };
 
+/**
+ * @brief Retourne le nom du projet.
+ */
 inline const char* projectName() { return PROJECT_NAME; }
+
+/**
+ * @brief Retourne la version du projet.
+ */
 inline const char* projectVersion() { return PROJECT_VERSION; }

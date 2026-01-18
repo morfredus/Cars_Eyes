@@ -1,5 +1,11 @@
 # Journal des modifications
 
+## 2.0.2 — 18/01/2026
+
+- Tous les fichiers sources et headers sont désormais documentés avec Doxygen.
+- Ajout de recommandations d'optimisation mémoire dans chaque module (buffers statiques, limitation des allocations dynamiques, gestion RAM).
+- Section "Documentation technique" ajoutée dans README.md et README_FR.md.
+
 ## 2.0.1 — 17/01/2026
 
 - Documentation : Correction du mapping GPIO NeoPixel Oeil Gauche/Droit pour ESP32-S3 dans PIN_MAPPING_FR.md et PIN_MAPPING.md (Gauche=6, Droit=3) pour correspondre à board_config.h.

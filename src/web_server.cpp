@@ -1,14 +1,23 @@
+/**
+ * @file web_server.cpp
+ * @brief Implémentation du serveur web HTTP et des routes.
+ * @note Utiliser des buffers statiques pour les réponses HTTP et limiter l'utilisation de String pour optimiser la mémoire.
+ */
+
 #include "web_server.h"
 #include "web_ui.h"
 #include "config.h"
 #include "neopixel.h"
 #include <Arduino.h>
 #include <Update.h>
+#include <WebServer.h>
+
+WebServer server(80);  // Déclaration globale du serveur Web
 
 namespace HttpServer {
-
-static ::WebServer server(80);
-
+/**
+ * @brief Initialise le serveur web et configure les routes.
+ */
 void init() {
   if (!kSystemConfig.enableWebUi) {
     return;
@@ -364,10 +373,13 @@ void init() {
   Serial.println("[WebServer] Started on port 80 with eye control API");
 }
 
+/**
+ * @brief Gère les requêtes HTTP entrantes.
+ * À appeler régulièrement dans la boucle principale.
+ */
 void handleClient() {
   if (kSystemConfig.enableWebUi) {
     server.handleClient();
   }
 }
-
 }  // namespace HttpServer

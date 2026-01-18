@@ -76,6 +76,16 @@ The system supports additional physical controls for enhanced signaling:
 - Ensure all buttons are correctly wired and configured in `board_config.h`.
 - Test each button's functionality after setup to confirm correct operation.
 
+---
+
+## 📚 Documentation technique
+
+Depuis la version 2.0.2, l'ensemble du code source est entièrement documenté avec Doxygen et optimisé pour la gestion mémoire sur microcontrôleur.
+- Consultez le README pour la procédure de génération.
+- Les guides utilisateurs et techniques sont alignés avec le code source.
+
+---
+
 
 
 
