@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.0.3 — 2026-01-18
+
+- Bugfix: linkage error for global UI state (g_uiState) resolved, restoring functional code.
+- All references to UI state now use UiState::getState() for consistency and linkage safety.
+- No functional changes to features, only restoration of previous working state.
+- Version bumped to 2.0.3 (SEMVER).
+
 ## 2.0.2 — 2026-01-18
 
 - All source and header files are now fully documented with Doxygen.

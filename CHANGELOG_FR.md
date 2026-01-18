@@ -1,5 +1,12 @@
 # Journal des modifications
 
+## 2.0.3 — 18/01/2026
+
+- Correction : erreur de linkage sur l’état global UI (g_uiState) résolue, restauration du code fonctionnel.
+- Toutes les références à l’état UI utilisent désormais UiState::getState() pour la cohérence et la sécurité du linkage.
+- Aucun changement fonctionnel, uniquement restauration de l’état stable précédent.
+- Passage en version 2.0.3 (SEMVER).
+
 ## 2.0.2 — 18/01/2026
 
 - Tous les fichiers sources et headers sont désormais documentés avec Doxygen.
