@@ -13,8 +13,6 @@
 #include "web_server.h"
 #include "ui_state.h"
 
-// Global UI state (declared in ui_state.cpp)
-extern UiState::State g_uiState;
 
 /**
  * @file main.cpp
@@ -40,7 +38,7 @@ void setup() {
   // Show WiFi connection progress
   TftDisplay::drawBootScreen("WiFi", 15);
   const bool wifiOk = Network::connectWifiWithFeedback();
-  g_uiState.wifiConnected = wifiOk;
+  UiState::getState().wifiConnected = wifiOk;
   
   // Initialize network services based on WiFi status
   if (wifiOk) {
@@ -50,7 +48,7 @@ void setup() {
     #endif
 
     TftDisplay::drawBootScreen("Starting mDNS", 75);
-    g_uiState.mdnsOk = Network::initMdns();
+    UiState::getState().mdnsOk = Network::initMdns();
     
     TftDisplay::drawBootScreen("Starting OTA", 80);
     Network::initOta();
@@ -63,7 +61,7 @@ void setup() {
     NeoPixel::setStatusLed(NeoPixel::makeColor(80, 0, 0));  // Red
     #endif
     
-    g_uiState.mdnsOk = false;
+    UiState::getState().mdnsOk = false;
     Serial.println("[MAIN] Network services disabled (WiFi connection failed)");
   }
 
@@ -92,8 +90,8 @@ void loop() {
 
   // Update UI periodically
   const unsigned long now = millis();
-  if (now - g_uiState.lastUiRefresh > 1000) {
-    g_uiState.lastUiRefresh = now;
+  if (now - UiState::getState().lastUiRefresh > 1000) {
+    UiState::getState().lastUiRefresh = now;
     TftDisplay::updateMainScreen();
     
     // Update status LED

@@ -22,5 +22,6 @@ void reset() {
 }
 }  // namespace UiState
 
-// Make global accessible from other modules
-UiState::State g_uiState;
+namespace UiState {
+State g_uiState;
+}
