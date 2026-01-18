@@ -1,0 +1,20 @@
+var searchData=
+[
+  ['savesettings_0',['saveSettings',['../namespace_neo_pixel.html#a5f9e1b305e005f62bc851f0ac62493f8',1,'NeoPixel']]],
+  ['server_1',['server',['../web__server_8cpp.html#a48f3f185be3ea2d153c347a157b38d42',1,'web_server.cpp']]],
+  ['setanimation_2',['setAnimation',['../namespace_neo_pixel.html#a319b4825020a4e57096f9b69fd1023ca',1,'NeoPixel']]],
+  ['setautoplay_3',['setAutoPlay',['../namespace_neo_pixel.html#a9d4136e39a692aa779a8d14e18f4462f',1,'NeoPixel']]],
+  ['setbrightness_4',['setBrightness',['../namespace_neo_pixel.html#aee27cff8d2d4d8f914e1fb2a92959b0b',1,'NeoPixel']]],
+  ['setcustompatternleft_5',['setCustomPatternLeft',['../namespace_neo_pixel.html#a21ca860ba0dced66a011143cd7b7c235',1,'NeoPixel']]],
+  ['setcustompatternright_6',['setCustomPatternRight',['../namespace_neo_pixel.html#ad941e814f3425b039bd30c96e040de92',1,'NeoPixel']]],
+  ['setpixelleft_7',['setPixelLeft',['../namespace_neo_pixel.html#ad843b04417165fdf06263bafbd585f22',1,'NeoPixel']]],
+  ['setpixelright_8',['setPixelRight',['../namespace_neo_pixel.html#ad337cf084d0f7b6e4d9764b89019b93b',1,'NeoPixel']]],
+  ['setprimarycolor_9',['setPrimaryColor',['../namespace_neo_pixel.html#a5a3dfd8c52ae28ba7b97c97b9399906b',1,'NeoPixel']]],
+  ['setsecondarycolor_10',['setSecondaryColor',['../namespace_neo_pixel.html#a1bc1ec5feed51dcf13f9dc89410726b5',1,'NeoPixel']]],
+  ['setsignalduration_11',['setSignalDuration',['../namespace_neo_pixel.html#ad410df36077804680236a45057137a22',1,'NeoPixel']]],
+  ['setstatusled_12',['setStatusLed',['../namespace_neo_pixel.html#ac18f6e41cdc20ed0e730a12aeec6c49c',1,'NeoPixel']]],
+  ['settertiarycolor_13',['setTertiaryColor',['../namespace_neo_pixel.html#adc7cf0cfef3383aabd5134eaedcf91fe',1,'NeoPixel']]],
+  ['setup_14',['setup',['../main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d',1,'main.cpp']]],
+  ['setupdisplay_15',['setupDisplay',['../namespace_tft_display.html#a27877eeb26cd349d087b77c259fdb58d',1,'TftDisplay']]],
+  ['show_16',['show',['../namespace_neo_pixel.html#a56ef3d39dfee07f276165f38569087b0',1,'NeoPixel']]]
+];

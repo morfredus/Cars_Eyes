@@ -2,38 +2,39 @@
 
 #include <Arduino.h>
 
+/**
+ * @file network.h
+ * @brief Gestion du réseau WiFi, mDNS et OTA.
+ * @note Utiliser des buffers locaux pour les réponses réseau et éviter les allocations dynamiques.
+ */
+
 namespace Network {
 
 /**
- * Initialize WiFi multi-network connection with feedback.
- * Attempts to connect to configured networks with timeout and retry logic.
- * Shows boot screen progress during connection attempts.
- * @return true if connected to WiFi, false otherwise
+ * @brief Initialise la connexion WiFi multi-réseaux avec feedback.
+ * @return true si connecté, false sinon
  */
 bool connectWifiWithFeedback();
 
 /**
- * Initialize mDNS service with configured hostname.
- * @return true if mDNS initialized successfully
+ * @brief Initialise le service mDNS avec le nom d'hôte configuré.
+ * @return true si mDNS initialisé
  */
 bool initMdns();
 
 /**
- * Check if mDNS service is currently running.
- * Queries actual mDNS state instead of relying on boot-time flag.
- * @return true if mDNS is active and responding
+ * @brief Vérifie si le service mDNS est actif.
+ * @return true si mDNS actif
  */
 bool isMdnsRunning();
 
 /**
- * Initialize ArduinoOTA service for over-the-air updates.
- * Sets hostname and enables OTA updates.
+ * @brief Initialise le service ArduinoOTA pour les mises à jour.
  */
 void initOta();
 
 /**
- * Handle WiFi multicast DNS resolution.
- * Should be called periodically in the main loop.
+ * @brief Gère la résolution DNS multicast. À appeler périodiquement.
  */
 void handleMdns();
 

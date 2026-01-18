@@ -195,6 +195,17 @@ server.on("/api/temperature", ...);
 
 Voir [documentation Arduino WebServer](https://github.com/espressif/arduino-esp32/tree/master/libraries/WebServer).
 
+---
+
+## 📚 Documentation technique
+
+Tous les fichiers sources et headers sont entièrement documentés avec Doxygen (depuis v2.0.2) :
+- Chaque fonction, structure et module possède une description détaillée et des notes d’optimisation mémoire.
+- Les recommandations pour l’utilisation de buffers statiques, la limitation des allocations dynamiques et la gestion efficace de la RAM sont présentes dans chaque fichier.
+- Voir le README pour l’utilisation de Doxygen et la génération de la documentation.
+
+---
+
 
 
 

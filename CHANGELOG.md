@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.2 — 2026-01-18
+
+- All source and header files are now fully documented with Doxygen.
+- Added memory optimization recommendations in every module (static buffers, limited dynamic allocation, RAM management).
+- "Technical Documentation" section added in README.md and README_FR.md.
+
 ## 2.0.1 — 2026-01-17
 
 - Documentation: Fixed NeoPixel Eye Left/Right GPIO mapping for ESP32-S3 in PIN_MAPPING.md and PIN_MAPPING_FR.md to match board_config.h (Left=6, Right=3).

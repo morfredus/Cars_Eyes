@@ -1,3 +1,9 @@
+/**
+ * @file board_config.h
+ * @brief Définit le câblage entre l'ESP32 et les périphériques.
+ * @note Pour optimiser la mémoire, utilisez des constantes et évitez les variables globales inutiles.
+ */
+
 #pragma once
 #include <Arduino.h>
 
@@ -62,8 +68,8 @@
 // ────────────────────────────────────────────────────────────────────────────
 //
 
-#define NEOPIXEL_EYE_LEFT_PIN    6   // Matrice gauche (GPIO safe)
-#define NEOPIXEL_EYE_RIGHT_PIN   3   // Matrice droite (GPIO safe)
+#define NEOPIXEL_EYE_LEFT_PIN    3   // Matrice gauche (GPIO safe)
+#define NEOPIXEL_EYE_RIGHT_PIN   6   // Matrice droite (GPIO safe)
 
 #define NEOPIXEL_MATRIX_WIDTH   8
 #define NEOPIXEL_MATRIX_HEIGHT  8

@@ -1,3 +1,9 @@
+/**
+ * @file psram.cpp
+ * @brief Implémentation de l'initialisation et gestion de la PSRAM.
+ * @note Vérifier la disponibilité de la PSRAM avant usage et éviter les allocations dynamiques inutiles.
+ */
+
 #include "psram.h"
 #include <Arduino.h>
 
@@ -6,7 +12,9 @@
 #endif
 
 namespace Psram {
-
+/**
+ * @brief Initialise la PSRAM si disponible et affiche le statut.
+ */
 void init() {
 #if defined(ENV_ESP32S3_N16R8)
   if (!psramInit()) {
@@ -20,5 +28,4 @@ void init() {
   Serial.println("[PSRAM] Not available on this board.");
 #endif
 }
-
 }  // namespace Psram

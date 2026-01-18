@@ -2,6 +2,12 @@
 
 #include <Arduino.h>
 
+/**
+ * @file neopixel.h
+ * @brief Contrôle des animations et couleurs NeoPixel.
+ * @note Utiliser des buffers statiques pour les animations et limiter l'utilisation de String.
+ */
+
 namespace NeoPixel {
 
 // ============================================================================
@@ -9,43 +15,42 @@ namespace NeoPixel {
 // ============================================================================
 
 /**
- * Eye animation types
+ * @brief Types d'animations des yeux.
  */
 enum class AnimationType {
-  IDLE = 0,        // Eyes open and idle
-  BLINK,           // Quick blink
-  WINK_LEFT,       // Wink left eye
-  WINK_RIGHT,      // Wink right eye
-  LOOK_LEFT,       // Look to the left
-  LOOK_RIGHT,      // Look to the right
-  LOOK_UP,         // Look up
-  LOOK_DOWN,       // Look down
-  HAPPY,           // Happy expression
-  SAD,             // Sad expression
-  ANGRY,           // Angry expression
-  SURPRISED,       // Surprised expression
-  SLEEP,           // Sleeping (eyes closed)
-  TURN_LEFT,       // Arrow Left (Turn Signal)
-  TURN_RIGHT,      // Arrow Right (Turn Signal)
-  HAZARD,          // Hazard lights
-  CUSTOM,          // Custom pattern from web UI
-  OFF              // LEDs completely off (special state)
+  IDLE = 0,        ///< Yeux ouverts, inactifs
+  BLINK,           ///< Clignement rapide
+  WINK_LEFT,       ///< Clin d'œil gauche
+  WINK_RIGHT,      ///< Clin d'œil droit
+  LOOK_LEFT,       ///< Regarde à gauche
+  LOOK_RIGHT,      ///< Regarde à droite
+  LOOK_UP,         ///< Regarde en haut
+  LOOK_DOWN,       ///< Regarde en bas
+  HAPPY,           ///< Expression joyeuse
+  SAD,             ///< Expression triste
+  ANGRY,           ///< Expression en colère
+  SURPRISED,       ///< Expression surprise
+  SLEEP,           ///< Yeux fermés (sommeil)
+  TURN_LEFT,       ///< Flèche gauche (clignotant)
+  TURN_RIGHT,      ///< Flèche droite (clignotant)
+  HAZARD,          ///< Feux de détresse
+  CUSTOM,          ///< Motif personnalisé via Web UI
+  OFF              ///< LEDs éteintes
 };
 
 /**
- * Color scheme presets for Eyes
- * Each scheme has complementary colors for realistic appearance
+ * @brief Préréglages de schémas de couleurs pour les yeux.
  */
 enum class ColorScheme {
-  CARS_ORANGE = 0,     // Orange primary + Cyan blue highlights (Cars style)
-  SOFT_REALISTIC,      // Soft white + Deep blue shadows (Natural eyes)
-  ELEGANT_BLUE,        // Subtle blue + Pale blue highlights (Elegant)
-  CARS_ORANGE_V2,      // Enriched 8-color Cars palette
-  HUMAN_EYE            // Realistic human eye palette (8 colors)
+  CARS_ORANGE = 0, ///< Orange + bleu cyan (style Cars)
+  SOFT_REALISTIC,      ///< Blanc doux + Ombres bleu profondes (Yeux naturels)
+  ELEGANT_BLUE,        ///< Bleu subtil + Reflets bleu pâle (Élégant)
+  CARS_ORANGE_V2,      ///< Palette Cars enrichie 8 couleurs
+  HUMAN_EYE            ///< Palette réaliste œil humain (8 couleurs)
 };
 
 /**
- * Eye state structure
+ * @brief Structure de l'état des yeux.
  */
 struct EyeState {
   AnimationType currentAnimation;

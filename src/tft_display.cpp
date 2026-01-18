@@ -1,3 +1,9 @@
+/**
+ * @file tft_display.cpp
+ * @brief Implémentation de la gestion de l'affichage TFT et du rétroéclairage.
+ * @note Utiliser des buffers statiques pour le rendu graphique et éviter les allocations dynamiques pour optimiser la mémoire.
+ */
+
 #include "tft_display.h"
 #include "config.h"
 #include "board_config.h"
@@ -12,7 +18,9 @@
 Adafruit_ST7789 tft(DISPLAY_CS_PIN, DISPLAY_DC_PIN, DISPLAY_RST_PIN);
 
 namespace TftDisplay {
-
+/**
+ * @brief Initialise le rétroéclairage avec contrôle PWM ou digital IO.
+ */
 void initBacklight() {
   if (DISPLAY_BL_PIN == 255) {
     return;
@@ -27,6 +35,9 @@ void initBacklight() {
   }
 }
 
+/**
+ * @brief Initialise l'afficheur SPI et ST7789.
+ */
 void setupDisplay() {
   Serial.println("[DISPLAY] Starting SPI with low frequency...");
   // Use low frequency at startup (20 MHz instead of 27 MHz)

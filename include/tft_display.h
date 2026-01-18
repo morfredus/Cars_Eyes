@@ -4,6 +4,12 @@
 #include <Adafruit_ST7789.h>
 #include "config.h"
 
+/**
+ * @file tft_display.h
+ * @brief Gestion de l'affichage TFT et du rétroéclairage.
+ * @note Utiliser des buffers statiques pour le rendu graphique et éviter les allocations dynamiques.
+ */
+
 // Forward declaration of tft object
 extern Adafruit_ST7789 tft;
 

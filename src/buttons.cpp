@@ -1,3 +1,9 @@
+/**
+ * @file buttons.cpp
+ * @brief Implémentation de la gestion des boutons physiques.
+ * @note Utiliser des variables locales et statiques pour limiter l'utilisation mémoire. Éviter les allocations dynamiques.
+ */
+
 #include "buttons.h"
 #include "board_config.h"
 #include "config.h"
@@ -16,12 +22,20 @@ static bool warningActive = false;
 static bool signalLong1 = false;
 static bool signalLong2 = false;
 
+/**
+ * @brief Initialise les broches des boutons en entrée avec pull-up.
+ */
 void init() {
   pinMode(BUTTON_BOOT_PIN, INPUT_PULLUP);
   pinMode(BUTTON_1_PIN, INPUT_PULLUP);
   pinMode(BUTTON_2_PIN, INPUT_PULLUP);
 }
 
+/**
+ * @brief Gère la logique des boutons et du reboot.
+ * À appeler régulièrement dans la boucle principale.
+ * Utilise des variables statiques pour le suivi d'état.
+ */
 void handle() {
   UiState::State& ui = UiState::getState();
   const uint32_t now = millis();

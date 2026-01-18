@@ -1,11 +1,17 @@
 #pragma once
 
+/**
+ * @file psram.h
+ * @brief Initialisation et gestion de la PSRAM sur la carte.
+ * @note Pour optimiser la mémoire, vérifier la disponibilité de la PSRAM avant usage et éviter les allocations dynamiques inutiles.
+ */
+
 namespace Psram {
 
 /**
- * Initialize PSRAM if available on the board.
- * Logs PSRAM status and free memory to Serial.
- * Only functional on boards with PSRAM support (e.g., ESP32S3).
+ * @brief Initialise la PSRAM si disponible.
+ * Affiche le statut et la mémoire libre sur le port série.
+ * Fonctionne uniquement sur les cartes compatibles PSRAM (ex: ESP32S3).
  */
 void init();
 

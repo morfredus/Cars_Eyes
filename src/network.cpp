@@ -1,3 +1,9 @@
+/**
+ * @file network.cpp
+ * @brief Implémentation de la gestion réseau WiFi, mDNS et OTA.
+ * @note Utiliser des buffers locaux pour les réponses réseau et éviter les allocations dynamiques pour optimiser la mémoire.
+ */
+
 #include "network.h"
 #include "config.h"
 #include "secrets_wrapper.h"
@@ -11,6 +17,9 @@ namespace Network {
 
 static WiFiMulti wifiMulti;
 
+/**
+ * @brief Ajoute les réseaux WiFi configurés à WiFiMulti.
+ */
 void addWifiNetworks() {
   const size_t wifiCount = getWifiNetworksCount();
   for (size_t i = 0; i < wifiCount; ++i) {
@@ -18,6 +27,11 @@ void addWifiNetworks() {
   }
 }
 
+/**
+ * @brief Tente de connecter au WiFi avec feedback visuel.
+ * Utilise des délais et des buffers locaux pour limiter l'utilisation mémoire.
+ * @return true si connecté, false sinon
+ */
 bool connectWifiWithFeedback() {
   WiFi.mode(WIFI_STA);
   WiFi.setAutoConnect(true);

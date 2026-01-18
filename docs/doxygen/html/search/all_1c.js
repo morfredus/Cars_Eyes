@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['vérification_20qualité_0',['✅ Vérification qualité',['../md_docs_2_c_o_l_o_r___s_c_h_e_m_e_s___f_r.html#autotoc_md81',1,'']]],
+  ['v1_201_200_1',['v1 1 0',['../md_docs_2_c_o_l_o_r___s_c_h_e_m_e_s___f_r.html#autotoc_md77',1,'🔧 Migration depuis v1.1.0'],['../md_docs_2_c_o_l_o_r___s_c_h_e_m_e_s.html#autotoc_md35',1,'🔧 Migration from v1.1.0']]],
+  ['v1_202_200_2',['v1 2 0',['../md_docs_2_c_o_l_o_r___s_c_h_e_m_e_s___f_r.html#autotoc_md67',1,'🔄 Changements techniques (v1.2.0)'],['../md_docs_2_c_o_l_o_r___s_c_h_e_m_e_s.html#autotoc_md25',1,'🔄 Technical Changes (v1.2.0)']]],
+  ['v1_206_200_3',['v1 6 0',['../md_docs_2_c_o_l_o_r___s_c_h_e_m_e_s.html#autotoc_md2',1,'🎨 8-Color Palettes (v1.6.0)'],['../md_docs_2_c_o_l_o_r___s_c_h_e_m_e_s___f_r.html#autotoc_md44',1,'🎨 Palettes 8 couleurs (v1.6.0)'],['../md_docs_2_c_o_l_o_r___s_c_h_e_m_e_s.html#autotoc_md20',1,'🔆 Brightness and Perceived Adjustment (v1.6.0)'],['../md_docs_2_c_o_l_o_r___s_c_h_e_m_e_s___f_r.html#autotoc_md51',1,'🔆 Luminosité et atténuation perceptuelle (v1.6.0)'],['../md_docs_2_n_e_o_p_i_x_e_l___p_a_t_t_e_r_n_s___f_r.html#autotoc_md144',1,'Architecture des couleurs (v1.6.0)'],['../md_docs_2_n_e_o_p_i_x_e_l___p_a_t_t_e_r_n_s.html#autotoc_md87',1,'Color Architecture (v1.6.0)']]],
+  ['vers_20analogique_4',['DAC (Numerique vers Analogique)',['../md_docs_2_p_i_n___m_a_p_p_i_n_g___f_r.html#autotoc_md324',1,'']]],
+  ['vers_20la_20droite_5',['**#05 - PATTERN_LOOK_RIGHT: Regard vers la droite**',['../md_docs_2_n_e_o_p_i_x_e_l___p_a_t_t_e_r_n_s___f_r.html#autotoc_md156',1,'']]],
+  ['vers_20la_20gauche_6',['**#04 - PATTERN_LOOK_LEFT: Regard vers la gauche**',['../md_docs_2_n_e_o_p_i_x_e_l___p_a_t_t_e_r_n_s___f_r.html#autotoc_md154',1,'']]],
+  ['vers_20le_20bas_7',['**#07 - PATTERN_LOOK_DOWN: Regard vers le bas**',['../md_docs_2_n_e_o_p_i_x_e_l___p_a_t_t_e_r_n_s___f_r.html#autotoc_md160',1,'']]],
+  ['vers_20le_20cloud_8',['Envoyer vers le cloud',['../md_docs_2_w_e_b___u_i___f_r.html#autotoc_md449',1,'']]],
+  ['vers_20le_20haut_9',['**#06 - PATTERN_LOOK_UP: Regard vers le haut**',['../md_docs_2_n_e_o_p_i_x_e_l___p_a_t_t_e_r_n_s___f_r.html#autotoc_md158',1,'']]],
+  ['version_10',['Change project name/version',['../md_docs_2_p_r_o_j_e_c_t___s_t_r_u_c_t_u_r_e.html#autotoc_md344',1,'']]],
+  ['version_20projet_11',['Changer nom/version projet',['../md_docs_2_p_r_o_j_e_c_t___s_t_r_u_c_t_u_r_e___f_r.html#autotoc_md368',1,'']]],
+  ['versioning_12',['Versioning',['../md_docs_2_p_r_o_j_e_c_t___s_t_r_u_c_t_u_r_e.html#autotoc_md342',1,'Versioning'],['../md_docs_2_p_r_o_j_e_c_t___s_t_r_u_c_t_u_r_e___f_r.html#autotoc_md366',1,'Versioning']]],
+  ['vert_13',['Configuration #3: Mode amical (Vert)',['../md_docs_2_n_e_o_p_i_x_e_l___p_a_t_t_e_r_n_s___f_r.html#autotoc_md183',1,'']]],
+  ['vif_14',['Configuration #1: Cars (Orange vif)',['../md_docs_2_n_e_o_p_i_x_e_l___p_a_t_t_e_r_n_s___f_r.html#autotoc_md181',1,'']]],
+  ['visual_20comparison_3a_20before_20→_20after_15',['Visual Comparison: BEFORE → AFTER',['../md_docs_2_n_e_o_p_i_x_e_l___p_a_t_t_e_r_n_s___v_i_s_u_a_l.html#autotoc_md225',1,'']]],
+  ['visualisation_20des_20patterns_20neopixel_20guide_20graphique_16',['Visualisation des patterns NeoPixel - Guide Graphique',['../md_docs_2_n_e_o_p_i_x_e_l___p_a_t_t_e_r_n_s___v_i_s_u_a_l___f_r.html',1,'']]],
+  ['visualization_20graphical_20guide_17',['NeoPixel Patterns Visualization - Graphical Guide',['../md_docs_2_n_e_o_p_i_x_e_l___p_a_t_t_e_r_n_s___v_i_s_u_a_l.html',1,'']]],
+  ['voltage_20and_20current_20basics_18',['Voltage and Current Basics',['../md_docs_2_p_i_n___m_a_p_p_i_n_g.html#autotoc_md258',1,'']]],
+  ['vos_20propres_20broches_19',['Ajouter vos Propres Broches',['../md_docs_2_p_i_n___m_a_p_p_i_n_g___f_r.html#autotoc_md312',1,'']]],
+  ['vue_20d_20ensemble_20',['Vue d&apos;ensemble',['../md_docs_2_w_e_b___u_i___f_r.html#autotoc_md436',1,'']]],
+  ['vue_20d_20ensemble_20du_20système_21',['Vue d&apos;ensemble du système',['../md_docs_2_n_e_o_p_i_x_e_l___p_a_t_t_e_r_n_s___f_r.html#autotoc_md143',1,'']]]
+];

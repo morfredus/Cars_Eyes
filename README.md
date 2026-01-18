@@ -281,6 +281,23 @@ For questions and support, please open an issue on GitHub.
 
 **Built with ❤️ for the maker community**
 
+---
+
+## 📚 Documentation technique
+
+Depuis la version 2.0.2, l'ensemble du code source (fichiers .h et .cpp) est entièrement documenté avec Doxygen :
+- Chaque fonction, structure et module possède une description détaillée, des paramètres et des notes d'optimisation mémoire.
+- Les recommandations pour l'utilisation de buffers statiques, la limitation des allocations dynamiques et la gestion efficace de la RAM sont intégrées dans chaque fichier.
+- Pour générer la documentation technique :
+
+```sh
+doxygen Doxyfile
+```
+
+Le fichier `Doxyfile` est à configurer selon vos besoins. La documentation générée inclura toutes les descriptions, conseils et schémas issus du code source.
+
+---
+
 
 
 

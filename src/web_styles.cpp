@@ -1,7 +1,17 @@
+/**
+ * @file web_styles.cpp
+ * @brief Implémentation des styles CSS et scripts pour l'interface web.
+ * @note Utiliser des chaînes constantes (const char*) pour les styles et scripts afin d'optimiser la mémoire.
+ */
+
 #include "web_styles.h"
 
 namespace WebStyles {
-
+/**
+ * @brief Retourne les styles CSS communs pour le dashboard et les pages UI.
+ * Utilise des chaînes constantes pour limiter l'utilisation mémoire.
+ * @return Chaîne CSS constante
+ */
 const char* getDashboardStyles() {
   return R"(
     body {
@@ -171,6 +181,10 @@ const char* getDashboardStyles() {
   )";
 }
 
+/**
+ * @brief Retourne les styles CSS spécifiques à la page OTA.
+ * @return Chaîne CSS constante
+ */
 const char* getOtaStyles() {
   return R"(
     body {
@@ -247,6 +261,11 @@ const char* getOtaStyles() {
   )";
 }
 
+/**
+ * @brief Retourne le script JavaScript pour la page OTA.
+ * Gère l'upload du firmware et la mise à jour de l'interface.
+ * @return Chaîne de script JavaScript constante
+ */
 const char* getOtaScript() {
   return R"(
     const f = document.getElementById('otaForm');

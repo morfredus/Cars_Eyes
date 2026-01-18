@@ -1,3 +1,9 @@
+/**
+ * @file neopixel.cpp
+ * @brief Implémentation du contrôle des animations et couleurs NeoPixel.
+ * @note Utiliser des buffers statiques pour les animations et limiter l'utilisation de String pour optimiser la mémoire.
+ */
+
 #include "neopixel.h"
 #include "config.h"
 #include "board_config.h"
@@ -704,6 +710,9 @@ void setAnimation(AnimationType animation) {
   update();
 }
 
+/**
+ * @brief Initialise les matrices NeoPixel et l'état interne.
+ */
 void init() {
   // Load settings first
   loadSettings();
