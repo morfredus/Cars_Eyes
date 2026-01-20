@@ -1,7 +1,7 @@
 # Web UI & Networking
 
-**Version:** 1.6.2  
-**Minimum version:** 1.6.2  
+**Version:** 2.0.4  
+**Minimum version:** 2.0.4  
 **Language:** English  
 
 ## Web UI Overview

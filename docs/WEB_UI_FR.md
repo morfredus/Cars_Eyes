@@ -1,7 +1,7 @@
 # Interface Web et Réseau
 
-**Version:** 1.6.2  
-**Version minimale:** 1.6.2  
+**Version:** 2.0.4  
+**Version minimale:** 2.0.4  
 **Langage:** Français  
 
 ## Vue d'ensemble

@@ -1,7 +1,7 @@
 # Structure du Projet
 
-**Version:** 1.5.23  
-**Version minimale:** 0.1.0  
+**Version:** 2.0.4  
+**Version minimale:** 2.0.4  
 **Langage:** Français  
 
 ## Arborescence

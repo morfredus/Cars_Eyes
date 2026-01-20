@@ -56,7 +56,7 @@
 #define DISPLAY_CS_PIN      10  // Chip Select TFT
 #define DISPLAY_DC_PIN       9  // Data/Command
 #define DISPLAY_RST_PIN      8  // Reset écran
-#define DISPLAY_BL_PIN      14  // Backlight PWM
+#define DISPLAY_BL_PIN      18  // Backlight PWM
 
 #define DISPLAY_WIDTH       240
 #define DISPLAY_HEIGHT      320

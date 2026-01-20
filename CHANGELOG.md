@@ -85,17 +85,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **Animation Recolorization**: All built-in eye animations (IDLE, BLINK, LOOK_*, SLEEP, HAPPY, SAD, ANGRY, SURPRISED) now use the 8-color palette with deeper highlights and shadows; turn signals keep enforced amber for safety.
 - **Documentation & Examples**: README and custom pattern example updated for the 8-color coding and the full set of 17 animations.
 
----
-
-## [1.5.23] - 2026-01-15
-
 ### Fixed
+## 2.0.4 — 2026-01-21
+
+- GPIO Change: DISPLAY_BL_PIN for ESP32-S3 DevKitC-1 N16R8 changed from GPIO 14 to GPIO 18 (backlight PWM).
+- All documentation updated to reflect new pin mapping.
+- Version bumped to 2.0.4 (SEMVER).
 - **LCD Display Mode Recognition**: Fixed LCD screen showing "UNKNOWN" mode for TURN_LEFT, TURN_RIGHT, HAZARD, and CUSTOM animations.
   - Extended animation names array from 13 to 17 elements in tft_display.cpp.
   - Added display support for: TURN_L (Turn Left signal), TURN_R (Turn Right signal), HAZARD (Hazard lights), and CUSTOM (Custom pattern mode).
-  - Now all 17 animation modes display correctly on LCD screen with proper abbreviations.
-  - Impact: Users can now see which animation mode is active on the LCD screen for all modes, including vehicle signal animations.
-
 ## [1.5.22] - 2026-01-15
 
 ### Fixed

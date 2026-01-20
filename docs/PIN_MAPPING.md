@@ -1,10 +1,10 @@
 # Pin Mapping Guide
 
-**Version:** 2.0.1  
-**Minimum version:** 2.0.1  
+**Version:** 2.0.4  
+**Minimum version:** 2.0.4  
 **Language:** English  
 
-> **Minimum version:** 2.0.1 (NeoPixel Eye Left/Right pin mapping updated to match board_config.h)
+> **Minimum version:** 2.0.4 (DISPLAY_BL_PIN for ESP32-S3 DevKitC-1 N16R8 changed from GPIO 14 to GPIO 18)
 
 ## Beginner's Guide: Essential Electrical Concepts
 

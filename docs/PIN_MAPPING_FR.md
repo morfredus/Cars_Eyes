@@ -1,10 +1,10 @@
 # Guide de Mapping des Broches
 
-**Version:** 2.0.1  
-**Version minimale:** 2.0.1  
+**Version:** 2.0.4  
+**Version minimale:** 2.0.4  
 **Langage:** Français  
 
-> **Version minimum :** 2.0.1 (Correction du mapping NeoPixel Eye Left/Right pour correspondre à board_config.h)
+> **Version minimum :** 2.0.4 (DISPLAY_BL_PIN pour ESP32-S3 DevKitC-1 N16R8 passe de GPIO 14 à GPIO 18)
 
 ## Guide du Debutant : Concepts Electriques Essentiels
 

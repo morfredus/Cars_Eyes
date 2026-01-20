@@ -1,5 +1,11 @@
 # Journal des modifications
 
+## 2.0.4 — 21/01/2026
+
+- Changement GPIO : DISPLAY_BL_PIN pour ESP32-S3 DevKitC-1 N16R8 passe de GPIO 14 à GPIO 18 (PWM rétroéclairage).
+- Toute la documentation est mise à jour pour refléter ce nouveau mapping.
+- Passage en version 2.0.4 (SEMVER).
+
 ## 2.0.3 — 18/01/2026
 
 - Correction : erreur de linkage sur l’état global UI (g_uiState) résolue, restauration du code fonctionnel.
